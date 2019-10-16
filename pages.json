@@ -1,21 +1,31 @@
 {
-	"pages": [
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "",
+				"app-plus": {
+					// 将回弹属性关掉
+					"bounce": "none"
+				}
 			}
 		},
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "首页",
+				"app-plus": {
+					"bounce": "none"
+				}
 			}
 		},
 		{
 			"path": "pages/quality/quality",
 			"style": {
-				"navigationBarTitleText": "工单不良汇总"
+				"navigationBarTitleText": "工单不良汇总",
+				"app-plus": {
+					"bounce": "none"
+				}
 			}
 		},
 		{
@@ -30,7 +40,8 @@
 							"fontSrc": "/static/iconfont.ttf",
 							"fontSize": "20px"
 						}]
-					}
+					},
+					"bounce": "none"
 				}
 			}
 		},
@@ -47,7 +58,8 @@
 							"fontSize": "20px"
 						}]
 					}
-				}
+				},
+				"bounce": "none"
 			}
 		},
 		{
@@ -69,7 +81,8 @@
 								"fontSize": "20px"
 							}
 						]
-					}
+					},
+					"bounce": "none"
 				}
 			}
 		},
@@ -86,7 +99,8 @@
 							"fontSize": "20px"
 						}]
 					}
-				}
+				},
+				"bounce": "none"
 			}
 		},
 		{
@@ -101,28 +115,30 @@
 				"navigationBarTitleText": "我的消息",
 				"app-plus": {
 					"titleNView": {
-						"buttons": [
-{
+						"buttons": [{
 							"text": "\ue634",
 							"float": "right",
 							"fontSrc": "/static/iconfont.ttf",
-							"fontSize": "14px"
-						}
-						]
+							"fontSize": "12px"
+						}]
 					}
-				}
+				},
+				"bounce": "none"
 			}
 		},
 		{
 			"path": "pages/info/infoDetails",
 			"style": {
-				"navigationBarTitleText": "我的消息详情"
+				"navigationBarTitleText": "我的消息详情",
+				"app-plus": {
+					"bounce": "none"
+				}
 			}
-		}	
+		}
 	],
 	"tabBar": {
-		"borderStyle":"white",
-		"backgroundColor": "#27a4fe",
+		"borderStyle": "white",
+		"backgroundColor": "#258bf9",
 		"color": "#ffffff",
 		"selectedColor": "#ffff66",
 		"list": [{
@@ -142,8 +158,10 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "#ffffff",
 		"navigationBarTitleText": "阳普",
-		"navigationBarBackgroundColor": "#27a4fe"	
+		"navigationBarBackgroundColor": "#258bf9"
 	},
+	// 开发环境配置
+
 	"condition": {
 		"current": 8,
 		"list": [{

@@ -51,11 +51,11 @@
 			// #ifdef APP-PLUS  
 			    let currentWebview = page.$getAppWebview();    
 			    let titleObj = currentWebview.getStyle().titleNView;  
-			        if (!titleObj.buttons) { //没有按钮    
+			        if (!titleObj.buttons) { 
 			            return;    
 			        }    
 			        titleObj.buttons[0].badgeText = "20";   
-			             //设置回去  
+			        //设置回去  
 			        currentWebview.setStyle({    
 			            titleNView: titleObj    
 			        });    
@@ -78,7 +78,7 @@
 				   display: inline-block;
 				     width: 5px;
 					 height: 5px;
-					 background: #DD524D;
+					 background:$red-color;
 					 border-radius: 50%;					
 				}
 			}

@@ -81,10 +81,6 @@
 		margin: 100upx 0;
 		text-align: center;
 		.login-title{font-size: 80upx;}
-   //       image{
-			//  width: 100%;
-			//  height: 180upx;
-		 // }
 	}
 
 	.login-form {
@@ -129,7 +125,7 @@
 		bottom: 50px;
 		width: 100%;
 		text-align: center;
-		font-size: 26upx;
+		font-size: 28upx;
 		color: #d5e9f3;
 	}
 </style>

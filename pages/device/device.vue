@@ -183,9 +183,6 @@
 
 						})
 					});
-					// console.log('_this.stopList', _this.stopList);
-					// console.log('_this.faultList', _this.faultList);
-					// console.log('_this.startList', _this.startList);
 					// 筛选数据
 				}).catch(() => {
 					uni.hideLoading();
@@ -217,20 +214,15 @@
 			// 处理获取最后的数据
 			dataFn(list, item, item2) {
 				!(list.includes(item)) && list.push(item);
-
 				let num = list.indexOf(item);
-
 				if (!list[num].children) {
 					list[num].children = []
 				};
-
 				list[num].children.push(item2);
 			},
 
 			// 手风琴展开收齐
 			accordion(list, index) {
-				// console.log(this.faultList[index].isDisplay=!this.faultList[index].isDisplay);
-
 				list.forEach((item, i) => {
 					if (index !== i) {
 						this.$set(item, 'isDisplay', false);
@@ -246,11 +238,6 @@
 </script>
 
 <style lang="scss" scoped>
-	// .device {
-	// 	min-height: 100%;
-	// 	background: $gray-bj-color;
-	// }
-
 	.tabs {
 		overflow: hidden;
 		margin: 0 auto 20px auto;
@@ -267,7 +254,6 @@
 			font-size: 28upx;
 			color: $font-gray;
 			border-right: 1px solid $blue-color;
-
 			&:last-child {
 				border-right: 0;
 			}
@@ -284,7 +270,6 @@
 	//列表样式
 	.device-list {
 		// padding: 0 10px;
-
 		background: $white-color;
 		border-top: 1px solid #e3e1e1;
 
@@ -328,7 +313,6 @@
 				font-size: 28upx;
 				border: 1px solid $line-color;
 				border-radius: 5px;
-
 				// box-shadow: 0px 2px 4px #dad8d8;
 				&:nth-child(even) {
 					margin-right: 0;
