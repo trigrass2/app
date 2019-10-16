@@ -1,0 +1,190 @@
+{
+	"pages": [
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/quality/quality",
+			"style": {
+				"navigationBarTitleText": "工单不良汇总"
+			}
+		},
+		{
+			"path": "pages/device/device",
+			"style": {
+				"navigationBarTitleText": "设备管理",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue663",
+							"float": "right",
+							"fontSrc": "/static/iconfont.ttf",
+							"fontSize": "20px"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/product/product",
+			"style": {
+				"navigationBarTitleText": "生产任务",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue663",
+							"float": "right",
+							"fontSrc": "/static/iconfont.ttf",
+							"fontSize": "20px"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/effect/effect",
+			"style": {
+				"navigationBarTitleText": "效率管理",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+								"text": "\ue663",
+								"float": "right",
+								"fontSrc": "/static/iconfont.ttf",
+								"fontSize": "20px"
+							},
+							{
+								"text": "\ue631",
+								"float": "right",
+								"fontSrc": "/static/iconfont.ttf",
+								"fontSize": "20px"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "相关查询",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue69f",
+							"float": "right",
+							"fontSrc": "/static/iconfont.ttf",
+							"fontSize": "20px"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/info/info",
+			"style": {
+				"navigationBarTitleText": "我的消息",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+{
+							"text": "\ue634",
+							"float": "right",
+							"fontSrc": "/static/iconfont.ttf",
+							"fontSize": "14px"
+						}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/info/infoDetails",
+			"style": {
+				"navigationBarTitleText": "我的消息详情"
+			}
+		}	
+	],
+	"tabBar": {
+		"borderStyle":"white",
+		"backgroundColor": "#27a4fe",
+		"color": "#ffffff",
+		"selectedColor": "#ffff66",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/images/icon_home.png",
+				"selectedIconPath": "static/images/icon_home_selected.png"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"text": "我的",
+				"iconPath": "static/images/icon_user.png",
+				"selectedIconPath": "static/images/icon_user_selected.png"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "#ffffff",
+		"navigationBarTitleText": "阳普",
+		"navigationBarBackgroundColor": "#27a4fe"	
+	},
+	"condition": {
+		"current": 8,
+		"list": [{
+				"name": "login",
+				"path": "pages/login/login"
+			}, {
+				"name": "home",
+				"path": "pages/index/index"
+			},
+			{
+				"name": "quality",
+				"path": "pages/quality/quality"
+			},
+			{
+				"name": "my",
+				"path": "pages/my/my"
+			},
+			{
+				"name": "device",
+				"path": "pages/device/device"
+			},
+			{
+				"name": "product",
+				"path": "pages/product/product"
+			},
+			{
+				"name": "effect",
+				"path": "pages/effect/effect"
+			},
+			{
+				"name": "search",
+				"path": "pages/search/search"
+			},
+			{
+				"name": "info",
+				"path": "pages/info/info"
+			},
+			{
+				"name": "infoDetails",
+				"path": "pages/info/infoDetails"
+			}
+		]
+	}
+}
