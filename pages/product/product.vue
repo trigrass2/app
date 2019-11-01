@@ -83,7 +83,8 @@
 		methods: {
 			init(){
 				uni.showLoading({
-					title: '加载中'
+					title: '加载中',
+					mask:true
 				});
 				
 				this.getMeauData().then(res => {
@@ -137,7 +138,8 @@
 				this.visible = false;
 				this.resetData();
 				uni.showLoading({
-					title: '加载中'
+					title: '加载中',
+					mask:true
 				});
 				this.getProduct();
 			},

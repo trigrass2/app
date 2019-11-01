@@ -48,6 +48,7 @@
 		height: 100%;
 		width: 100%;
 		background: $gray-bj-color;
+		font-family:Helvetica;
 	}
 	/*每个页面公共css */
 	.title {

@@ -118,7 +118,8 @@
 		methods: {
 			init() {
 				uni.showLoading({
-					title: '加载中'
+					title: '加载中',
+					mask:true
 				});
 				Promise.all([this.getProcedure(), this.getMeauData()]).then((result) => {
 					let [procedure, meau] = result;
@@ -155,7 +156,8 @@
 			},
 			getDevice() {
 				uni.showLoading({
-					title: '加载中'
+					title: '加载中',
+					mask:true
 				});
 				this.$http.request({
 					url: '/api/MachineReport/allMachineState',
