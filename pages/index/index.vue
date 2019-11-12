@@ -19,6 +19,25 @@
 			</view>
 		</view>
 		<!-- /nav -->
+		<view class="info">
+			<view class="info-text">
+				<text class="iconfont icon-yuandianxiao"></text>你有29条未读消息<text class="info-time">2分钟前</text>
+			</view>
+			<view class="icon">
+				<text class="icon-circle"></text>
+				<text class="iconfont icon-jiantou"></text>
+			</view>
+		</view>
+		<view class="info">
+			<view class="info-text">
+				<text class="iconfont icon-yuandianxiao"></text>你有29条未读任务<text class="info-time">2分钟前</text>
+			</view>
+			<view class="icon">
+				<text class="icon-circle"></text>
+				<text class="iconfont icon-jiantou"></text>
+			</view>
+		</view>
+		<!-- info -->
 	</view>
 </template>
 <script>
@@ -52,7 +71,7 @@
 					selectedBorder: '1px rgba(83, 200, 249,0.9) solid'
 				},
 				current: 0,
-				//九宫格数据
+				//nav
 				navList: [{
 						icons: 'icon-shengchang',
 						text: '生产详情',
@@ -82,6 +101,11 @@
 						icons: 'icon-xiaoxi',
 						text: '我的消息',
 						url: '/pages/info/info'
+					},
+					{
+						icons: 'icon-woderenwu',
+						text: '我的任务',
+						url: '/pages/info/info'
 					}
 				]
 			}
@@ -108,6 +132,7 @@
 	/* 幻灯片 */
 	.swiper-box {
 		height: 400upx;
+
 		.swiper-item {
 			display: flex;
 			justify-content: center;
@@ -126,31 +151,31 @@
 	.nav {
 		display: flex;
 		flex-wrap: wrap;
-		padding-top: 10px;
+		box-sizing: border-box;
+		padding-top: 50upx;
+		background: $white-color;
+
 		.nav-item {
-			width: 33.33%;
-			height: 300upx;
 			box-sizing: border-box;
-			// border: 1px solid #09BB07;
-			.nav-item-link {
-				margin: 65upx auto 0 auto;
-				width: 140upx;
-				font-size: $font32;
-			}
+			width: 25%;
+			padding-bottom: 50upx;
+
+			.nav-item-link {}
+
 			text {
-				margin-top: 10px;
 				display: block;
 				text-align: center;
+
 				&.iconfont {
 					margin: 0 auto;
-					width: 120upx;
-					height: 120upx;
-					line-height: 120upx;
-					font-size: 55upx;
+					width: 82upx;
+					height: 82upx;
+					line-height: 82upx;
+					font-size: 40upx;
 					border-radius: 50%;
 					background: $blue-color;
 					color: $white-color;
-					box-shadow: 0px 0px 3px #aaa;
+					box-shadow: 0px 1px 3px #666;
 				}
 
 				&.icon-shengchang {
@@ -172,7 +197,43 @@
 				&.icon-xiaoxi {
 					background: #0075aa;
 				}
+
+				&.icon-woderenwu {
+					background: #00aa6a;
+				}
+
+				// 文字
+				&.nav-item-text {
+					margin-top: 10px;
+					// font-size: 26upx;
+				}
 			}
+		}
+	}
+
+	/*我的消息*/
+	.info {
+		margin-top: 10px;
+		padding: 0 20px;
+		height: 118upx;
+		background: $white-color;
+		display: flex;
+		align-items: center;
+		.info-text {
+			flex: 1;
+			.icon-yuandianxiao{padding-right: 5px; font-size: 12px;}
+			.info-time {
+				padding-left: 10px;
+				color: $font-light-gray;
+			}
+		}
+
+		.icon {
+			// width: 60upx;
+		    display: flex;
+			align-items: center;
+			.icon-circle{margin-right: 5px;width: 8px;height: 8px;border-radius: 50%; background:$red-color;}
+			.icon-jiantou{color: $font-light-gray;}
 		}
 	}
 </style>

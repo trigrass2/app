@@ -1,9 +1,11 @@
 <template>
 	<!-- quality -->
 	<view class="quality">
+		<view class="quality-box">
 		<view class="quality-charts">
 			<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts" @touchstart="touchColumn"></canvas>
-		</view>
+		</view>			
+		</view>		
 		<view class="info">
 			<view class="info-item">
 				<view class="info-item-name">FJTBLB</view>
@@ -123,21 +125,23 @@
 	.quality {
 		display: flex;
 		flex-direction: column;
+		
 	}
-
-	.quality-charts {
-		margin-top: 30px;
+   .quality-box{
+	   padding: 30px 0;
+	   background: $white-color; 
+   }
+	.quality-charts {	
 		width: 750upx;
 		height: 600upx;
-
+    
 		.charts {
 			width: 750upx;
 			height: 600upx;
 		}
 	}
 
-	.info {
-        margin-top: 30px;
+	.info {    
 		.info-item {
 			display: flex;
 			flex-direction: row;
@@ -146,7 +150,7 @@
 			height: 75upx;
 			line-height: 75upx;
 			&:nth-child(even) {
-				background: #efefef;
+				background: #e6e6e6;
 			}
 			&>view{font-size:$font30;}
 			.info-item-name {

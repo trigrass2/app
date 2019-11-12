@@ -141,7 +141,7 @@
 	],
 	"tabBar": {
 		"borderStyle": "white",
-		"backgroundColor": "#258bf9",
+		"backgroundColor": "#3890d8",
 		"color": "#ffffff",
 		"selectedColor": "#ffff66",
 		"list": [{
@@ -161,7 +161,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "#ffffff",
 		"navigationBarTitleText": "阳普",
-		"navigationBarBackgroundColor": "#258bf9"
+		"navigationBarBackgroundColor": "#3890d8"
 	},
 	// 开发环境配置
 

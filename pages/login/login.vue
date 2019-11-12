@@ -21,7 +21,6 @@
 		<view class="login-text">©2019广州阳普智能系统科技公司</view>
 	</view>
 </template>
-
 <script>
 	export default {
 		data() {
@@ -46,7 +45,6 @@
 					});
 					return;
 				}
-
 				//url
 				this.$http.request({
 					url: '/api/SEmployee/Login',
@@ -69,28 +67,25 @@
 
 <style lang="scss" scoped>
 	.login-box {
-		overflow: hidden;
+		box-sizing: border-box;
 		position: relative;
 		min-height: 100%;
 		width: 100%;
-		background: $blue-color;
+		 background: linear-gradient(to bottom, #3890d8 0%,#47acfc 100%);
 		color: $white-color;
 	}
 
 	.login-logo {
-		margin: 100upx 0;
+		padding: 130upx 0;
 		text-align: center;
 		.login-title{font-size: 80upx;}
 	}
-
 	.login-form {
 		padding: 0 40px 0 40px;
 	}
-
 	.login-item {
 		margin-bottom: 25px;
 	}
-
 	.login-input {
 		background: $white-color;
 		border-radius: 100upx;
@@ -102,7 +97,6 @@
 	.login-input {
 		color: #444;
 	}
-
 	.login-btn {
 		background: #14e39e;
 		color: #fff;
@@ -110,16 +104,13 @@
 		border-radius: 100upx;
 		font-size: 36upx;
 	}
-
 	.login-btn:after {
 		border: 0;
 	}
-
 	/*按钮点击效果*/
 	.login-btn.button-hover {
 		transform: translate(1upx, 1upx);
 	}
-
 	.login-text {
 		position: absolute;
 		bottom: 50px;
