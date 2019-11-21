@@ -3,7 +3,7 @@
 		<view class="percent-bar">
 			<view class="percent-progress" v-bind:style="{width: percentWidth}"></view>
 		</view>
-		<view class="percent-text">{{stateType}}{{percent}}%</view>
+		<view class="percent-text">{{stateType}}{{percent*100}}%</view>
 	</view>
 </template>
 
@@ -28,7 +28,7 @@
 				 return uni.upx2px(300*this.percent) + 'px';
 			},
 			stateType(){
-				switch (this.percent) {
+				switch (this.state) {
 				    case 0:
 				        return "未开始";
 				       

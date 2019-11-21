@@ -43,7 +43,7 @@
 						</view>
 						<view class="info-col">
 							<text class="info-name">备&ensp;&ensp;&ensp;&ensp;料：</text>
-							<text class="info-text">xx%</text>
+							<text class="info-text">100%</text>
 						</view>
 					</view>
 				</view>
@@ -159,24 +159,25 @@
 			},
 			// 处理数据
 			setProduct(productList) {
-				productList.map((item) => {
-					if (item) {
+				this.productList=productList.map((product) => {
+					if (product) {
 						// 良率
-						let total = item.cpltQty + item.failQty;
-						let yieldNum = item.cpltQty / total;
+						let total = product.cpltQty + product.failQty;
+						let yieldNum = product.cpltQty / total;
 
 						// nameline百分比							 
-						let percentNum = item.cpltQty / item.qty;
+						let percentNum = product.cpltQty / product.qty;
 
 						return {
-							...item,
+							...product,
 							yield: total === 0 ? 1 : Math.round(yieldNum * 100) / 100,
 							percent: Math.round(percentNum * 100) / 100
 						}
 
 					}
 				});
-				this.productList = productList;
+				  
+				console.log('this.productList',this.productList);
 			},
 			// 重置数据
 			resetData() {
@@ -268,7 +269,7 @@
 	.pro-info {
 		margin: 0 20px;
 		padding: 0 0 10px 0;
-		line-height: 1.6;
+		// line-height: 1.5;
 		color: $font-bule;
 
 		.info-name {
