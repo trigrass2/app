@@ -1,23 +1,29 @@
 <template>
 	<view class="login-box">
-		<view class="login-logo">
-			<text class="login-title">阳普智能科技</text>
-		<!-- 	<image src="../../static/images/logo.png" mode="aspectFit" ></image> -->
+		<view class="login-hd">
+			<view class="login-logo">
+				<!-- 	<text class="login-title">阳普智能科技</text> -->
+				<image src="../../static/images/logo.png" mode="aspectFit"></image>
+			</view>
+			<!-- logo -->
+			<view class="login-form">
+				<view class="login">
+					<view class="login-item line">
+						<text class="iconfont icon-yonghu1"></text>
+						<input class="login-input" placeholder-class placeholder="账号" v-model="user">
+					</view>
+					<view class="login-item">
+						<text class="iconfont icon-mima"></text>
+						<input class="login-input" placeholder-class password placeholder="密码" v-model="password" />
+					</view>
+				</view>
+				<!-- 登陆表单-->
+				<view>
+					<button class="login-btn" @tap="submit">立即登录</button>
+				</view>
+			</view>
+			<!-- form -->
 		</view>
-		<!-- logo -->
-		<view class="login-form">
-			<view class="login-item">
-				<input class="login-input" placeholder-class placeholder="账号" v-model="user">
-			</view>
-			<view class="login-item">
-				<input class="login-input" placeholder-class password placeholder="密码" v-model="password" />
-			</view>
-			<!-- 		<view class="login-label">忘记密码？</view> -->
-			<view class="login-item">
-				<button class="login-btn" @tap="submit">立即登录</button>
-			</view>
-		</view>
-		<!-- form -->
 		<view class="login-text">©2019广州阳普智能系统科技公司</view>
 	</view>
 </template>
@@ -68,55 +74,94 @@
 <style lang="scss" scoped>
 	.login-box {
 		box-sizing: border-box;
-		position: relative;
-		min-height: 100%;
+		// position: relative;
+		display: flex;
+		flex-direction: column;
 		width: 100%;
-		 background: linear-gradient(to bottom, #3890d8 0%,#47acfc 100%);
-		color: $white-color;
+		min-height: 100%;
+		background: linear-gradient(to bottom, #3890d8 0%, #47acfc 100%);
+		// color: $white-color;
 	}
 
 	.login-logo {
-		padding: 130upx 0;
+		padding: 80upx 0;
 		text-align: center;
-		.login-title{font-size: 80upx;}
+
+		image {
+			width: 254upx;
+			height: 234upx;
+		}
+
+		// .login-title{font-size: 80upx;}
 	}
+
 	.login-form {
-		padding: 0 40px 0 40px;
+		padding: 0 90upx;
 	}
-	.login-item {
-		margin-bottom: 25px;
+
+
+	.login {
+		margin-bottom: 30px;
+		background: #fafafa;
+		border-radius: 10px;
+
+		.login-item {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			padding: 0 20px;
+			height: 108upx;
+			// margin-bottom: 25px;
+		}
+
+		.iconfont {
+			font-size: 50upx;
+			color: #555;
+		}
 	}
+
+	.line {
+		border-bottom: 1px solid #dadada;
+	}
+
 	.login-input {
-		background: $white-color;
-		border-radius: 100upx;
-		padding: 20upx 40upx;
-		font-size: 36upx;
+		flex: 1;
+		padding-left: 10px;
+		height: 108upx;
+		font-size: 35upx;
 	}
 
 	.input-placeholder,
 	.login-input {
 		color: #444;
 	}
+
 	.login-btn {
 		background: #14e39e;
 		color: #fff;
 		border: 0;
-		border-radius: 100upx;
+		border-radius:10px;
 		font-size: 36upx;
 	}
+
 	.login-btn:after {
 		border: 0;
 	}
+
 	/*按钮点击效果*/
 	.login-btn.button-hover {
 		transform: translate(1upx, 1upx);
 	}
+
+	.login-hd {
+		flex: 1;
+	}
+
 	.login-text {
-		position: absolute;
-		bottom: 50px;
-		width: 100%;
+		margin-bottom: 80upx;
+		height: 28px;
+		font-size: 26upx;
 		text-align: center;
-		font-size: 28upx;
 		color: #d5e9f3;
 	}
 </style>

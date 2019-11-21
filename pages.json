@@ -138,7 +138,7 @@
 				}
 			}
 		}
-	],
+    ],
 	"tabBar": {
 		"borderStyle": "white",
 		"backgroundColor": "#3890d8",

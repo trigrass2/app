@@ -49,11 +49,13 @@
 		width: 100%;
 		background: $gray-bj-color;
 		font-family:Helvetica;
+		font-size:28upx;
+		line-height:1.8;
 	}
 	/*每个页面公共css */
 	.title {
 		padding: 10px 0;
-		font-size: 36upx;
+		font-size: 32upx;
 		text-align: center;
 	}
 
@@ -62,10 +64,9 @@
 		font-size: 28upx;
 		text-align: center;
 	}
-
-	.ellipsis {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+	// 省列号
+	.ellipsis{
+		overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
 	}
+
 </style>

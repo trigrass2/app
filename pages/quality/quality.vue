@@ -152,7 +152,7 @@
 			&:nth-child(even) {
 				background: #e6e6e6;
 			}
-			&>view{font-size:$font30;}
+			&>view{font-size:$font-30;}
 			.info-item-name {
 				padding-left: 20px;
 				width: 450upx;
