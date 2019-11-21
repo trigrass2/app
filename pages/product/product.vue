@@ -1,13 +1,13 @@
 <template>
 	<view class="pro">
 		<drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
-		<!-- 	<view>
+<!-- 			<view>
 			<button type="primary" @tap="open">打开抽屉</button>
 		</view> -->
 		<view class="title">{{currentItem.wsName}}</view>
 		<!-- 抽屉菜单 -->
 		<view>
-			<view class="pro-item" v-for="(item,i) in productList" :key="i">
+			<view class="pro-item" v-for="item in productList" :key="item.orderNo">
 				<view class="pro-hd">
 					<view class="hd-name">{{item.lineName}}</view>
 					<view class="hd-percent">
@@ -15,7 +15,7 @@
 					</view>
 				</view>
 				<!-- /hd -->
-				<view @tap="accordion(i)" :class="[{actvie:item.isDisplay},'pro-name',]">
+				<view @tap="accordion(item)" :class="[{actvie:item.isDisplay},'pro-name',]">
 					<!-- pro-actvie -->
 					<text class="name">{{item.orderNo}}</text>
 					<text :class="['iconfont',item.isDisplay?'icon-zhankai':'icon-shouqi']"></text>
@@ -75,11 +75,11 @@
 				<!-- /产品信息展开收起 -->
 			</view>
 			<!-- 循环 -->
-		</view>		
+		</view>
 		<view class="none" v-if="!productList.length">
 			暂时无数据
-		</view> 
-   
+		</view>
+
 	</view>
 </template>
 
@@ -151,26 +151,32 @@
 						productList
 					}) => {
 						uni.hideLoading();
-						// this.productList = productList;
-
-						productList.forEach((item) => {
-							if (item) {
-								// 良率
-								let total = item.cpltQty + item.failQty;
-								let yieldNum = item.cpltQty / total;
-								item.yield = total === 0 ? 1 : Math.round(yieldNum * 100) / 100;
-								// nameline百分比							 
-								let percentNum = item.cpltQty / item.qty;
-								item.percent = Math.round(percentNum * 100) / 100;
-							}
-						});
-						this.productList = productList;
-						// console.log('productList', productList);
-
+						this.setProduct(productList);
 					})
 					.catch(() => {
 						uni.hideLoading();
 					});
+			},
+			// 处理数据
+			setProduct(productList) {
+				productList.map((item) => {
+					if (item) {
+						// 良率
+						let total = item.cpltQty + item.failQty;
+						let yieldNum = item.cpltQty / total;
+
+						// nameline百分比							 
+						let percentNum = item.cpltQty / item.qty;
+
+						return {
+							...item,
+							yield: total === 0 ? 1 : Math.round(yieldNum * 100) / 100,
+							percent: Math.round(percentNum * 100) / 100
+						}
+
+					}
+				});
+				this.productList = productList;
 			},
 			// 重置数据
 			resetData() {
@@ -184,6 +190,7 @@
 			close(val) {
 				this.visible = val;
 			},
+			// 抽屉点击函数
 			getItem(val) {
 				this.currentItem = val;
 				this.visible = false;
@@ -195,14 +202,8 @@
 				this.getProduct();
 			},
 			// 手风琴展开收齐
-			accordion(index) {
-				this.productList.forEach((item, i) => {
-					if (i !== index) {
-						this.$set(item, "isDisplay", false);
-					} else {
-						this.$set(item, "isDisplay", !item.isDisplay);
-					}
-				});
+			accordion(item) {
+				this.$set(item, "isDisplay", !item.isDisplay);
 			}
 		}
 	};
@@ -237,6 +238,7 @@
 			background: #efefef;
 		}
 	}
+
 	/*生产编号*/
 	.pro-name {
 		padding: 0 20px;
@@ -301,8 +303,8 @@
 		padding-top: 10px;
 		border-top: 1px dashed #ecebeb;
 	}
-	.mt-5{
+
+	.mt-5 {
 		margin-top: 5px;
 	}
-
 </style>

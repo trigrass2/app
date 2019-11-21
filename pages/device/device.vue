@@ -1,9 +1,9 @@
 <template>
 	<view class="device">
 		<drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
-		<view>
+<!-- 		<view>
 			<button type="primary" @tap="open">打开抽屉</button>
-		</view>
+		</view> -->
 		<view class="title">{{currentItem.wsName}}</view>
 		<!-- 抽屉菜单-->
 		<view class="tabs">
@@ -21,15 +21,15 @@
 			</view>
 		</view>
 		<!-- /提示 -->
-		<view v-show="current===2">
-			<view class="device-list" v-for="(item,i) in allList" :key="i">
+		<view>
+			<view class="device-list" v-for="item in allList" :key="item.processCode">
 				<view :class="['device-hd',{deviceActive:item.isDisplay}]" @tap="accordion(item)">
 					<text class="device-name">{{item.processName}}</text>
 					<text :class="['iconfont',item.isDisplay?'icon-zhankai':'icon-shouqi']"></text>
 				</view>
 				<view v-show="item.isDisplay?item.isDisplay:false">
 					<view class="device-bd">
-						<block v-for="(device,j) in item.children" :key="j">
+						<block v-for="device in item.children" :key="device.machineCode">
 							<view class="device-item" v-if="device.state===1">
 								<view class="device-item-box startUp">
 									<view class="device-item-no">{{device.machineCode}}</view>
@@ -84,129 +84,12 @@
 			<view class="none" v-if="allList.length===0">暂无数据</view>
 		</view>
 		<!-- /全部 -->
-		<view v-show="current===1">
-			<view class="device-list" v-for="(item,i) in startList" :key="i">
-				<view :class="['device-hd',{deviceActive:item.isDisplay}]" @tap="accordion(item)">
-					<text class="device-name">{{item.processName}}</text>
-					<text :class="['iconfont',item.isDisplay?'icon-zhankai':'icon-shouqi']"></text>
-				</view>
-				<view v-show="item.isDisplay?item.isDisplay:false">
-					<view class="device-bd">
-						<block v-for="(device,j) in item.children" :key="j">
-							<view class="device-item">
-								<view class="device-item-box startUp">
-									<view class="device-item-no">{{device.machineCode}}</view>
-									<view class="device-item-center">
-										<view class="device-item-left">
-											<text class="iconfont icon-zhusuji01"></text>
-										</view>
-										<view class="device-item-right">
-											<text class="device-item-name">工单：</text>
-											<text class="ellipsis">{{device.orderNo}}</text>
-										</view>
-									</view>
-									<view class="device-item-footer">
-										<view class="device-item-percent">
-											<percent></percent>
-										</view>
-										<view class="device-item-percent">
-											<percent :progressColour="greenColour"></percent>
-										</view>
-									</view>
-								</view>
-							</view>
-							<!-- /启动 -->
-						</block>
-					</view>
-				</view>
-			</view>
-			<view class="none" v-if="startList.length===0">暂无数据</view>
-		</view>
-		<!-- 启动 -->
-		<view v-show="current===0">
-			<view class="device-list" v-for="(item,i) in stopList" :key="i">
-				<view :class="['device-hd',{deviceActive:item.isDisplay}]" @tap="accordion(item)">
-					<text class="device-name">{{item.processName}}</text>
-					<text :class="['iconfont',item.isDisplay?'icon-zhankai':'icon-shouqi']"></text>
-				</view>
-				<view v-show="item.isDisplay?item.isDisplay:false">
-					<view class="device-bd">
-						<block v-for="(device,j) in item.children" :key="j">
-							<view class="device-item">
-								<view class="device-item-box stop">
-									<view class="device-item-no">{{device.machineCode}}</view>
-									<view class="device-item-center">
-										<view class="device-item-left">
-											<text class="iconfont icon-zhusuji01"></text>
-										</view>
-										<view class="device-item-right">
-											<text class="ellipsis">{{device.troubleDesc}}</text>
-											<text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
-										</view>
-									</view>
-									<view class="device-item-footer">
-										<view class="device-item-percent">
-											<percent></percent>
-										</view>
-										<view class="device-item-percent">
-											<percent :progressColour="greenColour"></percent>
-										</view>
-									</view>
-								</view>
-							</view>
-							<!--/停止 -->
-						</block>
-					</view>
-				</view>
-			</view>
-			<view class="none" v-if="stopList.length===0">暂无数据</view>
-		</view>
-		<!-- 停机 -->
-		<view v-show="current===-1">
-			<view class="device-list" v-for="(item,i) in faultList" :key="i">
-				<view :class="['device-hd',{deviceActive:item.isDisplay}]" @tap="accordion(item)">
-					<text class="device-name">{{item.processName}}</text>
-					<text :class="['iconfont',item.isDisplay?'icon-zhankai':'icon-shouqi']"></text>
-				</view>
-				<view v-show="item.isDisplay?item.isDisplay:false">
-					<view class="device-bd">
-						<block v-for="(device,j) in item.children" :key="j">
-							<view class="device-item">
-								<view class="device-item-box fault">
-									<view class="device-item-no">{{device.machineCode}}</view>
-									<view class="device-item-center">
-										<view class="device-item-left">
-											<text class="iconfont icon-zhusuji01"></text>
-										</view>
-										<view class="device-item-right">
-											<text class="ellipsis">{{device.troubleDesc}}</text>
-											<text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
-										</view>
-									</view>
-									<view class="device-item-footer">
-										<view class="device-item-percent">
-											<percent></percent>
-										</view>
-										<view class="device-item-percent">
-											<percent :progressColour="greenColour"></percent>
-										</view>
-									</view>
-								</view>
-							</view>
-							<!--/故障-->
-						</block>
-					</view>
-				</view>
-			</view>
-			<view class="none" v-if="faultList.length===0">暂无数据</view>
-		</view>
-		<!-- 故障 -->
 	</view>
 </template>
 <script>
 	import drawer from "@/components/drawer.vue";
 	import percent from "@/components/percent.vue";
-	let _this;
+	
 	export default {
 		components: {
 			drawer,
@@ -217,12 +100,9 @@
 				visible: false,
 				meauList: [],
 				currentItem: {},
-				// 故障设备
 				allList: [],
-				startList: [],
-				stopList: [],
-				faultList: [],
-
+				// 设备
+				machineList: [],
 				// 工序
 				procedureList: [],
 				//选项卡
@@ -232,8 +112,24 @@
 				greenColour: "#22b14c"
 			};
 		},
+		computed: {
+			procedureSet () {
+				return new Set(this.procedureList.map(p => p.processCode));
+			},
+			// 设备
+			filteredMachines () {
+				const machines = this.machineList.filter(machine => this.procedureSet.has(machine.processCode))
+				if (this.current === 2) {
+					return machines
+				}
+				return machines.filter(machine => machine.state === this.current)
+			},
+			fileredProcedure () {
+				const processCodeSet = new Set(this.filteredMachines.map(machine => machine.processCode))
+				return this.procedureList.filter(procedure => processCodeSet.has(procedure.processCode))
+			}
+		},
 		onLoad() {
-			_this = this;
 			this.init();
 		},
 		onNavigationBarButtonTap(e) {
@@ -248,8 +144,7 @@
 					mask: true
 				});
 				Promise.all([this.getProcedure(), this.getMeauData()])
-					.then(result => {
-						let [procedure, meau] = result;
+					.then(([procedure, meau]) => {
 						this.meauList = meau;
 						if (meau.length) {
 							this.currentItem = meau[0];
@@ -302,87 +197,44 @@
 						machineState: machines
 					}) => {
 						uni.hideLoading();
-						_this.allList = machines
-						_this.procedureList.map((item, i) => {
-							machines.map((item2, j) => {
-								if (item.processCode === item2.processCode) {
-									this.dataFn(item, item2);
-								}
-							});
-						});
+						this.machineList = machines
 						// 筛选数据
-					})
-					.then(() => {
-						console.log('_this.allList', _this.allList);
-						// _this.stopList = _this.filterSate(_this.allList, 0);
-						// _this.startList = _this.filterSate(_this.allList, 1);
-						// _this.faultList = _this.filterSate(_this.allList, -1);
-					})
-					.then(() => {
-						// console.log("_this.stopList", _this.stopList);
-						// console.log("_this.startList", _this.startList);
-						// console.log("_this.faultList", _this.faultList);
+						this.setDeviceData()
 					})
 					.catch(() => {
 						uni.hideLoading();
 					});
 			},
-			resetData() {
-				this.allList = [];
-				this.stopList = [];
-				this.startList = [];
-				this.faultList = [];
+			setDeviceData () {
+				const machineMap = {}
+				this.filteredMachines.map(m => {
+					if (!machineMap[m.processCode]) {
+						machineMap[m.processCode] = []
+					}
+					machineMap[m.processCode].push(m)
+				})
+				this.allList = this.fileredProcedure.map(p => {
+					p.children = machineMap[p.processCode] || []
+					return p
+				})
 			},
 			//抽屉菜单操作
 			open() {
 				this.visible = !this.visible;
 			},
-			close(val) {
-				//回调函数抽屉关闭
+			//回调函数抽屉关闭
+			close(val) {				
 				this.visible = val;
 			},
 			getItem(val) {
 				this.currentItem = val;
 				this.visible = false;
-				this.resetData();
 				this.getDevice();
 			},
 			// 选项卡的操作
 			tabChage(index) {
 				this.current = index;
-			},
-			// 处理获取最后的数据
-			dataFn(_process, machine) {
-				let list = this.allList;
-				let isExist = !list.includes(_process);
-				isExist && list.push(_process);
-				let num = list.indexOf(_process);
-
-				if (!list[num].children) {
-					list[num].children = [];
-				}
-				console.log(num, machine);
-				machine && list[num].children.push(machine);
-                
-				console.log('list',list);
-				// console.log('item2',item2);
-				// !list.includes(item) && list.push(item);
-				// let num = list.indexOf(item);
-				// if (!list[num].children) {
-				//   list[num].children = [];
-				// }
-
-				// list[num].children.push(item2);
-
-			},
-			// 处理筛选数据
-			filterSate(list, state) {
-				return list.filter(item => {
-					let filterArr = item.children.filter(childItem => {
-						return childItem.state === state;
-					});
-					return filterArr.length;
-				});
+				this.setDeviceData()
 			},
 			// 手风琴展开收齐
 			accordion(item) {
