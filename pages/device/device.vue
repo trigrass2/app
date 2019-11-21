@@ -1,10 +1,12 @@
 <template>
 	<view class="device">
 		<drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
-<!-- 		<view>
-			<button type="primary" @tap="open">打开抽屉</button>
-		</view> -->
-		<view class="title">{{currentItem.wsName}}</view>
+		<view class="farm-title">
+			 <!-- #ifdef MP-WEIXIN -->
+			<text class="iconfont icon-caidan1" @tap="open"></text>
+			<!-- #endif -->
+			<text class="title">{{currentItem.wsName}}</text>
+		</view>
 		<!-- 抽屉菜单-->
 		<view class="tabs">
 			<view v-for="tab in tabs" :key="tab.value" @tap="tabChage(tab.value)" :class="[{ active:current===tab.value},'tabs-items']">{{tab.label}}</view>
@@ -89,7 +91,7 @@
 <script>
 	import drawer from "@/components/drawer.vue";
 	import percent from "@/components/percent.vue";
-	
+
 	export default {
 		components: {
 			drawer,
@@ -106,25 +108,37 @@
 				// 工序
 				procedureList: [],
 				//选项卡
-				tabs: [{ value: 2, label: "全部" }, {value: 1, label: "启动" }, { value: 0, label: "停机" }, { value: -1, label: "故障" }],
+				tabs: [{
+					value: 2,
+					label: "全部"
+				}, {
+					value: 1,
+					label: "启动"
+				}, {
+					value: 0,
+					label: "停机"
+				}, {
+					value: -1,
+					label: "故障"
+				}],
 				current: 2,
 				// styleType: 'text'
 				greenColour: "#22b14c"
 			};
 		},
 		computed: {
-			procedureSet () {
+			procedureSet() {
 				return new Set(this.procedureList.map(p => p.processCode));
 			},
 			// 设备
-			filteredMachines () {
+			filteredMachines() {
 				const machines = this.machineList.filter(machine => this.procedureSet.has(machine.processCode))
 				if (this.current === 2) {
 					return machines
 				}
 				return machines.filter(machine => machine.state === this.current)
 			},
-			fileredProcedure () {
+			fileredProcedure() {
 				const processCodeSet = new Set(this.filteredMachines.map(machine => machine.processCode))
 				return this.procedureList.filter(procedure => processCodeSet.has(procedure.processCode))
 			}
@@ -205,30 +219,35 @@
 						uni.hideLoading();
 					});
 			},
-			setDeviceData () {
+			setDeviceData() {
 				const machineMap = {}
+
 				this.filteredMachines.map(m => {
 					if (!machineMap[m.processCode]) {
 						machineMap[m.processCode] = []
 					}
 					machineMap[m.processCode].push(m)
-				})
+				});
+
 				this.allList = this.fileredProcedure.map(p => {
+					p.isDisplay = false;
 					p.children = machineMap[p.processCode] || []
 					return p
-				})
+				});
+				// console.log('this.allList',this.allList);
 			},
 			//抽屉菜单操作
 			open() {
 				this.visible = !this.visible;
 			},
 			//回调函数抽屉关闭
-			close(val) {				
+			close(val) {
 				this.visible = val;
 			},
 			getItem(val) {
 				this.currentItem = val;
 				this.visible = false;
+				// this.allList=[];
 				this.getDevice();
 			},
 			// 选项卡的操作
@@ -238,7 +257,9 @@
 			},
 			// 手风琴展开收齐
 			accordion(item) {
+				// console.log('item',item);
 				this.$set(item, "isDisplay", !item.isDisplay);
+				this.$forceUpdate();
 			}
 		}
 	};

@@ -57,7 +57,7 @@
 					// 	url: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg'
 					// },
 					{
-						url: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/cbd.jpg',
+						url: '/static/images/banner/banner1.jpg',
 					}
 				],
 				modeIndex: -1,

@@ -1,10 +1,12 @@
 <template>
 	<view class="pro">
 		<drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
-<!-- 			<view>
-			<button type="primary" @tap="open">打开抽屉</button>
-		</view> -->
-		<view class="title">{{currentItem.wsName}}</view>
+		<view class="farm-title">
+			 <!-- #ifdef MP-WEIXIN -->
+			<text class="iconfont icon-caidan1" @tap="open"></text>
+			<!-- #endif -->
+			<text class="title">{{currentItem.wsName}}</text>
+		</view>
 		<!-- 抽屉菜单 -->
 		<view>
 			<view class="pro-item" v-for="item in productList" :key="item.orderNo">
@@ -164,16 +166,13 @@
 						// 良率
 						let total = product.cpltQty + product.failQty;
 						let yieldNum = product.cpltQty / total;
+						product.yield= total === 0 ? 1 : Math.round(yieldNum * 100) / 100;
 
 						// nameline百分比							 
 						let percentNum = product.cpltQty / product.qty;
+						product.percent=Math.round(percentNum * 100) / 100;
 
-						return {
-							...product,
-							yield: total === 0 ? 1 : Math.round(yieldNum * 100) / 100,
-							percent: Math.round(percentNum * 100) / 100
-						}
-
+						return product;
 					}
 				});
 				  

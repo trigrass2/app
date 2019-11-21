@@ -53,10 +53,15 @@
 		line-height:1.8;
 	}
 	/*每个页面公共css */
-	.title {
-		padding: 10px 0;
+	.farm-title {
+		box-sizing: border-box;
+		padding: 10px 20px;
 		font-size: 32upx;
 		text-align: center;
+		.iconfont{
+			float: left;
+			color: $font-light-gray;
+		}
 	}
 
 	.none {

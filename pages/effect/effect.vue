@@ -1,13 +1,12 @@
 <template>
 	<view class="effect">
 		<drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
-<!-- 		<view>
-			<button type="primary" @tap="open">打开抽屉</button>
+		<view class="farm-title">
+			 <!-- #ifdef MP-WEIXIN -->
+			<text class="iconfont icon-caidan1" @tap="open"></text>
+			<!-- #endif -->
+			<text class="title">{{currentItem.wsName}}</text>
 		</view>
-		<view>
-			<button type="primary">刷新页面</button>
-		</view> -->
-		<view class="title">{{currentItem.wsName}}</view>
 		<!-- 抽屉菜单 -->
 		<view class="effect-list">
 			<view class="effect-item">
