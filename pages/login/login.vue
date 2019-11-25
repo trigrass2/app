@@ -5,7 +5,7 @@
 				<!-- 	<text class="login-title">阳普智能科技</text> -->
 				<image src="../../static/images/logo.png" mode="aspectFit"></image>
 			</view>
-			<!-- logo -->
+			<!-- /logo -->
 			<view class="login-form">
 				<view class="login">
 					<view class="login-item line">
@@ -17,7 +17,7 @@
 						<input class="login-input" placeholder-class password placeholder="密码" v-model="password" />
 					</view>
 				</view>
-				<!-- 登陆表单-->
+				<!--/登陆表单-->
 				<view>
 					<button class="login-btn" @tap="submit">立即登录</button>
 				</view>
