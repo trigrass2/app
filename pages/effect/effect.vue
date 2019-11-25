@@ -99,7 +99,7 @@
 			// 图表
 			_self = this;
 			this.cWidth = uni.upx2px(250);
-			this.cHeight = uni.upx2px(200);
+			this.cHeight = uni.upx2px(160);
 			this.showGauge("canvasGauge1", data);
 			this.showGauge("canvasGauge2", data);
 			this.showGauge("canvasGauge3", data);
@@ -139,13 +139,13 @@
 					title: {
 						name: Math.round(chartData.series[0].data * 100) + '%',
 						color:'#0066cc',
-						fontSize: 20 * _self.pixelRatio,
+						fontSize: 17 * _self.pixelRatio,
 						offsetY: 35 * _self.pixelRatio, //新增参数，自定义调整Y轴文案距离
 					},
 					extra: {
 						gauge: {
 							type: 'default',
-							width: 6, //仪表盘背景的宽度
+							width: 3, //仪表盘背景的宽度
 							startAngle: 0.75,
 							endAngle: 0.25,
 							startNumber: 0,
@@ -203,18 +203,21 @@
 		flex-wrap: wrap;
 
 		.effect-item {
-			margin-bottom: 40px;
+			margin-bottom: 25px;
 			box-sizing: border-box;
 			width: 33.3%;
-			height: 250upx;
-			text-align: center;
-			color:$font-light-gray;
+			// height: 160upx;
+			text-align: center;	
+				.effect-text{
+					color:$font-gray;			
+				}
 		}
+
 	}
 
 	.charts {
 		width: 250upx;
-		height: 200upx;
+		height: 160upx;
 		// background-color: #EEEEEE;
 	}
 </style>

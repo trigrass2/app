@@ -161,7 +161,11 @@
 			},
 			// 处理数据
 			setProduct(productList) {
-				this.productList=productList.map((product) => {
+				this.productList=productList.map((product,i) => {
+					if(product&&i===0){
+					   product.isDisplay=true;
+					}
+					
 					if (product) {
 						// 良率
 						let total = product.cpltQty + product.failQty;
@@ -176,7 +180,7 @@
 					}
 				});
 				  
-				console.log('this.productList',this.productList);
+				// console.log('this.productList',this.productList);
 			},
 			// 重置数据
 			resetData() {
@@ -220,7 +224,7 @@
 			flex-direction: row;
 			align-items: center;
 			padding: 0 20px;
-			height: 75upx;
+			height: 75upx;			
 			border-bottom: 1px solid $line-color;
 
 			.hd-name {
@@ -233,22 +237,25 @@
 			}
 		}
 
-		.actvie {
-			margin-bottom: 10px;
-			background: #efefef;
+		.actvie {			
+			background:#a0ccf0;
+			.name,.iconfont{
+				color:$white-color;
+			}
 		}
 	}
 
 	/*生产编号*/
 	.pro-name {
-		padding: 0 20px;
-		height: 58upx;
-		font-size: 30upx;
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-end;
 		align-items: center;
-
+		margin-bottom: 5px;
+		padding: 0 20px;
+		height: 60upx;
+		font-size: 30upx;
+        background: #efefef;
 		.name {
 			flex: 1;
 			overflow: hidden;

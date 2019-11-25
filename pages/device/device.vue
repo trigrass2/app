@@ -230,7 +230,7 @@
 				});
 
 				this.allList = this.fileredProcedure.map(p => {
-					p.isDisplay = false;
+					p.isDisplay = true;
 					p.children = machineMap[p.processCode] || []
 					return p
 				});
@@ -272,13 +272,13 @@
 		margin: 0 auto;
 		width: 450upx;
 		border: 1px solid $blue-color;
-		border-radius: 10px;
+		border-radius: 15px;
 
 		.tabs-items {
 			flex: 1;
 			text-align: center;
-			height: 50upx;
-			line-height: 50upx;
+			height: 60upx;
+			line-height: 60upx;
 			font-size: 26upx;
 			color: $font-gray;
 			border-right: 1px solid $blue-color;
@@ -296,7 +296,7 @@
 
 	.tips {
 		display: flex;
-		margin: 10px 0 5px 0;
+		margin: 15px 0 5px 0;
 		padding: 0 20px;
 		font-size: 25upx;
 		color: $font-gray;
