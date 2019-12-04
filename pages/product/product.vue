@@ -215,9 +215,9 @@
 
 <style lang="scss" scoped>
 	.pro-item {
-		margin-bottom: 10px;
+		margin-bottom: 15px;
 		background: $white-color;
-		font-size: 26upx;
+		// font-size: 26upx;
 
 		.pro-hd {
 			display: flex;
@@ -232,7 +232,7 @@
 				white-space: nowrap;
 				text-overflow: ellipsis;
 				margin-right: 20px;
-				max-width: 150upx;
+				max-width: 200upx;
 				color: $font-bule;
 			}
 		}
@@ -255,7 +255,7 @@
 		padding: 0 20px;
 		height: 60upx;
 		font-size: 30upx;
-        background: #efefef;
+        // background: #efefef;
 		.name {
 			flex: 1;
 			overflow: hidden;

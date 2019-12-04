@@ -2,7 +2,7 @@
 	<view class="device">
 		<drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
 		<view class="farm-title">
-			 <!-- #ifdef MP-WEIXIN -->
+			<!-- #ifdef MP-WEIXIN -->
 			<text class="iconfont icon-caidan1" @tap="open"></text>
 			<!-- #endif -->
 			<text class="title">{{currentItem.wsName}}</text>
@@ -363,6 +363,7 @@
 					margin: 10px;
 					height: 200upx;
 					border: 1px solid #ccc;
+					background: $white-color;
 
 					.device-item-no {
 						height: 50upx;
