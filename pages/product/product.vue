@@ -45,7 +45,7 @@
 						</view>
 						<view class="info-col">
 							<text class="info-name">备&ensp;&ensp;&ensp;&ensp;料：</text>
-							<text class="info-text">100%</text>
+							<text class="info-text">0%</text>
 						</view>
 					</view>
 				</view>
@@ -71,7 +71,7 @@
 					</view>
 					<view class="info">
 						<text class="info-name">计划时间：</text>
-						<text class="info-time">{{item.plannedTime}}</text>
+						<text class="info-time">{{$formatdate(item.plannedTime)}}</text>
 					</view>
 				</view>
 				<!-- /产品信息展开收起 -->
@@ -103,6 +103,7 @@
 		},
 		onLoad() {
 			this.init();
+			console.log('$formatdate',this.$formatdate)
 		},
 		onNavigationBarButtonTap(e) {
 			if (e.index === 0) {
@@ -143,7 +144,7 @@
 			getProduct() {
 				this.$http
 					.request({
-						url: "/api/ProductReport/wsCodeProduct",
+						url: "/api/ProduceReport/wsCodeProduct",
 						method: "GET",
 						data: {
 							wsCode: this.currentItem.wsCode
@@ -266,7 +267,7 @@
 		}
 
 		.iconfont {
-			font-size: 28upx;
+			font-size: 26upx;
 			color: $font-light-gray;
 		}
 	}
