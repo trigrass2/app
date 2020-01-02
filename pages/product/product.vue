@@ -103,7 +103,6 @@
 		},
 		onLoad() {
 			this.init();
-			console.log('$formatdate',this.$formatdate)
 		},
 		onNavigationBarButtonTap(e) {
 			if (e.index === 0) {

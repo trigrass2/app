@@ -1,7 +1,7 @@
 {
-    "name" : "阳普系统APP",
+    "name" : "Smart.MES",
     "appid" : "__UNI__9A214C3",
-    "description" : "",
+    "description" : "支持跨平台部署,故障转移,具备了基本的异常不停线能力",
     "versionName" : "1.0.0",
     "versionCode" : "100",
     "transformPx" : false,
@@ -84,8 +84,8 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "C:/Users/dell/Desktop/移动端文件/images/start.png",
-                    "xhdpi" : "C:/Users/dell/Desktop/移动端文件/images/start.png"
+                    "hdpi" : "D:/work/PSD/app图标和启动封面/star.png",
+                    "xhdpi" : "D:/work/PSD/app图标和启动封面/star.png"
                 }
             }
         }

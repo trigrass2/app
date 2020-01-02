@@ -21,7 +21,7 @@
 		<!-- /nav -->
 		<view class="info">
 			<view class="info-text">
-				<text class="iconfont icon-yuandianxiao"></text>你有29条未读消息<text class="info-time">2分钟前</text>
+				<text class="iconfont icon-yuandianxiao"></text>你有0条未读消息<text class="info-time">2分钟前</text>
 			</view>
 			<view class="icon">
 				<text class="icon-circle"></text>
@@ -30,7 +30,7 @@
 		</view>
 		<view class="info">
 			<view class="info-text">
-				<text class="iconfont icon-yuandianxiao"></text>你有29条未读任务<text class="info-time">2分钟前</text>
+				<text class="iconfont icon-yuandianxiao"></text>你有0条未读任务<text class="info-time">2分钟前</text>
 			</view>
 			<view class="icon">
 				<text class="icon-circle"></text>
@@ -85,27 +85,27 @@
 					{
 						icons: 'icon-xiaoli',
 						text: '效力管理',
-						url: '/pages/effect/effect'
+						// url: '/pages/effect/effect'
 					},
 					{
 						icons: 'icon-zhiliang',
 						text: '质量管理',
-						url: '/pages/quality/quality'
+						// url: '/pages/quality/quality'
 					},
 					{
 						icons: 'icon-chaxun',
 						text: '相关查询',
-						url: '/pages/search/search'
+						// url: '/pages/search/search'
 					},
 					{
 						icons: 'icon-xiaoxi',
 						text: '我的消息',
-						url: '/pages/info/info'
+						// url: '/pages/info/info'
 					},
 					{
 						icons: 'icon-woderenwu',
 						text: '我的任务',
-						url: '/pages/info/info'
+						// url: '/pages/info/info'
 					}
 				]
 			}
