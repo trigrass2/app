@@ -186,20 +186,28 @@
 					background: #f59701;
 				}
 
+				&.icon-zhiliang {
+					background: $font-light-gray;
+				}
+
 				&.icon-xiaoli {
-					background: #34bca8;
+					// background: #34bca8;
+					background: $font-light-gray;
 				}
 
 				&.icon-chaxun {
-					background: #8f82b9;
+					// background: #8f82b9;
+					background: $font-light-gray;
 				}
 
 				&.icon-xiaoxi {
-					background: #0075aa;
+					// background: #0075aa;
+					background: $font-light-gray;
 				}
 
 				&.icon-woderenwu {
-					background: #00aa6a;
+					// background: #00aa6a;
+					background: $font-light-gray;
 				}
 
 				// 文字
@@ -219,9 +227,15 @@
 		background: $white-color;
 		display: flex;
 		align-items: center;
+
 		.info-text {
 			flex: 1;
-			.icon-yuandianxiao{padding-right: 5px; font-size: 12px;}
+
+			.icon-yuandianxiao {
+				padding-right: 5px;
+				font-size: 12px;
+			}
+
 			.info-time {
 				padding-left: 10px;
 				color: $font-light-gray;
@@ -230,10 +244,20 @@
 
 		.icon {
 			// width: 60upx;
-		    display: flex;
+			display: flex;
 			align-items: center;
-			.icon-circle{margin-right: 5px;width: 8px;height: 8px;border-radius: 50%; background:$red-color;}
-			.icon-jiantou{color: $font-light-gray;}
+
+			.icon-circle {
+				margin-right: 5px;
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background: $red-color;
+			}
+
+			.icon-jiantou {
+				color: $font-light-gray;
+			}
 		}
 	}
 </style>

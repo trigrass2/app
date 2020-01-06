@@ -31,8 +31,8 @@
 	export default {
 		data() {
 			return {
-				user: 'admin',
-				password: "123456"
+				user: '',
+				password: ''
 			}
 		},
 		methods: {
@@ -84,7 +84,7 @@
 	}
 
 	.login-logo {
-		padding: 80upx 0;
+		padding: 110upx 0;
 		text-align: center;
 
 		image {
