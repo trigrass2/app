@@ -106,7 +106,7 @@
 		{
 			"path": "pages/my/my",
 			"style": {
-				"navigationBarTitleText": "我的",
+				"navigationBarTitleText": "",
 				"app-plus": {
 					"bounce": "none"
 				}
@@ -205,6 +205,10 @@
 			{
 				"name": "infoDetails",
 				"path": "pages/info/infoDetails"
+			},
+			{
+				"name": "my",
+				"path": "pages/my/my"
 			}
 		]
 	}

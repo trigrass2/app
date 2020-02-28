@@ -2,10 +2,10 @@
 	<view class="pro">
 		<drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
 		<view class="farm-title">
-			 <!-- #ifdef MP-WEIXIN -->
+			<text class="title">{{currentItem.wsName}}</text>
+			<!-- #ifdef MP-WEIXIN -->
 			<text class="iconfont icon-caidan1" @tap="open"></text>
 			<!-- #endif -->
-			<text class="title">{{currentItem.wsName}}</text>
 		</view>
 		<!-- 抽屉菜单 -->
 		<view>

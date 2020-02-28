@@ -1,0 +1,71 @@
+	html,
+	body {
+		height: 100%;
+		width: 100%;
+		background: $gray-bj-color;
+		font-family:Helvetica;
+		font-size:28upx;
+		line-height:1.8;
+	}
+	/*每个页面公共css */
+	.farm-title {
+		box-sizing: border-box;
+		padding: 10px 20px;
+		font-size: 32upx;
+		text-align: center;
+		.iconfont{
+			float: right;
+			color: $font-light-gray;
+		}
+	}
+
+	.none {
+		color: $font-light-gray;
+		font-size: 28upx;
+		text-align: center;
+	}
+	// 省列号
+	.ellipsis{
+		overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	}
+	
+	/*我的消息*/
+	.info {
+		margin-top: 10px;
+		padding: 0 20px;
+		height: 118upx;
+		background: $white-color;
+		display: flex;
+		align-items: center;
+	
+		.info-text {
+			flex: 1;
+	
+			.icon-yuandianxiao {
+				padding-right: 5px;
+				font-size: 12px;
+			}
+	
+			.info-time {
+				padding-left: 10px;
+				color: $font-light-gray;
+			}
+		}
+	
+		.icon {
+			display: flex;
+			align-items: center;
+	
+			.icon-circle {
+				margin-right: 5px;
+				width: 8px;
+				height: 8px;
+				border-radius: 50%;
+				background: $red-color;
+			}
+	
+			.icon-jiantou {
+				color: $font-light-gray;
+			}
+		}
+	}

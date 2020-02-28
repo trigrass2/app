@@ -1,27 +1,33 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
+
+const uerInfo=uni.getStorageSync('uerInfo')
+
 const store = new Vuex.Store({
     state: {
 		hasLogin: false,
-        uerInfo: {},
+        uerInfo:uerInfo?JSON.parse(uerInfo):{},
 	    workShop:[]
     },
     mutations: {
-        login(state, provider) {     //改变登录状态
+        login(state, provider) {  
+
             state.hasLogin = true
-            state.uerInfo.token = provider.token
-            state.uerInfo.userName = provider.user_name
-            uni.setStorage({       //将用户信息保存在本地
+            // state.uerInfo.token = provider.token
+            state.uerInfo.userName = provider.userName	
+            uni.setStorage({      
                 key: 'uerInfo',
-                data: provider
+                data:  JSON.stringify(provider) 
             });
+			
         },
-        logout(state) {           //退出登录
+		//退出登录
+        logout(state) {        
             state.hasLogin = false
             state.uerInfo = {}
             uni.removeStorage({
-                key: 'uerInfo'
+                key: 'uerInfo',
             });
         },
 		set_workShop(state,param){

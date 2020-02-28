@@ -28,10 +28,10 @@
 			// });
 		},
 		onShow: function() {
-			console.log('App Show')
+			// console.log('App Show')
 		},
 		onHide: function() {
-			console.log('App Hide')
+			// console.log('App Hide')
 		},
 		methods: {
 			...mapMutations(['login'])
@@ -40,38 +40,7 @@
 </script>
 
 <style lang="scss">
-	@import 'static/style/iconfont.css';
 	@import './common/uni.css';
-
-	html,
-	body {
-		height: 100%;
-		width: 100%;
-		background: $gray-bj-color;
-		font-family:Helvetica;
-		font-size:28upx;
-		line-height:1.8;
-	}
-	/*每个页面公共css */
-	.farm-title {
-		box-sizing: border-box;
-		padding: 10px 20px;
-		font-size: 32upx;
-		text-align: center;
-		.iconfont{
-			float: left;
-			color: $font-light-gray;
-		}
-	}
-
-	.none {
-		color: $font-light-gray;
-		font-size: 28upx;
-		text-align: center;
-	}
-	// 省列号
-	.ellipsis{
-		overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
-	}
-
+	@import 'static/style/iconfont.css';
+	@import 'static/style/style.scss';
 </style>

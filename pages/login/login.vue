@@ -28,6 +28,7 @@
 	</view>
 </template>
 <script>
+	import {mapMutations} from 'vuex';
 	export default {
 		data() {
 			return {
@@ -36,6 +37,7 @@
 			}
 		},
 		methods: {
+				...mapMutations(['login']),
 			submit() {
 				if (!this.user.length) {
 					uni.showToast({
@@ -60,6 +62,8 @@
 						password: this.password
 					}
 				}).then((res) => {
+					const {empName}=res
+					this.login({userName:empName})
 					uni.reLaunch({
 						url: '/pages/index/index'
 					})
@@ -111,7 +115,6 @@
 			align-items: center;
 			padding: 0 20px;
 			height: 108upx;
-			// margin-bottom: 25px;
 		}
 
 		.iconfont {

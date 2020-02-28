@@ -1,5 +1,6 @@
 <template>
 	<view class="home">
+	    <!-- 幻灯片 -->
 		<uni-swiper-dot :info="info" :current="current" :mode="mode" :dots-styles="dotsStyles" field="content">
 			<swiper class="swiper-box" @change="change">
 				<swiper-item v-for="(item, index) in info" :key="index">
@@ -8,8 +9,8 @@
 					</view>
 				</swiper-item>
 			</swiper>
-		</uni-swiper-dot>
-		<!-- /幻灯片 -->
+		</uni-swiper-dot>	
+		<!-- nav -->
 		<view class="nav">
 			<view class="nav-item" v-for="(item,index) in navList" :key="index">
 				<navigator class="nav-item-link" hover-class="none" :url="item.url">
@@ -17,27 +18,27 @@
 					<text class="nav-item-text">{{item.text}}</text>
 				</navigator>
 			</view>
-		</view>
-		<!-- /nav -->
-		<view class="info">
-			<view class="info-text">
-				<text class="iconfont icon-yuandianxiao"></text>你有0条未读消息<text class="info-time">2分钟前</text>
-			</view>
-			<view class="icon">
-				<text class="icon-circle"></text>
-				<text class="iconfont icon-jiantou"></text>
-			</view>
-		</view>
-		<view class="info">
-			<view class="info-text">
-				<text class="iconfont icon-yuandianxiao"></text>你有0条未读任务<text class="info-time">2分钟前</text>
-			</view>
-			<view class="icon">
-				<text class="icon-circle"></text>
-				<text class="iconfont icon-jiantou"></text>
-			</view>
-		</view>
+		</view>	
 		<!-- info -->
+		<view class="info">
+			<view class="info-text">
+				<text class="iconfont icon-yuandianxiao"></text>你有0条未读消息<text class="info-time">0分钟前</text>
+			</view>
+			<view class="icon">
+				<text class="icon-circle"></text>
+				<text class="iconfont icon-jiantou"></text>
+			</view>
+		</view>
+		<view class="info">
+			<view class="info-text">
+				<text class="iconfont icon-yuandianxiao"></text>你有0条未读任务<text class="info-time">0分钟前</text>
+			</view>
+			<view class="icon">
+				<text class="icon-circle"></text>
+				<text class="iconfont icon-jiantou"></text>
+			</view>
+		</view>
+		
 	</view>
 </template>
 <script>
@@ -50,12 +51,6 @@
 			return {
 				//幻灯片
 				info: [
-					// {
-					// 	url: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/shuijiao.jpg',
-					// },
-					// {
-					// 	url: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/images/muwu.jpg'
-					// },
 					{
 						url: '/static/images/banner/banner1.jpg',
 					}
@@ -85,27 +80,27 @@
 					{
 						icons: 'icon-xiaoli',
 						text: '效力管理',
-						// url: '/pages/effect/effect'
+						url: '/pages/effect/effect'
 					},
 					{
 						icons: 'icon-zhiliang',
 						text: '质量管理',
-						// url: '/pages/quality/quality'
+						url: '/pages/quality/quality'
 					},
 					{
 						icons: 'icon-chaxun',
 						text: '相关查询',
-						// url: '/pages/search/search'
+						url: '/pages/search/search'
 					},
 					{
 						icons: 'icon-xiaoxi',
 						text: '我的消息',
-						// url: '/pages/info/info'
+						url: '/pages/info/info'
 					},
 					{
 						icons: 'icon-woderenwu',
 						text: '我的任务',
-						// url: '/pages/info/info'
+						url: '/pages/info/info'
 					}
 				]
 			}
@@ -187,27 +182,27 @@
 				}
 
 				&.icon-zhiliang {
-					background: $font-light-gray;
+					background: $disabled-color;
 				}
 
 				&.icon-xiaoli {
 					// background: #34bca8;
-					background: $font-light-gray;
+					background: $disabled-color;
 				}
 
 				&.icon-chaxun {
 					// background: #8f82b9;
-					background: $font-light-gray;
+					background: $disabled-color;
 				}
 
 				&.icon-xiaoxi {
 					// background: #0075aa;
-					background: $font-light-gray;
+					background: $disabled-color;
 				}
 
 				&.icon-woderenwu {
 					// background: #00aa6a;
-					background: $font-light-gray;
+					background:$disabled-color;
 				}
 
 				// 文字
@@ -215,48 +210,6 @@
 					margin-top: 10px;
 					// font-size: 26upx;
 				}
-			}
-		}
-	}
-
-	/*我的消息*/
-	.info {
-		margin-top: 10px;
-		padding: 0 20px;
-		height: 118upx;
-		background: $white-color;
-		display: flex;
-		align-items: center;
-
-		.info-text {
-			flex: 1;
-
-			.icon-yuandianxiao {
-				padding-right: 5px;
-				font-size: 12px;
-			}
-
-			.info-time {
-				padding-left: 10px;
-				color: $font-light-gray;
-			}
-		}
-
-		.icon {
-			// width: 60upx;
-			display: flex;
-			align-items: center;
-
-			.icon-circle {
-				margin-right: 5px;
-				width: 8px;
-				height: 8px;
-				border-radius: 50%;
-				background: $red-color;
-			}
-
-			.icon-jiantou {
-				color: $font-light-gray;
 			}
 		}
 	}
