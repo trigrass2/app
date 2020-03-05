@@ -355,7 +355,7 @@
 				width: 50%;
 				.device-item-box {
 					margin: 20upx;
-					height: 200upx;
+					height: 210upx;
 					border: 1px solid #ccc;
 					background: $white-color;
 
