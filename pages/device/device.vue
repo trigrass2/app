@@ -24,14 +24,14 @@
 		</view>
 		<!-- /提示 -->
 		<view>
-			<view class="device-list" v-for="item in allList" :key="item.processCode">
+			<view class="device-list" v-for="(item,i) in allList" :key="i">
 				<view :class="['device-hd',{deviceActive:item.isDisplay}]" @tap="accordion(item)">
 					<text class="device-name">{{item.processName}}</text>
 					<text :class="['iconfont',item.isDisplay?'icon-zhankai':'icon-shouqi']"></text>
 				</view>
 				<view v-show="item.isDisplay?item.isDisplay:false">
 					<view class="device-bd">
-						<block v-for="device in item.children" :key="device.machineCode">
+						<block v-for="(device,j) in item.children" :key="j">
 							<view class="device-item" v-if="device.state===1">
 								<view class="device-item-box startUp">
 									<view class="device-item-no">{{device.machineCode}}</view>
@@ -304,8 +304,6 @@
 			align-items: center;
 			margin-right: 40upx;
 		}
-
-		// text{display: inline-block;}
 		.tips-icon {
 			margin-right: 10upx;
 			width: 20upx;

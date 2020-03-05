@@ -108,5 +108,9 @@
     },
     "mp-toutiao" : {
         "usingComponents" : true
+    },
+    "h5" : {
+        "title" : "Smart.MES",
+        "domain" : ""
     }
 }
