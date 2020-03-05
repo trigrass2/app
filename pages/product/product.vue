@@ -24,11 +24,11 @@
 				</view>
 				<!-- /产品编号 -->
 				<view class="pro-info">
-					<view class="info">
+					<view class="info ellipsis">
 						<text class="info-name">产&ensp;&ensp;&ensp;&ensp;品：</text>
-						<text class="info-text2">{{item.productName}}</text>
+						<text class="info-name-text">{{item.productName}}</text>
 					</view>
-					<view class="info-row">
+					<view class="info-row pt-5">
 						<view class="info-col">
 							<text class="info-name">完&ensp;成&ensp;数：</text>
 							<text class="info-text">{{item.cpltQty}}</text>
@@ -50,7 +50,7 @@
 					</view>
 				</view>
 				<!-- /产品信息 -->
-				<view class="pro-info pro-line" v-show="item.isDisplay">
+				<view class="pro-info" v-show="item.isDisplay">
 					<view class="info-row">
 						<view class="info-col">
 							<text class="info-name">客&ensp;&ensp;&ensp;&ensp;户：</text>
@@ -61,7 +61,7 @@
 							<text>{{item.bomVersion}}</text>
 						</view>
 					</view>
-					<view class="info mt-5">
+					<view class="info">
 						<text class="info-name">工&ensp;&ensp;&ensp;&ensp;艺：</text>
 						<text>{{item.flowName}}</text>
 					</view>
@@ -180,7 +180,6 @@
 					}
 				});
 				  
-				// console.log('this.productList',this.productList);
 			},
 			// 重置数据
 			resetData() {
@@ -214,24 +213,22 @@
 </script>
 
 <style lang="scss" scoped>
-	.pro-item {
-		margin-bottom: 15px;
+	.pro-item {	
+		margin-bottom: 15upx;
+		padding-bottom: 10upx;
 		background: $white-color;
-		// font-size: 26upx;
-
 		.pro-hd {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-			padding: 0 20px;
+			padding-left:30upx;
 			height: 75upx;			
 			border-bottom: 1px solid $line-color;
-
 			.hd-name {
 				overflow: hidden;
 				white-space: nowrap;
 				text-overflow: ellipsis;
-				margin-right: 20px;
+				margin-right: 40upx;
 				max-width: 200upx;
 				color: $font-bule;
 			}
@@ -251,18 +248,15 @@
 		flex-direction: row;
 		justify-content: flex-end;
 		align-items: center;
-		margin-bottom: 5px;
-		padding: 0 20px;
+		margin-bottom: 10upx;
+		padding: 0 30upx;
 		height: 60upx;
 		font-size: 30upx;
-        // background: #efefef;
 		.name {
 			flex: 1;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
 			color: $font-dark-green;
 			font-weight: bold;
+			@extend .ellipsis;
 		}
 
 		.iconfont {
@@ -273,14 +267,18 @@
 
 	/*生产信息*/
 	.pro-info {
-		margin: 0 20px;
-		padding: 0 0 10px 0;
-		// line-height: 1.5;
+		margin: 0 30upx;
+		padding-bottom: 10upx;
+		line-height: 40upx;
 		color: $font-bule;
 
 		.info-name {
-			padding-right: 5px;
+			padding-right: 10upx;
 			color: $font-light-gray;
+		}
+		
+		.info-name-text {
+			color: #444;
 		}
 
 		.info-text {
@@ -288,9 +286,6 @@
 			text-decoration: underline;
 		}
 
-		.info-text2 {
-			color: #444;
-		}
 
 		.info-time {
 			color: $font-orange;
@@ -299,19 +294,9 @@
 		.info-row {
 			display: flex;
 			flex-direction: row;
-
 			.info-col {
 				flex: 1;
 			}
 		}
-	}
-
-	.pro-line {
-		padding-top: 10px;
-		border-top: 1px dashed #ecebeb;
-	}
-
-	.mt-5 {
-		margin-top: 5px;
 	}
 </style>

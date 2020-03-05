@@ -24,13 +24,12 @@
 		font-size: 28upx;
 		text-align: center;
 	}
-	// 省列号
-	.ellipsis{
-		overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
-	}
 	
+	.pt-5 {
+		padding-top: 5px;
+	}
 	/*我的消息*/
-	.info {
+	.push-info {
 		margin-top: 10px;
 		padding: 0 20px;
 		height: 118upx;

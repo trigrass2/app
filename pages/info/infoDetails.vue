@@ -52,23 +52,25 @@
 
 <style lang="scss" scoped>
 	.info-title {
-		padding: 10px 20px 0 20px;
+		padding:0 40upx;
 		font-size: 40upx;
 	}
 
 	.article-meta {
-		padding: 10px 20px;
+		padding: 10upx 40upx 20upx 40upx;
 		color: $font-light-gray;
+		font-size: 26upx;
 
 		text {
-			padding-right: 10px;
+			padding-right: 30upx;
 		}
 	}
 
 	.article-content {
-		padding: 0 15px;
+		margin-bottom: 30upx;
+		padding: 0 30upx;
 		overflow: hidden;
-		font-size: 15px;
-		margin-bottom: 15px;
+		
+		
 	}
 </style>

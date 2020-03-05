@@ -8,21 +8,21 @@
 			<text class="user-info">你好，{{uerInfo.userName}}</text>
 		</view>
 		<!-- info -->
-		<view class="info">
+		<view class="push-info">
 			<view class="info-text">
 				<text class="iconfont icon-yuandianxiao"></text>你有0条未读消息<text class="info-time">0分钟前</text>
 			</view>
 			<view class="icon">
-				<text class="icon-circle"></text>
+				<text class="icon-circle" v-show="spotVisible"></text>
 				<text class="iconfont icon-jiantou"></text>
 			</view>
 		</view>
-		<view class="info">
+		<view class="push-info">
 			<view class="info-text">
 				<text class="iconfont icon-yuandianxiao"></text>你有0条未读任务<text class="info-time">0分钟前</text>
 			</view>
 			<view class="icon">
-				<text class="icon-circle"></text>
+				<text class="icon-circle" v-show="spotVisible"></text>
 				<text class="iconfont icon-jiantou"></text>
 			</view>
 		</view>
@@ -33,19 +33,19 @@
 </template>
 
 <script>
-	import {mapState,mapMutations} from 'vuex';
+	import {
+		mapState,
+		mapMutations
+	} from 'vuex';
 	export default {
 		data() {
 			return {
-
+				spotVisible: false
 			}
 		},
-		onLoad() {
-			console.log('登陆打印',uni.getStorageSync('uerInfo'))
-		
-		},
-		computed:{
-			 ...mapState(['uerInfo']) 
+		onLoad() {},
+		computed: {
+			...mapState(['uerInfo'])
 		},
 		methods: {
 			...mapMutations(['logout']),
@@ -63,9 +63,10 @@
 	.user {
 		padding: 30px 0;
 		text-align: center;
-        background:$blue-color;
+		background: $blue-color;
+
 		.user-icon {
-			margin: 0 auto 15px auto;
+			margin: 0 auto 15upx auto;
 			text-align: center;
 			width: 180upx;
 			height: 180upx;
@@ -73,6 +74,7 @@
 			color: $blue-color;
 			border-radius: 50%;
 			background: $white-color;
+
 			.iconfont {
 				font-size: 120upx;
 				line-height: 180upx;
@@ -81,18 +83,16 @@
 
 		.user-info {
 			font-size: 30upx;
-			color:$white-color;
+			color: $white-color;
 		}
 	}
-	.loginOut{
-	    padding:20px 10px;
-		
-		.loginOut-btn{
+
+	.loginOut {
+		padding: 40upx 20upx;
+
+		.loginOut-btn {
 			background: $blue-color;
 			color: #fff;
-			// border: 0;
-			// border-radius: 100upx;
-			// font-size: 32upx;
 		}
 	}
 </style>

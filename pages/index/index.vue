@@ -1,6 +1,6 @@
 <template>
 	<view class="home">
-	    <!-- 幻灯片 -->
+		<!-- 幻灯片 -->
 		<uni-swiper-dot :info="info" :current="current" :mode="mode" :dots-styles="dotsStyles" field="content">
 			<swiper class="swiper-box" @change="change">
 				<swiper-item v-for="(item, index) in info" :key="index">
@@ -9,36 +9,37 @@
 					</view>
 				</swiper-item>
 			</swiper>
-		</uni-swiper-dot>	
+		</uni-swiper-dot>
 		<!-- nav -->
 		<view class="nav">
-			<view class="nav-item" v-for="(item,index) in navList" :key="index">
-				<navigator class="nav-item-link" hover-class="none" :url="item.url">
+			<view class="nav-item" v-for="(item,i) in navList" :key="i">
+				<!-- 	<navigator class="nav-item-link" hover-class="none" :url="item.url"> -->
+				<view @tap="skip(i)">
 					<text :class="['iconfont',item.icons]"></text>
 					<text class="nav-item-text">{{item.text}}</text>
-				</navigator>
+				</view>
+				<!-- 	</navigator> -->
 			</view>
-		</view>	
+		</view>
 		<!-- info -->
-		<view class="info">
+		<view class="push-info">
 			<view class="info-text">
 				<text class="iconfont icon-yuandianxiao"></text>你有0条未读消息<text class="info-time">0分钟前</text>
 			</view>
 			<view class="icon">
-				<text class="icon-circle"></text>
+				<text class="icon-circle" v-show="spotVisible"></text>
 				<text class="iconfont icon-jiantou"></text>
 			</view>
 		</view>
-		<view class="info">
+		<view class="push-info">
 			<view class="info-text">
 				<text class="iconfont icon-yuandianxiao"></text>你有0条未读任务<text class="info-time">0分钟前</text>
 			</view>
 			<view class="icon">
-				<text class="icon-circle"></text>
+				<text class="icon-circle" v-show="spotVisible"></text>
 				<text class="iconfont icon-jiantou"></text>
 			</view>
 		</view>
-		
 	</view>
 </template>
 <script>
@@ -50,11 +51,9 @@
 		data() {
 			return {
 				//幻灯片
-				info: [
-					{
-						url: '/static/images/banner/banner1.jpg',
-					}
-				],
+				info: [{
+					url: '/static/images/banner/banner1.jpg',
+				}],
 				modeIndex: -1,
 				styleIndex: -1,
 				mode: 'long',
@@ -80,29 +79,35 @@
 					{
 						icons: 'icon-xiaoli',
 						text: '效力管理',
-						url: '/pages/effect/effect'
+						url: ''
+						// url: '/pages/effect/effect'
 					},
 					{
 						icons: 'icon-zhiliang',
 						text: '质量管理',
-						url: '/pages/quality/quality'
+						url: ''
+						// url: '/pages/quality/quality'
 					},
 					{
 						icons: 'icon-chaxun',
 						text: '相关查询',
-						url: '/pages/search/search'
+						url: ''
+						// url: '/pages/search/search'
 					},
 					{
 						icons: 'icon-xiaoxi',
 						text: '我的消息',
-						url: '/pages/info/info'
+						url: ''
+						// url: '/pages/info/info'
 					},
 					{
 						icons: 'icon-woderenwu',
 						text: '我的任务',
-						url: '/pages/info/info'
+						url: ''
+						// url: '/pages/info/info'
 					}
-				]
+				],
+				spotVisible: false,
 			}
 		},
 		onLoad() {},
@@ -110,13 +115,10 @@
 			change(e) {
 				this.current = e.detail.current;
 			},
-			gridChange(e) {
-				let {
-					index
-				} = e.detail;
-				let url = this.list[index].url;
-				uni.navigateTo({
-					url: url
+			skip(i) {
+				const url = this.navList[i].url
+				url && uni.navigateTo({
+					url
 				})
 			}
 		}
@@ -181,33 +183,33 @@
 					background: #f59701;
 				}
 
-				&.icon-zhiliang {
-					background: $disabled-color;
-				}
+				// &.icon-zhiliang {
+				// 	background: $disabled-color;
+				// }
 
 				&.icon-xiaoli {
-					// background: #34bca8;
-					background: $disabled-color;
+					background: #34bca8;
+					// background: $disabled-color;
 				}
 
 				&.icon-chaxun {
-					// background: #8f82b9;
-					background: $disabled-color;
+					background: #8f82b9;
+					// background: $disabled-color;
 				}
 
 				&.icon-xiaoxi {
-					// background: #0075aa;
-					background: $disabled-color;
+					background: #0075aa;
+					// background: $disabled-color;
 				}
 
 				&.icon-woderenwu {
-					// background: #00aa6a;
-					background:$disabled-color;
+					background: #00aa6a;
+					// background:$disabled-color;
 				}
 
 				// 文字
 				&.nav-item-text {
-					margin-top: 10px;
+					margin-top: 10upx;
 					// font-size: 26upx;
 				}
 			}

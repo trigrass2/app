@@ -1,5 +1,6 @@
 <template>
-    <view class="info">
+    <view class="my-info">
+		<!-- <view class="info">		 -->
         <view class="uni-list">
             <block v-for="(item,index) in lists" :key="index">
                 <view class="uni-list-cell" hover-class="uni-list-cell-hover" @tap="openInfo(item)">				
@@ -20,7 +21,8 @@
                 </view>
             </block>
         </view>
-    </view>
+<!--    </view> -->
+	</view>
 </template>
 
 <script>
@@ -66,7 +68,7 @@
 </script>
 
 <style lang="scss" scoped>
-	.info{
+	.my-info{
 		.uni-triplex-left{
 			width: 88%;
 		}
@@ -76,8 +78,8 @@
 				text-align: center;
 				.badge{
 				   display: inline-block;
-				     width: 5px;
-					 height: 5px;
+				     width: 6px;
+					 height: 6px;
 					 background:$red-color;
 					 border-radius: 50%;					
 				}

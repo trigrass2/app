@@ -2,11 +2,11 @@
 	<!-- quality -->
 	<view class="quality">
 		<view class="quality-box">
-		<view class="quality-charts">
-			<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts" @touchstart="touchColumn"></canvas>
-		</view>			
-		</view>		
-		<view class="info">
+			<view class="quality-charts">
+				<canvas canvas-id="canvasColumn" id="canvasColumn" class="charts" @touchstart="touchColumn"></canvas>
+			</view>
+		</view>
+		<view class="quality-info">
 			<view class="info-item">
 				<view class="info-item-name">FJTBLB</view>
 				<view class="info-item-body">22</view>
@@ -49,26 +49,25 @@
 		},
 		methods: {
 			getServerData() {
-				uni.request({
-					url: 'https://www.ucharts.cn/data.json',
-					data: {},
-					success: function(res) {
-						console.log(res.data.data)
-						//下面这个根据需要保存后台数据，我是为了模拟更新柱状图，所以存下来了
-						_self.serverData = res.data.data;
-						let Column = {
-							categories: [],
-							series: []
-						};
-						//这里我后台返回的是数组，所以用等于，如果您后台返回的是单条数据，需要push进去
-						Column.categories = res.data.data.Column.categories;
-						Column.series = res.data.data.Column.series;
-						_self.showColumn("canvasColumn", Column);
-					},
-					fail: () => {
-						_self.tips = "网络错误，小程序端请检查合法域名";
-					},
-				});
+				let Column = {
+					categories: ["2012", "2013", "2014", "2015", "2016", "2017"],
+					series: [{
+							name: "成交量1",
+							data: [15, {
+								value: 20,
+								color: "#f04864"
+							}, 45, 37, 43, 34]
+						},
+						{
+							name: "成交量2",
+							data: [30, {
+								value: 40,
+								color: "#facc14"
+							}, 25, 14, 34, 18]
+						}
+					]
+				};
+				this.showColumn("canvasColumn", Column);
 			},
 			showColumn(canvasId, chartData) {
 				canvaColumn = new uCharts({
@@ -123,40 +122,42 @@
 
 <style lang="scss" scoped>
 	.quality {
-		display: flex;
-		flex-direction: column;
-		
-	}
-   .quality-box{
-	   padding: 30px 0;
-	   background: $white-color; 
-   }
-	.quality-charts {	
-		width: 750upx;
-		height: 600upx;
-    
-		.charts {
+		.quality-box {
+			padding: 30upx 0;
+			background: $white-color;
+		}
+		.quality-charts {
 			width: 750upx;
 			height: 600upx;
+			.charts {
+				width: 750upx;
+				height: 600upx;
+			}
 		}
-	}
-
-	.info {    
+		
+	.quality-info {
+		display: flex;
+		flex-direction: column;
 		.info-item {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-			/*垂直方向*/
 			height: 75upx;
 			line-height: 75upx;
+			font-size:$font-30;		
 			&:nth-child(even) {
 				background: #e6e6e6;
 			}
-			&>view{font-size:$font-30;}
 			.info-item-name {
-				padding-left: 20px;
+				padding:0 20upx 0 40upx;
 				width: 450upx;
+				@extend .ellipsis;
 			}
 		}
+	}	
+
 	}
+
+
+
 </style>

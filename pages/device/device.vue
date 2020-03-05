@@ -234,7 +234,6 @@
 					p.children = machineMap[p.processCode] || []
 					return p
 				});
-				// console.log('this.allList',this.allList);
 			},
 			//抽屉菜单操作
 			open() {
@@ -257,7 +256,6 @@
 			},
 			// 手风琴展开收齐
 			accordion(item) {
-				// console.log('item',item);
 				this.$set(item, "isDisplay", !item.isDisplay);
 				this.$forceUpdate();
 			}
@@ -296,20 +294,20 @@
 
 	.tips {
 		display: flex;
-		margin: 15px 0 5px 0;
-		padding: 0 20px;
+		margin: 30upx 0 10upx 0;
+		padding: 0 40upx;
 		font-size: 25upx;
 		color: $font-gray;
 
 		.tips-item {
 			display: flex;
 			align-items: center;
-			margin-right: 20px;
+			margin-right: 40upx;
 		}
 
 		// text{display: inline-block;}
 		.tips-icon {
-			margin-right: 5px;
+			margin-right: 10upx;
 			width: 20upx;
 			height: 10upx;
 			background: $blue-color;
@@ -321,13 +319,13 @@
 	}
 
 	.device-list {
-		margin-bottom: 10px;
-		padding: 0 10px;
+		margin-bottom: 20upx;
+		padding: 0 20upx;
 
 		.device-hd {
 			display: flex;
 			align-items: center;
-			padding: 0 10px;
+			padding: 0 20upx;
 			height: 83upx;
 			font-size: 30upx;
 			color: $font-title-color;
@@ -357,10 +355,8 @@
 			.device-item {
 				box-sizing: border-box;
 				width: 50%;
-
-				// border: 1px solid #ddd;
 				.device-item-box {
-					margin: 10px;
+					margin: 20upx;
 					height: 200upx;
 					border: 1px solid #ccc;
 					background: $white-color;
@@ -375,7 +371,7 @@
 					.device-item-center {
 						display: flex;
 						overflow: hidden;
-						padding: 5px;
+						padding: 10upx;
 						height: 70upx;
 					}
 
@@ -401,10 +397,10 @@
 					}
 
 					.device-item-footer {
-						padding: 0 10px;
+						padding: 0 20upx;
 
 						.device-item-percent {
-							margin-top: 3px;
+							margin-top: 6upx;
 						}
 					}
 				}

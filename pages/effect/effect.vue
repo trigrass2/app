@@ -193,17 +193,13 @@
 </script>
 
 <style lang="scss" scoped>
-	// .effect{
-	// 	min-height: 100%;
-	// 	background: $gray-bj-color;
-	// }
-	.effect-list {
-		margin-top: 10px;
+	.effect-list {	
 		display: flex;
 		flex-wrap: wrap;
-
+		padding: 40upx 0;
+		background: $white-color;
 		.effect-item {
-			margin-bottom: 25px;
+			margin-bottom: 50upx;
 			box-sizing: border-box;
 			width: 33.3%;
 			// height: 160upx;

@@ -10,11 +10,11 @@
 				<view class="login">
 					<view class="login-item line">
 						<text class="iconfont icon-yonghu1"></text>
-						<input class="login-input" placeholder-class placeholder="账号" v-model="user">
+						<input class="login-input" placeholder="账号" v-model="user">
 					</view>
 					<view class="login-item">
 						<text class="iconfont icon-mima"></text>
-						<input class="login-input" placeholder-class password placeholder="密码" v-model="password" />
+						<input class="login-input"  password placeholder="密码" v-model="password" />
 					</view>
 				</view>
 				<!--/登陆表单-->
@@ -78,13 +78,11 @@
 <style lang="scss" scoped>
 	.login-box {
 		box-sizing: border-box;
-		// position: relative;
 		display: flex;
 		flex-direction: column;
 		width: 100%;
 		min-height: 100%;
 		background: linear-gradient(to bottom, #3890d8 0%, #47acfc 100%);
-		// color: $white-color;
 	}
 
 	.login-logo {
@@ -167,4 +165,7 @@
 		text-align: center;
 		color: #d5e9f3;
 	}
+/*#ifdef H5*/
+uni-page-body{height: 100%;}
+/*#endif*/
 </style>

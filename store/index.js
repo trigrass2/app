@@ -6,7 +6,7 @@ const uerInfo=uni.getStorageSync('uerInfo')
 
 const store = new Vuex.Store({
     state: {
-		hasLogin: false,
+		hasLogin:uerInfo?true:false,
         uerInfo:uerInfo?JSON.parse(uerInfo):{},
 	    workShop:[]
     },
