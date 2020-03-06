@@ -32,6 +32,7 @@
 				<view v-show="item.isDisplay?item.isDisplay:false">
 					<view class="device-bd">
 						<block v-for="(device,j) in item.children" :key="j">
+							<!--启动 -->
 							<view class="device-item" v-if="device.state===1">
 								<view class="device-item-box startUp">
 									<view class="device-item-no">{{device.machineCode}}</view>
@@ -44,17 +45,15 @@
 											<text class="ellipsis">{{device.orderNo}}</text>
 										</view>
 									</view>
-									<view class="device-item-footer">
-										<view class="device-item-percent">
-											<percent></percent>
-										</view>
-										<view class="device-item-percent">
-											<percent :progressColour="greenColour"></percent>
-										</view>
+									<view class="device-item-percent">
+										<progress percent="100" font-size="12" activeColor='#3890d8' backgroundColor="#CCCCCC" border-radius="5"
+										 show-info stroke-width="3" class="percent" />
+										<progress percent="100" font-size="12" activeColor='#22b14c' backgroundColor="#CCCCCC" border-radius="5"
+										 show-info stroke-width="3" class="percent" />
 									</view>
 								</view>
 							</view>
-							<!-- /启动 -->
+							<!--停机 -->
 							<view class="device-item" v-if="device.state===0||device.state===-1">
 								<view :class="['device-item-box',{stop:device.state===0,fault:device.state===-1}]">
 									<!-- fault -->
@@ -68,17 +67,15 @@
 											<text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
 										</view>
 									</view>
-									<view class="device-item-footer">
-										<view class="device-item-percent">
-											<percent></percent>
-										</view>
-										<view class="device-item-percent">
-											<percent :progressColour="greenColour"></percent>
-										</view>
+									<view class="device-item-percent">
+										<progress percent="100" font-size="12" activeColor='#3890d8' backgroundColor="#CCCCCC" border-radius="5"
+										 show-info stroke-width="3" class="percent" />
+										<progress percent="100" font-size="12" activeColor='#22b14c' backgroundColor="#CCCCCC" border-radius="5"
+										 show-info stroke-width="3" class="percent" />
 									</view>
 								</view>
 							</view>
-							<!--/停机 -->
+
 						</block>
 					</view>
 				</view>
@@ -90,12 +87,9 @@
 </template>
 <script>
 	import drawer from "@/components/drawer.vue";
-	import percent from "@/components/percent.vue";
-
 	export default {
 		components: {
 			drawer,
-			percent
 		},
 		data() {
 			return {
@@ -304,6 +298,7 @@
 			align-items: center;
 			margin-right: 40upx;
 		}
+
 		.tips-icon {
 			margin-right: 10upx;
 			width: 20upx;
@@ -353,6 +348,7 @@
 			.device-item {
 				box-sizing: border-box;
 				width: 50%;
+
 				.device-item-box {
 					margin: 20upx;
 					height: 210upx;
@@ -375,7 +371,7 @@
 
 					.device-item-left {
 						overflow: hidden;
-						margin-right: 5px;
+						margin-right: 10upx;
 						width: 65upx;
 
 						.iconfont {
@@ -394,12 +390,8 @@
 						color: $font-title-color;
 					}
 
-					.device-item-footer {
+					.device-item-percent {
 						padding: 0 20upx;
-
-						.device-item-percent {
-							margin-top: 6upx;
-						}
 					}
 				}
 
@@ -435,5 +427,13 @@
 				}
 			}
 		}
+	}
+
+	.percent {
+		color: $font-light-gray;
+		height: 30upx;
+        /*#ifdef H5*/
+         /deep/.uni-progress-info{font-size: 24upx;}
+        /*#endif*/		
 	}
 </style>

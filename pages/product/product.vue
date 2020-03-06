@@ -13,7 +13,11 @@
 				<view class="pro-hd">
 					<view class="hd-name">{{item.lineName}}</view>
 					<view class="hd-percent">
-						<product-percent :percent="item.percent"></product-percent>
+					<progress :percent="item.percent" font-size="12" activeColor='#3890d8' backgroundColor="#CCCCCC" border-radius="5" 
+					 stroke-width="3"/>
+					</view>
+					<view class="hd-state">
+						{{getState(item.percent)}}{{item.percent}}%
 					</view>
 				</view>
 				<!-- /hd -->
@@ -41,7 +45,7 @@
 					<view class="info-row">
 						<view class="info-col">
 							<text class="info-name">良&ensp;&ensp;&ensp;&ensp;率：</text>
-							<text class="info-text">{{item.yield*100}}%</text>
+							<text class="info-text">{{item.yield}}%</text>
 						</view>
 						<view class="info-col">
 							<text class="info-name">备&ensp;&ensp;&ensp;&ensp;料：</text>
@@ -87,11 +91,9 @@
 
 <script>
 	import drawer from "@/components/drawer.vue";
-	import productPercent from "@/components/product-percent.vue";
 	export default {
 		components: {
 			drawer,
-			productPercent
 		},
 		data() {
 			return {
@@ -161,29 +163,29 @@
 			},
 			// 处理数据
 			setProduct(productList) {
-				this.productList=productList.map((product,i) => {
-					if(product&&i===0){
-					   product.isDisplay=true;
+				this.productList = productList.map((product, i) => {
+					if (product && i === 0) {
+						product.isDisplay = true;
 					}
-					
+
 					if (product) {
 						// 良率
 						let total = product.cpltQty + product.failQty;
 						let yieldNum = product.cpltQty / total;
-						product.yield= total === 0 ? 1 : Math.round(yieldNum * 100) / 100;
+						product.yield = total === 0 ? 100 : Math.round(yieldNum * 100);
 
 						// nameline百分比							 
 						let percentNum = product.cpltQty / product.qty;
-						product.percent=Math.round(percentNum * 100) / 100;
-
+						product.percent = Math.round(percentNum * 100);
+					
 						return product;
 					}
 				});
-				  
+
 			},
 			// 重置数据
-			resetData() {
-				this.productList = [];
+			getState(val){
+				return val===0? '未生产':val===100?'已完成':'生产中';
 			},
 			//抽屉菜单操作
 			open() {
@@ -197,7 +199,6 @@
 			getItem(val) {
 				this.currentItem = val;
 				this.visible = false;
-				this.resetData();
 				uni.showLoading({
 					title: "加载中",
 					mask: true
@@ -213,17 +214,19 @@
 </script>
 
 <style lang="scss" scoped>
-	.pro-item {	
+	.pro-item {
 		margin-bottom: 15upx;
 		padding-bottom: 10upx;
 		background: $white-color;
+
 		.pro-hd {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-			padding-left:30upx;
-			height: 75upx;			
+			padding:0 30upx;
+			height: 75upx;
 			border-bottom: 1px solid $line-color;
+
 			.hd-name {
 				overflow: hidden;
 				white-space: nowrap;
@@ -232,12 +235,22 @@
 				max-width: 200upx;
 				color: $font-bule;
 			}
+			.hd-percent{
+				flex: 1;
+				background: #bbb;
+			}
+			.hd-state{
+				margin-left: 10upx;
+				color:$font-light-gray;
+			}
 		}
 
-		.actvie {			
-			background:#a0ccf0;
-			.name,.iconfont{
-				color:$white-color;
+		.actvie {
+			background: #a0ccf0;
+
+			.name,
+			.iconfont {
+				color: $white-color;
 			}
 		}
 	}
@@ -252,6 +265,7 @@
 		padding: 0 30upx;
 		height: 60upx;
 		font-size: 30upx;
+
 		.name {
 			flex: 1;
 			color: $font-dark-green;
@@ -276,7 +290,7 @@
 			padding-right: 10upx;
 			color: $font-light-gray;
 		}
-		
+
 		.info-name-text {
 			color: #444;
 		}
@@ -294,6 +308,7 @@
 		.info-row {
 			display: flex;
 			flex-direction: row;
+
 			.info-col {
 				flex: 1;
 			}
