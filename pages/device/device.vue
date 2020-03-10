@@ -2,14 +2,18 @@
 	<view class="device">
 		<drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
 		<view class="farm-title">
+			<text class="title">{{currentItem.wsName}}</text>
 			<!-- #ifdef MP-WEIXIN -->
 			<text class="iconfont icon-caidan1" @tap="open"></text>
-			<!-- #endif -->
-			<text class="title">{{currentItem.wsName}}</text>
+			<!-- #endif -->			
 		</view>
 		<!-- 抽屉菜单-->
 		<view class="tabs">
-			<view v-for="tab in tabs" :key="tab.value" @tap="tabChage(tab.value)" :class="[{ active:current===tab.value},'tabs-items']">{{tab.label}}</view>
+			<view 
+			v-for="tab in tabs" 
+			:key="tab.value" 
+			@tap="tabChage(tab.value)" 
+			:class="[{ active:current===tab.value},'tabs-items']">{{tab.label}}</view>
 		</view>
 		<!-- /tabs -->
 		<view class="tips">
@@ -46,10 +50,24 @@
 										</view>
 									</view>
 									<view class="device-item-percent">
-										<progress percent="100" font-size="12" activeColor='#3890d8' backgroundColor="#CCCCCC" border-radius="5"
-										 show-info stroke-width="3" class="percent" />
-										<progress percent="100" font-size="12" activeColor='#22b14c' backgroundColor="#CCCCCC" border-radius="5"
-										 show-info stroke-width="3" class="percent" />
+										<progress 
+										percent="100" 
+										font-size="12" 
+										activeColor='#3890d8' 
+										backgroundColor="#ccc" 									
+										show-info 
+										stroke-width="4"
+										border-radius="5"
+										class="progress"/>
+										<progress 
+										percent="100" 
+										font-size="12" 
+										activeColor='#22b14c' 
+										backgroundColor="#ccc"
+										show-info 
+										stroke-width="4"
+										border-radius="5"
+										class="progress"/>
 									</view>
 								</view>
 							</view>
@@ -68,10 +86,24 @@
 										</view>
 									</view>
 									<view class="device-item-percent">
-										<progress percent="100" font-size="12" activeColor='#3890d8' backgroundColor="#CCCCCC" border-radius="5"
-										 show-info stroke-width="3" class="percent" />
-										<progress percent="100" font-size="12" activeColor='#22b14c' backgroundColor="#CCCCCC" border-radius="5"
-										 show-info stroke-width="3" class="percent" />
+										<progress 
+										percent="100" 
+										font-size="12" 
+										activeColor='#3890d8' 
+										backgroundColor="#ccc" 										
+										show-info 
+										stroke-width="4" 
+										border-radius="5"
+										class="progress"/>
+										<progress 
+										percent="100" 
+										font-size="12" 
+										activeColor='#22b14c' 
+										backgroundColor="#ccc" 										
+										show-info 
+										stroke-width="4" 
+										border-radius="5" 
+										class="progress"/>
 									</view>
 								</view>
 							</view>
@@ -156,8 +188,8 @@
 						this.meauList = meau;
 						if (meau.length) {
 							this.currentItem = meau[0];
+							this.procedureList = procedure;
 						}
-						this.procedureList = procedure;
 					})
 					.then(() => {
 						uni.hideLoading();
@@ -198,7 +230,7 @@
 						url: "/api/MachineReport/allMachineState",
 						method: "GET",
 						data: {
-							wsCode: this.currentItem.wsCode
+							wsCode: this.currentItem.wsCode||''
 						}
 					})
 					.then(({
@@ -429,7 +461,7 @@
 		}
 	}
 
-	.percent {
+	.progress {
 		color: $font-light-gray;
 		height: 30upx;
         /*#ifdef H5*/

@@ -9,21 +9,23 @@
 		</view>
 		<!-- info -->
 		<view class="push-info">
-			<view class="info-text">
-				<text class="iconfont icon-yuandianxiao"></text>你有0条未读消息<text class="info-time">0分钟前</text>
+			<view class="push-info-item">
+				<view class="info-text">
+					<text class="iconfont icon-yuandianxiao"></text>你有0条未读消息<text class="info-time">0分钟前</text>
+				</view>
+				<view class="icon">
+					<text class="icon-circle" v-show="spotVisible"></text>
+					<text class="iconfont icon-arrow-right"></text>
+				</view>
 			</view>
-			<view class="icon">
-				<text class="icon-circle" v-show="spotVisible"></text>
-				<text class="iconfont icon-jiantou"></text>
-			</view>
-		</view>
-		<view class="push-info">
-			<view class="info-text">
-				<text class="iconfont icon-yuandianxiao"></text>你有0条未读任务<text class="info-time">0分钟前</text>
-			</view>
-			<view class="icon">
-				<text class="icon-circle" v-show="spotVisible"></text>
-				<text class="iconfont icon-jiantou"></text>
+			<view class="push-info-item">
+				<view class="info-text">
+					<text class="iconfont icon-yuandianxiao"></text>你有0条未读任务<text class="info-time">0分钟前</text>
+				</view>
+				<view class="icon">
+					<text class="icon-circle" v-show="spotVisible"></text>
+					<text class="iconfont icon-arrow-right"></text>
+				</view>
 			</view>
 		</view>
 		<view class="loginOut">
@@ -85,6 +87,10 @@
 			font-size: 30upx;
 			color: $white-color;
 		}
+	}
+
+	.push-info {
+		margin-top: 0;
 	}
 
 	.loginOut {

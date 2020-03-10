@@ -2,10 +2,10 @@
 	<view class="effect">
 		<drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
 		<view class="farm-title">
+			<text class="title">{{currentItem.wsName}}</text>
 			 <!-- #ifdef MP-WEIXIN -->
 			<text class="iconfont icon-caidan1" @tap="open"></text>
-			<!-- #endif -->
-			<text class="title">{{currentItem.wsName}}</text>
+			<!-- #endif -->			
 		</view>
 		<!-- 抽屉菜单 -->
 		<view class="effect-list">
@@ -193,11 +193,14 @@
 </script>
 
 <style lang="scss" scoped>
+	.effect{
+		min-height: 100%;
+		background: $white-color;		
+	}
 	.effect-list {	
 		display: flex;
 		flex-wrap: wrap;
 		padding: 40upx 0;
-		background: $white-color;
 		.effect-item {
 			margin-bottom: 50upx;
 			box-sizing: border-box;

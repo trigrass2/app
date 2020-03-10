@@ -46,6 +46,7 @@
 
 <style lang="scss">
 	@import './common/uni.css';
-	@import 'static/style/font/iconfont.css';
+	@import 'static/style/iconfont.css';
 	@import 'static/style/style.scss';
+	@import url("components/ly-tree/ly-tree.css");
 </style>

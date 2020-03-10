@@ -3,7 +3,9 @@
 			<uni-list>
 				<uni-list-item v-for="(item,index) in navData" :key="index" :title="item.wsName" @tap="getVal(item)" />
 			</uni-list>
-
+            <view class="none" v-if="!navData.length">
+            	暂无数据
+            </view>
 	</uni-drawer>
 </template>
 

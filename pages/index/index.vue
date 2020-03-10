@@ -23,21 +23,25 @@
 		</view>
 		<!-- info -->
 		<view class="push-info">
-			<view class="info-text">
-				<text class="iconfont icon-yuandianxiao"></text>你有0条未读消息<text class="info-time">0分钟前</text>
+			<view class="push-info-item">
+				<view class="info-text">
+					<text class="iconfont icon-yuandianxiao"></text>你有0条未读消息
+					<text class="info-time">0分钟前</text>
+				</view>
+				<view class="icon">
+					<text class="icon-circle" v-show="spotVisible"></text>
+					<text class="iconfont icon-arrow-right"></text>
+				</view>
 			</view>
-			<view class="icon">
-				<text class="icon-circle" v-show="spotVisible"></text>
-				<text class="iconfont icon-jiantou"></text>
-			</view>
-		</view>
-		<view class="push-info">
-			<view class="info-text">
-				<text class="iconfont icon-yuandianxiao"></text>你有0条未读任务<text class="info-time">0分钟前</text>
-			</view>
-			<view class="icon">
-				<text class="icon-circle" v-show="spotVisible"></text>
-				<text class="iconfont icon-jiantou"></text>
+			<view class="push-info-item">
+				<view class="info-text">
+					<text class="iconfont icon-yuandianxiao"></text>你有0条未读任务
+					<text class="info-time">0分钟前</text>
+				</view>
+				<view class="icon">
+					<text class="icon-circle" v-show="spotVisible"></text>
+					<text class="iconfont icon-arrow-right"></text>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -77,34 +81,40 @@
 						url: '/pages/device/device'
 					},
 					{
+						icons: 'icon-fenxi',
+						text: '效力分析',
+						// url: ''
+						url: '/pages/analyse/analyse'
+					},
+					{
 						icons: 'icon-xiaoli',
 						text: '效力管理',
-						url: ''
-						// url: '/pages/effect/effect'
+						// url: ''
+						url: '/pages/effect/effect'
 					},
 					{
 						icons: 'icon-zhiliang',
 						text: '质量管理',
-						url: ''
-						// url: '/pages/quality/quality'
+						// url: ''
+						url: '/pages/quality/quality'
 					},
 					{
 						icons: 'icon-chaxun',
 						text: '相关查询',
-						url: ''
-						// url: '/pages/search/search'
+						// url: ''
+						url: '/pages/search/search'
 					},
 					{
 						icons: 'icon-xiaoxi',
 						text: '我的消息',
-						url: ''
-						// url: '/pages/info/info'
+						// url: ''
+						url: '/pages/info/info'
 					},
 					{
 						icons: 'icon-woderenwu',
 						text: '我的任务',
-						url: ''
-						// url: '/pages/info/info'
+						// url: ''
+						url: '/pages/info/info'
 					}
 				],
 				spotVisible: false,
@@ -117,6 +127,7 @@
 			},
 			skip(i) {
 				const url = this.navList[i].url
+				console.log('url',url)
 				url && uni.navigateTo({
 					url
 				})
@@ -157,18 +168,22 @@
 			width: 25%;
 			padding-bottom: 50upx;
 
-			.nav-item-link {}
-
 			text {
 				display: block;
-				text-align: center;
+				text-align: center;		
+				// 文字
+				&.nav-item-text {					
+					margin-top: 15upx;
+					color:$font-gray;
+					// font-size: 26upx;
+				}
 
 				&.iconfont {
 					margin: 0 auto;
-					width: 82upx;
-					height: 82upx;
-					line-height: 82upx;
-					font-size: 40upx;
+					width: 90upx;
+					height: 90upx;
+					line-height: 90upx;
+					font-size: 45upx;
 					border-radius: 50%;
 					background: $blue-color;
 					color: $white-color;
@@ -176,42 +191,39 @@
 				}
 
 				&.icon-shengchang {
-					background: #fc6c6c;
+					background: #fac42d;
+					
 				}
 
 				&.icon-shebei {
-					background: #f59701;
+					background: #fe6256;
 				}
 
-				// &.icon-zhiliang {
-				// 	background: $disabled-color;
-				// }
+				&.icon-fenxi {
+					background:#81dd54;
+				}
 
 				&.icon-xiaoli {
-					background: #34bca8;
+					background: #6dadf4;
 					// background: $disabled-color;
 				}
 
 				&.icon-chaxun {
-					background: #8f82b9;
+					background: #ae7cff;
 					// background: $disabled-color;
 				}
 
 				&.icon-xiaoxi {
-					background: #0075aa;
+					background: #f08551;
 					// background: $disabled-color;
 				}
 
 				&.icon-woderenwu {
-					background: #00aa6a;
+					background: #4dd1e6;
 					// background:$disabled-color;
 				}
 
-				// 文字
-				&.nav-item-text {
-					margin-top: 10upx;
-					// font-size: 26upx;
-				}
+
 			}
 		}
 	}

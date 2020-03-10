@@ -13,8 +13,13 @@
 				<view class="pro-hd">
 					<view class="hd-name">{{item.lineName}}</view>
 					<view class="hd-percent">
-					<progress :percent="item.percent" font-size="12" activeColor='#3890d8' backgroundColor="#CCCCCC" border-radius="5" 
-					 stroke-width="3"/>
+					<progress 
+					:percent="item.percent" 
+					font-size="12"
+					activeColor='#3890d8' 
+					backgroundColor="#ddd" 
+					stroke-width="3"
+					 border-radius="5" />
 					</view>
 					<view class="hd-state">
 						{{getState(item.percent)}}{{item.percent}}%
@@ -24,7 +29,7 @@
 				<view @tap="accordion(item)" :class="[{actvie:item.isDisplay},'pro-name',]">
 					<!-- pro-actvie -->
 					<text class="name">{{item.orderNo}}</text>
-					<text :class="['iconfont',item.isDisplay?'icon-zhankai':'icon-shouqi']"></text>
+					<text :class="['iconfont',item.isDisplay?'icon-arrow-drown':'icon-arrow-up']"></text>
 				</view>
 				<!-- /产品编号 -->
 				<view class="pro-info">
@@ -83,7 +88,7 @@
 			<!-- 循环 -->
 		</view>
 		<view class="none" v-if="!productList.length">
-			暂时无数据
+			暂无数据
 		</view>
 
 	</view>
@@ -124,8 +129,9 @@
 						this.meauList = res;
 						if (res.length) {
 							this.currentItem = res[0];
+							this.getProduct();
 						}
-						this.getProduct();
+						
 					})
 					.catch(error => {
 						uni.hideLoading();
@@ -235,10 +241,7 @@
 				max-width: 200upx;
 				color: $font-bule;
 			}
-			.hd-percent{
-				flex: 1;
-				background: #bbb;
-			}
+			.hd-percent{flex: 1;}
 			.hd-state{
 				margin-left: 10upx;
 				color:$font-light-gray;

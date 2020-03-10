@@ -20,12 +20,20 @@
 			}
 		},
 		{
-			"path": "pages/quality/quality",
+			"path": "pages/product/product",
 			"style": {
-				"navigationBarTitleText": "工单不良汇总",
+				"navigationBarTitleText": "生产任务",
 				"app-plus": {
-					"bounce": "none"
-				}
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue663",
+							"float": "right",
+							"fontSrc": "/static/iconfont.ttf",
+							"fontSize": "20px"
+						}]
+					}
+				},
+				"bounce": "none"
 			}
 		},
 		{
@@ -46,20 +54,9 @@
 			}
 		},
 		{
-			"path": "pages/product/product",
+			"path": "pages/analyse/analyse",
 			"style": {
-				"navigationBarTitleText": "生产任务",
-				"app-plus": {
-					"titleNView": {
-						"buttons": [{
-							"text": "\ue663",
-							"float": "right",
-							"fontSrc": "/static/iconfont.ttf",
-							"fontSize": "20px"
-						}]
-					}
-				},
-				"bounce": "none"
+				"navigationBarTitleText": "设备效率分析"
 			}
 		},
 		{
@@ -87,6 +84,15 @@
 			}
 		},
 		{
+			"path": "pages/quality/quality",
+			"style": {
+				"navigationBarTitleText": "工单不良汇总",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+		},
+		{
 			"path": "pages/search/search",
 			"style": {
 				"navigationBarTitleText": "相关查询",
@@ -101,15 +107,6 @@
 					}
 				},
 				"bounce": "none"
-			}
-		},
-		{
-			"path": "pages/my/my",
-			"style": {
-				"navigationBarTitleText": "",
-				"app-plus": {
-					"bounce": "none"
-				}
 			}
 		},
 		{
@@ -133,6 +130,15 @@
 			"path": "pages/info/infoDetails",
 			"style": {
 				"navigationBarTitleText": "我的消息详情",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "",
 				"app-plus": {
 					"bounce": "none"
 				}
@@ -161,7 +167,10 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "阳普",
-		"navigationBarBackgroundColor": "#3890d8"
+		"navigationBarBackgroundColor": "#3890d8",
+		"usingComponents": {
+			"ly-tree-node": "/components/ly-tree/ly-tree-node"
+		}
 	},
 	// 开发环境配置
 	"condition": {
@@ -204,6 +213,10 @@
 			{
 				"name": "infoDetails",
 				"path": "pages/info/infoDetails"
+			},
+			{
+				"name": "analyse",
+				"path": "pages/analyse/analyse"
 			},
 			{
 				"name": "my",
