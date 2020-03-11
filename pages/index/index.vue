@@ -175,19 +175,19 @@
 				&.nav-item-text {					
 					margin-top: 15upx;
 					color:$font-gray;
-					// font-size: 26upx;
+					font-size: 26upx;
 				}
 
 				&.iconfont {
 					margin: 0 auto;
-					width: 90upx;
-					height: 90upx;
-					line-height: 90upx;
-					font-size: 45upx;
+					width: 95upx;
+					height: 95upx;
+					line-height: 95upx;
+					font-size: 50upx;
 					border-radius: 50%;
 					background: $blue-color;
 					color: $white-color;
-					box-shadow: 0px 1px 3px #666;
+					box-shadow: 0px 1px 3px #999;
 				}
 
 				&.icon-shengchang {

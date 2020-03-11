@@ -60,6 +60,12 @@
 			}
 		},
 		{
+			"path": "pages/analyse/analyseDetail",
+			"style": {
+				"navigationBarTitleText": "设备效率分析详情"
+			}
+		},
+		{
 			"path": "pages/effect/effect",
 			"style": {
 				"navigationBarTitleText": "效率管理",
@@ -144,10 +150,6 @@
 				}
 			}
 		}
-        ,{
-            "path" : "pages/analyse/analyseDetail",
-            "style" : {}
-        }
     ],
 	"tabBar": {
 		"borderStyle": "white",
@@ -221,6 +223,10 @@
 			{
 				"name": "analyse",
 				"path": "pages/analyse/analyse"
+			},
+			{
+				"name": "analyseDetail",
+				"path": "pages/analyse/analyseDetail"
 			},
 			{
 				"name": "my",

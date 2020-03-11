@@ -185,7 +185,7 @@ export default {
     border-bottom: 1px solid $line-dark-color;
 
     &:nth-child(even) {
-      background: #fdfdfd;
+      background: #fcfcfc;
     }
 
     .list-left {
