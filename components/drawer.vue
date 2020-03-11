@@ -52,10 +52,10 @@
 			uni.getSystemInfo({
 				success: res => {
 					// #ifdef H5
-					this.appWrapperHeight = res.screenHeight - uni.upx2px(100) + "px";
+					this.appWrapperHeight = res.screenHeight + "px";
 					// #endif
 					// #ifndef H5
-					this.appWrapperHeight = res.windowHeight - uni.upx2px(100) + "px";
+					this.appWrapperHeight = res.windowHeight  + "px";
 					// #endif
 				}
 			});

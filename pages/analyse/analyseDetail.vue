@@ -1,17 +1,14 @@
 <template>
 	<view>
-		<view class="search">
-			<input class="uni-input"  placeholder="开始时间" />
+		<view class="search">		
 			<input class="uni-input"  placeholder="结束时间" />
 			<button type="primary">页面主操作 Normal</button>
 		</view>
 		
 		<timeSelector 
-		showType="dateToTime" 
 		@btnConfirm="btnConfirm" 
 		@btnCancel="btnCancel">
-		<view class="box-title">{{ title }}</view>
-		<view class="box-time">{{ time }}</view>
+		<input class="uni-input"  placeholder="开始时间" v-model="time"/>
 		</timeSelector>
 	</view>
 </template>
@@ -25,7 +22,7 @@ export default {
 	data() {
 		return {
 			title: '当前选择器',
-			time: new Date()
+			time:''
 		};
 	},
 	onLoad() {},
