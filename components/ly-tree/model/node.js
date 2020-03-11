@@ -359,7 +359,7 @@ export default class Node {
 		const done = () => {
 			if (expandparent) {
 				let parent = this.getParent(this.parentId);
-				while (parent.level > 0) {
+				while (parent && parent.level > 0) {
 					parent.expanded = true;
 					parent = this.getParent(parent.parentId);
 				}

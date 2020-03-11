@@ -101,6 +101,10 @@
 	background-color: #F5F7FA
 }
 
+.ly-tree--highlight-current .ly-tree-node.is-checked {
+	background-color: #F5F7FA
+}
+
 .ly-tree-node_collapse {
 	overflow: hidden;
 	padding-top: 0;

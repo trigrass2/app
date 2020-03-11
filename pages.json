@@ -144,6 +144,10 @@
 				}
 			}
 		}
+        ,{
+            "path" : "pages/analyse/analyseDetail",
+            "style" : {}
+        }
     ],
 	"tabBar": {
 		"borderStyle": "white",

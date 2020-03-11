@@ -1,471 +1,486 @@
 <template>
-	<view class="device">
-		<drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
-		<view class="farm-title">
-			<text class="title">{{currentItem.wsName}}</text>
-			<!-- #ifdef MP-WEIXIN -->
-			<text class="iconfont icon-caidan1" @tap="open"></text>
-			<!-- #endif -->			
-		</view>
-		<!-- 抽屉菜单-->
-		<view class="tabs">
-			<view 
-			v-for="tab in tabs" 
-			:key="tab.value" 
-			@tap="tabChage(tab.value)" 
-			:class="[{ active:current===tab.value},'tabs-items']">{{tab.label}}</view>
-		</view>
-		<!-- /tabs -->
-		<view class="tips">
-			<view class="tips-item">
-				<text class="tips-icon green-icon"></text>
-				<text>工单进度</text>
-			</view>
-			<view class="tips-item">
-				<text class="tips-icon"></text>
-				<text>模具维修进度</text>
-			</view>
-		</view>
-		<!-- /提示 -->
-		<view>
-			<view class="device-list" v-for="(item,i) in allList" :key="i">
-				<view :class="['device-hd',{deviceActive:item.isDisplay}]" @tap="accordion(item)">
-					<text class="device-name">{{item.processName}}</text>
-					<text :class="['iconfont',item.isDisplay?'icon-zhankai':'icon-shouqi']"></text>
-				</view>
-				<view v-show="item.isDisplay?item.isDisplay:false">
-					<view class="device-bd">
-						<block v-for="(device,j) in item.children" :key="j">
-							<!--启动 -->
-							<view class="device-item" v-if="device.state===1">
-								<view class="device-item-box startUp">
-									<view class="device-item-no">{{device.machineCode}}</view>
-									<view class="device-item-center">
-										<view class="device-item-left">
-											<text class="iconfont icon-zhusuji01"></text>
-										</view>
-										<view class="device-item-right">
-											<text class="device-item-name">工单：</text>
-											<text class="ellipsis">{{device.orderNo}}</text>
-										</view>
-									</view>
-									<view class="device-item-percent">
-										<progress 
-										percent="100" 
-										font-size="12" 
-										activeColor='#3890d8' 
-										backgroundColor="#ccc" 									
-										show-info 
-										stroke-width="4"
-										border-radius="5"
-										class="progress"/>
-										<progress 
-										percent="100" 
-										font-size="12" 
-										activeColor='#22b14c' 
-										backgroundColor="#ccc"
-										show-info 
-										stroke-width="4"
-										border-radius="5"
-										class="progress"/>
-									</view>
-								</view>
-							</view>
-							<!--停机 -->
-							<view class="device-item" v-if="device.state===0||device.state===-1">
-								<view :class="['device-item-box',{stop:device.state===0,fault:device.state===-1}]">
-									<!-- fault -->
-									<view class="device-item-no">{{device.machineCode}}</view>
-									<view class="device-item-center">
-										<view class="device-item-left">
-											<text class="iconfont icon-zhusuji01"></text>
-										</view>
-										<view class="device-item-right">
-											<text class="ellipsis">{{device.troubleDesc}}</text>
-											<text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
-										</view>
-									</view>
-									<view class="device-item-percent">
-										<progress 
-										percent="100" 
-										font-size="12" 
-										activeColor='#3890d8' 
-										backgroundColor="#ccc" 										
-										show-info 
-										stroke-width="4" 
-										border-radius="5"
-										class="progress"/>
-										<progress 
-										percent="100" 
-										font-size="12" 
-										activeColor='#22b14c' 
-										backgroundColor="#ccc" 										
-										show-info 
-										stroke-width="4" 
-										border-radius="5" 
-										class="progress"/>
-									</view>
-								</view>
-							</view>
-
-						</block>
-					</view>
-				</view>
-			</view>
-			<view class="none" v-if="allList.length===0">暂无数据</view>
-		</view>
-		<!-- /全部 -->
-	</view>
+  <view class="device">
+    <drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
+    <view class="farm-title">
+      <text class="title">{{currentItem.wsName}}</text>
+      <!-- #ifdef MP-WEIXIN -->
+      <text class="iconfont icon-caidan1" @tap="open"></text>
+      <!-- #endif -->
+    </view>
+    <!-- 抽屉菜单-->
+    <view class="tabs">
+      <view
+        v-for="tab in tabs"
+        :key="tab.value"
+        @tap="tabChage(tab.value)"
+        :class="[{ active:current===tab.value},'tabs-items']"
+      >{{tab.label}}</view>
+    </view>
+    <!-- /tabs -->
+    <view class="tips">
+      <view class="tips-item">
+        <text class="tips-icon green-icon"></text>
+        <text>工单进度</text>
+      </view>
+      <view class="tips-item">
+        <text class="tips-icon"></text>
+        <text>模具维修进度</text>
+      </view>
+    </view>
+    <!-- /提示 -->
+    <view>
+      <view class="device-list" v-for="(item,i) in allList" :key="i">
+        <view :class="['device-hd',{deviceActive:item.isDisplay}]" @tap="accordion(item)">
+          <text class="device-name">{{item.processName}}</text>
+          <text :class="['iconfont',item.isDisplay?'icon-zhankai':'icon-shouqi']"></text>
+        </view>
+        <view v-show="item.isDisplay?item.isDisplay:false">
+          <view class="device-bd">
+            <block v-for="(device,j) in item.children" :key="j">
+              <!--启动 -->
+              <view class="device-item" v-if="device.state===1">
+                <view class="device-item-box startUp">
+                  <view class="device-item-no">{{device.machineCode}}</view>
+                  <view class="device-item-center">
+                    <view class="device-item-left">
+                      <text class="iconfont icon-zhusuji01"></text>
+                    </view>
+                    <view class="device-item-right">
+                      <text class="device-item-name">工单：</text>
+                      <text class="ellipsis">{{device.orderNo}}</text>
+                    </view>
+                  </view>
+                  <view class="device-item-percent">
+                    <progress
+                      show-info
+                      percent="100"
+                      font-size="12"
+                      activeColor="#3890d8"
+                      backgroundColor="#ccc"
+                      stroke-width="4"
+                      border-radius="5"
+                      class="progress"
+                    />
+                    <progress
+                      show-info
+                      percent="100"
+                      font-size="12"
+                      activeColor="#22b14c"
+                      backgroundColor="#ccc"
+                      stroke-width="4"
+                      border-radius="5"
+                      class="progress"
+                    />
+                  </view>
+                </view>
+              </view>
+              <!--停机 -->
+              <view class="device-item" v-if="device.state===0||device.state===-1">
+                <view :class="['device-item-box',{stop:device.state===0,fault:device.state===-1}]">
+                  <!-- fault -->
+                  <view class="device-item-no">{{device.machineCode}}</view>
+                  <view class="device-item-center">
+                    <view class="device-item-left">
+                      <text class="iconfont icon-zhusuji01"></text>
+                    </view>
+                    <view class="device-item-right">
+                      <text class="ellipsis">{{device.troubleDesc}}</text>
+                      <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
+                    </view>
+                  </view>
+                  <view class="device-item-percent">
+                    <progress
+                      show-info
+                      percent="100"
+                      font-size="12"
+                      activeColor="#3890d8"
+                      backgroundColor="#ccc"
+                      stroke-width="4"
+                      border-radius="5"
+                      class="progress"
+                    />
+                    <progress
+                      show-info
+                      percent="100"
+                      font-size="12"
+                      activeColor="#22b14c"
+                      backgroundColor="#ccc"
+                      stroke-width="4"
+                      border-radius="5"
+                      class="progress"
+                    />
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+      <view class="none" v-if="allList.length===0">暂无数据</view>
+    </view>
+    <!-- /全部 -->
+  </view>
 </template>
 <script>
-	import drawer from "@/components/drawer.vue";
-	export default {
-		components: {
-			drawer,
-		},
-		data() {
-			return {
-				visible: false,
-				meauList: [],
-				currentItem: {},
-				allList: [],
-				// 设备
-				machineList: [],
-				// 工序
-				procedureList: [],
-				//选项卡
-				tabs: [{
-					value: 2,
-					label: "全部"
-				}, {
-					value: 1,
-					label: "启动"
-				}, {
-					value: 0,
-					label: "停机"
-				}, {
-					value: -1,
-					label: "故障"
-				}],
-				current: 2,
-				// styleType: 'text'
-				greenColour: "#22b14c"
-			};
-		},
-		computed: {
-			procedureSet() {
-				return new Set(this.procedureList.map(p => p.processCode));
-			},
-			// 设备
-			filteredMachines() {
-				const machines = this.machineList.filter(machine => this.procedureSet.has(machine.processCode))
-				if (this.current === 2) {
-					return machines
-				}
-				return machines.filter(machine => machine.state === this.current)
-			},
-			fileredProcedure() {
-				const processCodeSet = new Set(this.filteredMachines.map(machine => machine.processCode))
-				return this.procedureList.filter(procedure => processCodeSet.has(procedure.processCode))
-			}
-		},
-		onLoad() {
-			this.init();
-		},
-		onNavigationBarButtonTap(e) {
-			if (e.index === 0) {
-				this.visible = !this.visible;
-			}
-		},
-		methods: {
-			init() {
-				uni.showLoading({
-					title: "加载中",
-					mask: true
-				});
-				Promise.all([this.getProcedure(), this.getMeauData()])
-					.then(([procedure, meau]) => {
-						this.meauList = meau;
-						if (meau.length) {
-							this.currentItem = meau[0];
-							this.procedureList = procedure;
-						}
-					})
-					.then(() => {
-						uni.hideLoading();
-						this.getDevice();
-					})
-					.catch(error => {
-						uni.hideLoading();
-					});
-			},
-			//获取数据
-			getProcedure() {
-				return this.$http
-					.request({
-						url: "/api/BProcessList",
-						method: "GET"
-					})
-					.then(res => {
-						return Promise.resolve(res);
-					});
-			},
-			getMeauData() {
-				return this.$http
-					.request({
-						url: "/api/BWorkShop",
-						method: "GET"
-					})
-					.then(res => {
-						return Promise.resolve(res);
-					});
-			},
-			getDevice() {
-				uni.showLoading({
-					title: "加载中",
-					mask: true
-				});
-				this.$http
-					.request({
-						url: "/api/MachineReport/allMachineState",
-						method: "GET",
-						data: {
-							wsCode: this.currentItem.wsCode||''
-						}
-					})
-					.then(({
-						machineState: machines
-					}) => {
-						uni.hideLoading();
-						this.machineList = machines
-						// 筛选数据
-						this.setDeviceData()
-					})
-					.catch(() => {
-						uni.hideLoading();
-					});
-			},
-			setDeviceData() {
-				const machineMap = {}
+import drawer from "@/components/drawer.vue";
+export default {
+  components: {
+    drawer
+  },
+  data() {
+    return {
+      visible: false,
+      meauList: [],
+      currentItem: {},
+      allList: [],
+      // 设备
+      machineList: [],
+      // 工序
+      procedureList: [],
+      //选项卡
+      tabs: [
+        {
+          value: 2,
+          label: "全部"
+        },
+        {
+          value: 1,
+          label: "启动"
+        },
+        {
+          value: 0,
+          label: "停机"
+        },
+        {
+          value: -1,
+          label: "故障"
+        }
+      ],
+      current: 2,
+      // styleType: 'text'
+      greenColour: "#22b14c"
+    };
+  },
+  computed: {
+    procedureSet() {
+      return new Set(this.procedureList.map(p => p.processCode));
+    },
+    // 设备
+    filteredMachines() {
+      const machines = this.machineList.filter(machine =>
+        this.procedureSet.has(machine.processCode)
+      );
+      if (this.current === 2) {
+        return machines;
+      }
+      return machines.filter(machine => machine.state === this.current);
+    },
+    fileredProcedure() {
+      const processCodeSet = new Set(
+        this.filteredMachines.map(machine => machine.processCode)
+      );
+      return this.procedureList.filter(procedure =>
+        processCodeSet.has(procedure.processCode)
+      );
+    }
+  },
+  onLoad() {
+    this.init();
+  },
+  onNavigationBarButtonTap(e) {
+    if (e.index === 0) {
+      this.visible = !this.visible;
+    }
+  },
+  methods: {
+    init() {
+      uni.showLoading({
+        title: "加载中",
+        mask: true
+      });
+      Promise.all([this.getProcedure(), this.getMeauData()])
+        .then(([procedure, meau]) => {
+          this.meauList = meau;
+          if (meau.length) {
+            this.currentItem = meau[0];
+            this.procedureList = procedure;
+          }
+        })
+        .then(() => {
+          uni.hideLoading();
+          this.getDevice();
+        })
+        .catch(error => {
+          uni.hideLoading();
+        });
+    },
+    //获取数据
+    getProcedure() {
+      return this.$http
+        .request({
+          url: "/api/BProcessList",
+          method: "GET"
+        })
+        .then(res => {
+          return Promise.resolve(res);
+        });
+    },
+    getMeauData() {
+      return this.$http
+        .request({
+          url: "/api/BWorkShop",
+          method: "GET"
+        })
+        .then(res => {
+          return Promise.resolve(res);
+        });
+    },
+    getDevice() {
+      uni.showLoading({
+        title: "加载中",
+        mask: true
+      });
+      this.$http
+        .request({
+          url: "/api/MachineReport/allMachineState",
+          method: "GET",
+          data: {
+            wsCode: this.currentItem.wsCode || ""
+          }
+        })
+        .then(({ machineState: machines }) => {
+          uni.hideLoading();
+          this.machineList = machines;
+          // 筛选数据
+          this.setDeviceData();
+        })
+        .catch(() => {
+          uni.hideLoading();
+        });
+    },
+    setDeviceData() {
+      const machineMap = {};
 
-				this.filteredMachines.map(m => {
-					if (!machineMap[m.processCode]) {
-						machineMap[m.processCode] = []
-					}
-					machineMap[m.processCode].push(m)
-				});
+      this.filteredMachines.map(m => {
+        if (!machineMap[m.processCode]) {
+          machineMap[m.processCode] = [];
+        }
+        machineMap[m.processCode].push(m);
+      });
 
-				this.allList = this.fileredProcedure.map(p => {
-					p.isDisplay = true;
-					p.children = machineMap[p.processCode] || []
-					return p
-				});
-			},
-			//抽屉菜单操作
-			open() {
-				this.visible = !this.visible;
-			},
-			//回调函数抽屉关闭
-			close(val) {
-				this.visible = val;
-			},
-			getItem(val) {
-				this.currentItem = val;
-				this.visible = false;
-				// this.allList=[];
-				this.getDevice();
-			},
-			// 选项卡的操作
-			tabChage(index) {
-				this.current = index;
-				this.setDeviceData()
-			},
-			// 手风琴展开收齐
-			accordion(item) {
-				this.$set(item, "isDisplay", !item.isDisplay);
-				this.$forceUpdate();
-			}
-		}
-	};
+      this.allList = this.fileredProcedure.map(p => {
+        p.isDisplay = true;
+        p.children = machineMap[p.processCode] || [];
+        return p;
+      });
+    },
+    //抽屉菜单操作
+    open() {
+      this.visible = !this.visible;
+    },
+    //回调函数抽屉关闭
+    close(val) {
+      this.visible = val;
+    },
+    getItem(val) {
+      this.currentItem = val;
+      this.visible = false;
+      // this.allList=[];
+      this.getDevice();
+    },
+    // 选项卡的操作
+    tabChage(index) {
+      this.current = index;
+      this.setDeviceData();
+    },
+    // 手风琴展开收齐
+    accordion(item) {
+      this.$set(item, "isDisplay", !item.isDisplay);
+      this.$forceUpdate();
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-	.tabs {
-		overflow: hidden;
-		display: flex;
-		margin: 0 auto;
-		width: 450upx;
-		border: 1px solid $blue-color;
-		border-radius: 15px;
+.tabs {
+  overflow: hidden;
+  display: flex;
+  margin: 0 auto;
+  width: 450upx;
+  border: 1px solid $blue-color;
+  border-radius: 15px;
 
-		.tabs-items {
-			flex: 1;
-			text-align: center;
-			height: 60upx;
-			line-height: 60upx;
-			font-size: 26upx;
-			color: $font-gray;
-			border-right: 1px solid $blue-color;
+  .tabs-items {
+    flex: 1;
+    text-align: center;
+    height: 60upx;
+    line-height: 60upx;
+    font-size: 26upx;
+    color: $font-gray;
+    border-right: 1px solid $blue-color;
 
-			&:last-child {
-				border-right: 0;
-			}
-		}
+    &:last-child {
+      border-right: 0;
+    }
+  }
 
-		.active {
-			color: $white-color;
-			background: $blue-color;
-		}
-	}
+  .active {
+    color: $white-color;
+    background: $blue-color;
+  }
+}
 
-	.tips {
-		display: flex;
-		margin: 30upx 0 10upx 0;
-		padding: 0 40upx;
-		font-size: 25upx;
-		color: $font-gray;
+.tips {
+  display: flex;
+  margin: 30upx 0 10upx 0;
+  padding: 0 40upx;
+  font-size: 25upx;
+  color: $font-gray;
 
-		.tips-item {
-			display: flex;
-			align-items: center;
-			margin-right: 40upx;
-		}
+  .tips-item {
+    display: flex;
+    align-items: center;
+    margin-right: 40upx;
+  }
 
-		.tips-icon {
-			margin-right: 10upx;
-			width: 20upx;
-			height: 10upx;
-			background: $blue-color;
-		}
+  .tips-icon {
+    margin-right: 10upx;
+    width: 20upx;
+    height: 10upx;
+    background: $blue-color;
+  }
 
-		.green-icon {
-			background: $green-color;
-		}
-	}
+  .green-icon {
+    background: $green-color;
+  }
+}
 
-	.device-list {
-		margin-bottom: 20upx;
-		padding: 0 20upx;
+.device-list {
+  margin-bottom: 20upx;
+  padding: 0 20upx;
 
-		.device-hd {
-			display: flex;
-			align-items: center;
-			padding: 0 20upx;
-			height: 83upx;
-			font-size: 30upx;
-			color: $font-title-color;
-			background: $white-color;
+  .device-hd {
+    display: flex;
+    align-items: center;
+    padding: 0 20upx;
+    height: 83upx;
+    font-size: 30upx;
+    color: $font-title-color;
+    background: $white-color;
 
-			.device-name {
-				flex: 1;
-			}
+    .device-name {
+      flex: 1;
+    }
 
-			.iconfont {
-				width: 30upx;
-				font-size: 30upx;
-				color: $font-light-gray;
-			}
-		}
+    .iconfont {
+      width: 30upx;
+      font-size: 30upx;
+      color: $font-light-gray;
+    }
+  }
 
-		.deviceActive {
-			background: #e2dede;
-		}
+  .deviceActive {
+    background: #e2dede;
+  }
 
-		.device-bd {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			font-size: 26upx;
+  .device-bd {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 26upx;
 
-			.device-item {
-				box-sizing: border-box;
-				width: 50%;
+    .device-item {
+      box-sizing: border-box;
+      width: 50%;
 
-				.device-item-box {
-					margin: 20upx;
-					height: 210upx;
-					border: 1px solid #ccc;
-					background: $white-color;
+      .device-item-box {
+        margin: 20upx;
+        height: 210upx;
+        border: 1px solid #ccc;
+        background: $white-color;
 
-					.device-item-no {
-						height: 50upx;
-						line-height: 50upx;
-						background: #ccc;
-						text-align: center;
-					}
+        .device-item-no {
+          height: 50upx;
+          line-height: 50upx;
+          background: #ccc;
+          text-align: center;
+        }
 
-					.device-item-center {
-						display: flex;
-						overflow: hidden;
-						padding: 10upx;
-						height: 70upx;
-					}
+        .device-item-center {
+          display: flex;
+          overflow: hidden;
+          padding: 10upx;
+          height: 70upx;
+        }
 
-					.device-item-left {
-						overflow: hidden;
-						margin-right: 10upx;
-						width: 65upx;
+        .device-item-left {
+          overflow: hidden;
+          margin-right: 10upx;
+          width: 65upx;
 
-						.iconfont {
-							font-size: 60upx;
-							color: $font-light-gray;
-							line-height: 70upx;
-						}
-					}
+          .iconfont {
+            font-size: 60upx;
+            color: $font-light-gray;
+            line-height: 70upx;
+          }
+        }
 
-					.device-item-right {
-						overflow: hidden;
-						flex: 1;
-						display: flex;
-						flex-direction: column;
-						line-height: 1.5;
-						color: $font-title-color;
-					}
+        .device-item-right {
+          overflow: hidden;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          line-height: 1.5;
+          color: $font-title-color;
+        }
 
-					.device-item-percent {
-						padding: 0 20upx;
-					}
-				}
+        .device-item-percent {
+          padding: 0 20upx;
+        }
+      }
 
-				.startUp {
-					border: 1px solid $green-color;
+      .startUp {
+        border: 1px solid $green-color;
 
-					.device-item-no {
-						color: $white-color;
-						background: $green-color;
-					}
+        .device-item-no {
+          color: $white-color;
+          background: $green-color;
+        }
 
-					.device-item-name {
-						color: $font-light-gray;
-					}
-				}
+        .device-item-name {
+          color: $font-light-gray;
+        }
+      }
 
-				.stop {
-					border: 1px solid $yellow-color;
+      .stop {
+        border: 1px solid $yellow-color;
 
-					.device-item-no {
-						color: $white-color;
-						background: $yellow-color;
-					}
-				}
+        .device-item-no {
+          color: $white-color;
+          background: $yellow-color;
+        }
+      }
 
-				.fault {
-					border: 1px solid $red-color;
+      .fault {
+        border: 1px solid $red-color;
 
-					.device-item-no {
-						color: $white-color;
-						background: $red-color;
-					}
-				}
-			}
-		}
-	}
+        .device-item-no {
+          color: $white-color;
+          background: $red-color;
+        }
+      }
+    }
+  }
+}
 
-	.progress {
-		color: $font-light-gray;
-		height: 30upx;
-        /*#ifdef H5*/
-         /deep/.uni-progress-info{font-size: 24upx;}
-        /*#endif*/		
-	}
+.progress {
+  color: $font-light-gray;
+  height: 30upx;
+  /*#ifdef H5*/
+  /deep/.uni-progress-info {
+    font-size: 24upx;
+  }
+  /*#endif*/
+}
 </style>

@@ -331,6 +331,16 @@ export default class TreeStore {
 
 		this._setCheckedKeys(key, leafOnly, checkedKeys);
 	}
+	
+	toggleExpendAll(isExpandAll) {
+		const allNodes = this._getAllNodes();
+		
+		allNodes.forEach(item => {
+			const node = this.getNode(item.key); 
+			
+			if (node) isExpandAll ? node.expand() : node.collapse();
+		});
+	}
 
 	setDefaultExpandedKeys(keys) {
 		keys = keys || [];

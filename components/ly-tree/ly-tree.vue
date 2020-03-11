@@ -78,6 +78,9 @@
 			// 是否默认展开所有节点
 			defaultExpandAll: Boolean,
 			
+			// 切换全部展开、全部折叠
+			toggleExpendAll: Boolean,
+			
 			// 是否在点击节点的时候展开或者收缩节点， 默认值为 true，如果为 false，则只有点箭头图标的时候才会展开或者收缩节点
 			expandOnClickNode: {
 				type: Boolean,
@@ -197,6 +200,9 @@
 			}
 		},
 		watch: {
+			toggleExpendAll(newVal) {
+				this.store.toggleExpendAll(newVal);
+			},
 			defaultCheckedKeys(newVal) {
 				this.store.setDefaultCheckedKey(newVal);
 			},
