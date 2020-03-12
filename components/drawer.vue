@@ -1,9 +1,16 @@
 <template>
 	<uni-drawer :visible="show" :mode="mode" @close="close">
 		<scroll-view :scroll-y="true" :style="{height:appWrapperHeight}">
-			<uni-list>
-				<uni-list-item v-for="(item,index) in navData" :key="index" :title="item.wsName" @tap="getVal(item)" />
-			</uni-list>
+			<view class="list">
+				<view class="item" v-for="(item,index) in navData" :key="index" @tap="getVal(item)">
+					<view class="item-content">
+						<text class="name">{{item.wsName}}</text>
+					</view>
+					<view class="item-icon">
+						<text class="iconfont icon-arrow-right"></text>
+					</view>
+				</view>
+			</view>
 			<view class="none" v-if="!navData.length">
 				暂无数据
 			</view>
@@ -12,16 +19,12 @@
 </template>
 
 <script>
-	import uniIcons from '@/components/uni/uni-icons/uni-icons.vue'
+
 	import uniDrawer from '@/components/uni/uni-drawer/uni-drawer.vue'
-	import uniList from '@/components/uni/uni-list/uni-list.vue'
-	import uniListItem from '@/components/uni/uni-list-item/uni-list-item.vue'
+	
 	export default {
 		components: {
-			uniIcons,
 			uniDrawer,
-			uniList,
-			uniListItem
 		},
 		props: {
 			show: {
@@ -55,7 +58,7 @@
 					this.appWrapperHeight = res.screenHeight + "px";
 					// #endif
 					// #ifndef H5
-					this.appWrapperHeight = res.windowHeight  + "px";
+					this.appWrapperHeight = res.windowHeight + "px";
 					// #endif
 				}
 			});
@@ -72,9 +75,62 @@
 	}
 </script>
 
-<style scoped>
-	.aa {
-		height: 300upx;
-		background: #007AFF;
+<style lang="scss" scoped>
+	.list {
+		.item {
+			padding: 24rpx 30rpx;
+			width: 100%;
+			box-sizing: border-box;
+			flex: 1;
+			position: relative;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+
+			&:hover {
+				background-color: #f8f8f8;
+			}
+
+			&:after {
+				position: absolute;
+				z-index: 3;
+				right: 0;
+				bottom: 0;
+				left: 30rpx;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #c8c7cc;
+			}
+		}
+
+		.item-content {
+			flex: 1;
+			overflow: hidden;
+			display: flex;
+			color: #3b4144;
+			.name {
+				font-size: 32rpx;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				color: inherit;
+				line-height: 1.5;
+			}
+		}
+
+		.item-icon {
+			width: 25%;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-end;
+			align-items: center;
+
+			.iconfont {
+				color: #bbb;
+			}
+		}
 	}
 </style>

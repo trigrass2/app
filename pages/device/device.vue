@@ -32,7 +32,7 @@
       <view class="device-list" v-for="(item,i) in allList" :key="i">
         <view :class="['device-hd',{deviceActive:item.isDisplay}]" @tap="accordion(item)">
           <text class="device-name">{{item.processName}}</text>
-          <text :class="['iconfont',item.isDisplay?'icon-zhankai':'icon-shouqi']"></text>
+          <text :class="['iconfont',item.isDisplay?'icon-arrow-up':'icon-arrow-drown']"></text>
         </view>
         <view v-show="item.isDisplay?item.isDisplay:false">
           <view class="device-bd">
