@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 搜索 -->
-		<view class="search">
+		<view class="search" v-show="isShow">
 			<view class="time">
 				<view class="time-item">
 					<text class="iconfont icon-time"></text>
@@ -38,7 +38,8 @@
 		data() {
 			return {
 				startTime: "",
-				endTime: ""
+				endTime: "",
+				isShow:true,
 			};
 		},
 		onLoad() {},

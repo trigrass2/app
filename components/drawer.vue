@@ -92,18 +92,7 @@
 				background-color: #f8f8f8;
 			}
 
-			&:after {
-				position: absolute;
-				z-index: 3;
-				right: 0;
-				bottom: 0;
-				left: 30rpx;
-				height: 1px;
-				content: '';
-				-webkit-transform: scaleY(.5);
-				transform: scaleY(.5);
-				background-color: #c8c7cc;
-			}
+			@include line()
 		}
 
 		.item-content {

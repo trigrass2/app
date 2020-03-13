@@ -144,12 +144,18 @@
 		{
 			"path": "pages/my/my",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "我的",
 				"app-plus": {
 					"bounce": "none"
 				}
 			}
 		}
+        ,{
+            "path" : "pages/analyse/demo",
+            "style" : {
+				"navigationBarTitleText": "demo"
+			}
+        }
     ],
 	"tabBar": {
 		"borderStyle": "white",
@@ -231,6 +237,10 @@
 			{
 				"name": "my",
 				"path": "pages/my/my"
+			},
+			{
+				"name": "demo",
+				"path": "pages/analyse/demo"
 			}
 		]
 	}

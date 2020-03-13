@@ -140,13 +140,12 @@
 	/* 幻灯片 */
 	.swiper-box {
 		height: 400upx;
-
 		.swiper-item {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			height: 100%;
-			color: #fff;
+			color:$white-color;
 		}
 
 		.swiper-item image {
@@ -174,8 +173,7 @@
 				// 文字
 				&.nav-item-text {					
 					margin-top: 15upx;
-					color:$font-gray;
-					font-size: 26upx;
+					color:$font-title-color;
 				}
 
 				&.iconfont {

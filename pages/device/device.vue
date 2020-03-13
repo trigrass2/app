@@ -335,13 +335,13 @@ export default {
   display: flex;
   margin: 30upx 0 10upx 0;
   padding: 0 40upx;
-  font-size: 25upx;
   color: $font-gray;
 
   .tips-item {
     display: flex;
     align-items: center;
     margin-right: 40upx;
+	font-size:$font-24;
   }
 
   .tips-icon {
@@ -430,9 +430,10 @@ export default {
           overflow: hidden;
           flex: 1;
           display: flex;
-          flex-direction: column;
-          line-height: 1.5;
+          flex-direction: column;         
           color: $font-title-color;
+		  line-height: 1.5;
+		  font-size: 26upx;
         }
 
         .device-item-percent {

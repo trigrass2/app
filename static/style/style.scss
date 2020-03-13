@@ -8,13 +8,22 @@
 		line-height:1.8;
 	}
 	/*每个页面公共css */
+	// .line{
+	// 	margin: 10upx 0;
+	// 	border-top:1px solid $line-color;
+	// }
+	.none {
+		color: $font-light-gray;
+		font-size: 28upx;
+		text-align: center;
+	}
 	.farm-title {
 		display: flex;
 		flex-direction: row;
 		padding: 10px 20px;
 		height: 45upx;
 		line-height: 45upx;
-		font-size: 32upx;
+		font-size: 34upx;
 		text-align: center;
 		.title{
 			flex: 1;
@@ -23,36 +32,29 @@
 			color: $font-light-gray;
 		}
 	}
-	.none {
-		color: $font-light-gray;
-		font-size: 28upx;
-		text-align: center;
-	}
-	
 	/*我的消息*/
 	.push-info{
 		margin-top: 20upx;
-		padding: 0 20upx;
 		background: $white-color;
 	} 
 	.push-info-item{	
 		display: flex;
 		align-items: center;
-		padding: 0 20upx;
+		position:relative;
+		padding: 0 30upx;
 		height: 118upx;
-        border-bottom: 1px solid $line-color;
-	    &:last-child{
-			border-bottom: 0;
-		}
+		color:$font-title-color;
+        @include line(20upx)
 		.info-text {
-			flex: 1;
-	
+			flex: 1;	
 			.icon-yuandianxiao {
 				padding-right: 10upx;
 				font-size: 12px;
+				
 			}
 	
 			.info-time {
+				font-size:$font-26;
 				padding-left: 10upx;
 				color: $font-light-gray;
 			}

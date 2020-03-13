@@ -91,7 +91,27 @@ $disabled-color:#bbb;
 
 //背景颜色
 $bj-current-blue:#73afe7;
+$bj-gray: #fdfdfd;
 
 //文字大小
 $font-32:32upx;
 $font-30:30upx;
+$font-26:26upx;
+$font-24:24upx;
+
+
+// 函数
+@mixin line($left:30upx) {
+			&:after {
+				position: absolute;
+				z-index: 3;
+				right: 0;
+				bottom: 0;
+				left: $left;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #c8c7cc;
+			}	
+}

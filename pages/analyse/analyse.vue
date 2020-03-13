@@ -130,8 +130,7 @@
                 activeColor="#00cc66"
                 font-size="14"
                 stroke-width="4"
-                border-radius="3"
-               
+                border-radius="3"              
                 class="progress"
               />
             </view>
@@ -185,7 +184,7 @@ export default {
     border-bottom: 1px solid $line-dark-color;
 
     &:nth-child(even) {
-      background: #fcfcfc;
+      background: $bj-gray;
     }
 
     .list-left {

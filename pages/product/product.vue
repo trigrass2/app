@@ -35,11 +35,11 @@
         <view class="pro-info-box">
           <!-- /产品编号 -->
           <view class="pro-info">
-            <view class="info ellipsis pb-5">
+            <view class="info ellipsis md-10">
               <!-- <text class="info-name">产&ensp;&ensp;&ensp;&ensp;品：</text> -->
               <text class="info-name-text">{{item.productName}}</text>
             </view>
-            <view class="info-row pt-5">
+            <view class="info-row">
               <view class="info-col">
                 <text class="info-name">完&ensp;成&ensp;数：</text>
                 <text class="info-text">{{item.cpltQty}}</text>
@@ -72,6 +72,8 @@
                 <text>{{item.bomVersion}}</text>
               </view>
             </view>
+			<view class="pro-line">	
+			</view>
             <view class="info">
               <text class="info-name">工&ensp;&ensp;&ensp;&ensp;艺：</text>
               <text>{{item.flowName}}</text>
@@ -216,11 +218,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pb-5 {
+.md-10 {
   padding-bottom: 10upx;
 }
+.pro-line{
+	margin: 15upx 0;
+	height: 0;
+	border-top:1px solid $line-color;
+}
 .pro-item {
-  margin-bottom: 15upx;
+  margin-bottom: 20upx;
   padding-bottom: 10upx;
   background: $white-color;
 
@@ -255,10 +262,10 @@ export default {
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    margin-bottom: 10upx;
+    // margin-bottom: 10upx;
     padding: 0 30upx;
     height: 65upx;
-    font-size: 30upx;
+    font-size:$font-30;
     border-top: 1px solid $line-color;
     //   background: #eaf2f8;
 
@@ -270,7 +277,7 @@ export default {
     }
 
     .iconfont {
-      font-size: 26upx;
+      font-size: $font-26;
       color: $font-light-gray;
     }
   }
@@ -291,16 +298,16 @@ export default {
 /*生产信息*/
 .pro-info {
   margin: 0 30upx;
-  line-height: 40upx;
+  line-height: 1.5;
   color: $font-bule;
 
   .info-name {
     padding-right: 10upx;
-    color: $font-light-gray;
+    color: $font-gray;
   }
 
   .info-name-text {
-    color: #444;
+    color: $font-title-color;
   }
 
   .info-text {
