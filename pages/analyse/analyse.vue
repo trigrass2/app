@@ -15,7 +15,7 @@
 			</text>
         <text class="iconfont icon-caidan1" @tap="handleShowTree"></text>
       </view>
-      <view class="list-item">
+      <view class="list-item" @tap="skip()">
         <view class="list-left">
           <view class="row">
             <view class="col-name">名称：</view>
@@ -47,99 +47,6 @@
         </view>
       </view>
       <!-- 1 -->
-      <view class="list-item">
-        <view class="list-left">
-          <view class="row">
-            <view class="col-name">名称：</view>
-            <view class="col-text">化妆品机器设备</view>
-          </view>
-          <view class="row">
-            <view class="col-name">编号：</view>
-            <view class="col-text">GBT 15834-2011 8</view>
-          </view>
-          <view class="row">
-            <view class="col-name">效率：</view>
-            <view class="col-text">
-              <progress
-                active
-                show-info
-                percent="80"
-                activeColor="#00cc66"
-                font-size="12"
-                stroke-width="4"
-                border-radius="3"
-                duration="10"
-                class="progress"
-              />
-            </view>
-          </view>
-        </view>
-        <view class="list-right">
-          <text class="iconfont icon-arrow-right"></text>
-        </view>
-      </view>
-      <view class="list-item">
-        <view class="list-left">
-          <view class="row">
-            <view class="col-name">名称：</view>
-            <view class="col-text">化妆品机器设备</view>
-          </view>
-          <view class="row">
-            <view class="col-name">编号：</view>
-            <view class="col-text">GBT 15834-2011 8</view>
-          </view>
-          <view class="row">
-            <view class="col-name">效率：</view>
-            <view class="col-text">
-              <progress
-                active
-                show-info
-                percent="80"
-                activeColor="#00cc66"
-                font-size="14"
-                stroke-width="4"
-                border-radius="3"
-                duration="10"
-                class="progress"
-              />
-            </view>
-          </view>
-        </view>
-        <view class="list-right">
-          <text class="iconfont icon-arrow-right"></text>
-        </view>
-      </view>
-      <view class="list-item">
-        <view class="list-left">
-          <view class="row">
-            <view class="col-name">名称：</view>
-            <view class="col-text">化妆品机器设备</view>
-          </view>
-          <view class="row">
-            <view class="col-name">编号：</view>
-            <view class="col-text">GBT 15834-2011 8</view>
-          </view>
-          <view class="row">
-            <view class="col-name">效率：</view>
-            <view class="col-text">
-              <progress
-			   show-info
-                active
-				duration="5"                
-                percent="80"
-                activeColor="#00cc66"
-                font-size="14"
-                stroke-width="4"
-                border-radius="3"              
-                class="progress"
-              />
-            </view>
-          </view>
-        </view>
-        <view class="list-right">
-          <text class="iconfont icon-arrow-right"></text>
-        </view>
-      </view>
     </view>
   </view>
 </template>
@@ -157,6 +64,7 @@ export default {
     };
   },
   methods: {
+	  // tree
     handleShowTree() {
       this.showTree = !this.showTree;
     },
@@ -166,7 +74,12 @@ export default {
     confirm(data) {
       this.selectedData = data;
       this.showTree = false;
-    }
+    },
+	skip(){
+		uni.navigateTo({
+			url:'/pages/analyse/analyseDetail'
+		});
+	}
   }
 };
 </script>

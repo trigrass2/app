@@ -14,7 +14,7 @@
 		<view class="nav">
 			<view class="nav-item" v-for="(item,i) in navList" :key="i">
 				<!-- 	<navigator class="nav-item-link" hover-class="none" :url="item.url"> -->
-				<view @tap="skip(i)">
+				<view @tap="skip(item)">
 					<text :class="['iconfont',item.icons]"></text>
 					<text class="nav-item-text">{{item.text}}</text>
 				</view>
@@ -125,9 +125,8 @@
 			change(e) {
 				this.current = e.detail.current;
 			},
-			skip(i) {
-				const url = this.navList[i].url
-				console.log('url',url)
+			skip(item) {
+				const {url} = item
 				url && uni.navigateTo({
 					url
 				})

@@ -140,7 +140,7 @@
 						name: Math.round(chartData.series[0].data * 100) + '%',
 						color:'#0066cc',
 						fontSize: 17 * _self.pixelRatio,
-						offsetY: 35 * _self.pixelRatio, //新增参数，自定义调整Y轴文案距离
+						offsetY: 25 * _self.pixelRatio, //新增参数，自定义调整Y轴文案距离
 					},
 					extra: {
 						gauge: {

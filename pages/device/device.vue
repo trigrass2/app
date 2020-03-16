@@ -4,6 +4,7 @@
     <view class="farm-title">
       <text class="title">{{currentItem.wsName}}</text>
       <!-- #ifdef MP-WEIXIN -->
+	  <text class="iconfont icon-refresh" @tap="getDevice"></text>
       <text class="iconfont icon-caidan1" @tap="open"></text>
       <!-- #endif -->
     </view>
@@ -30,11 +31,11 @@
     <!-- /提示 -->
     <view>
       <view class="device-list" v-for="(item,i) in allList" :key="i">
-        <view :class="['device-hd',{deviceActive:item.isDisplay}]" @tap="accordion(item)">
+        <view :class="['device-hd',{deviceActive:item.deviceVisible}]" @tap="accordion(item)">
           <text class="device-name">{{item.processName}}</text>
-          <text :class="['iconfont',item.isDisplay?'icon-arrow-up':'icon-arrow-drown']"></text>
+          <text :class="['iconfont',item.deviceVisible?'icon-delta-drown':'icon-delta-up']"></text>
         </view>
-        <view v-show="item.isDisplay?item.isDisplay:false">
+        <view v-show="item.deviceVisible?item.deviceVisible:false">
           <view class="device-bd">
             <block v-for="(device,j) in item.children" :key="j">
               <!--启动 -->
@@ -191,13 +192,19 @@ export default {
     if (e.index === 0) {
       this.visible = !this.visible;
     }
+	if (e.index === 1) {
+	  this.getDevice()
+	}
+  },
+  onPullDownRefresh() {
+  	this.getDevice();
   },
   methods: {
     init() {
-      uni.showLoading({
-        title: "加载中",
-        mask: true
-      });
+      // uni.showLoading({
+      //   title: "加载中",
+      //   mask: true
+      // });
       Promise.all([this.getProcedure(), this.getMeauData()])
         .then(([procedure, meau]) => {
           this.meauList = meau;
@@ -207,12 +214,12 @@ export default {
           }
         })
         .then(() => {
-          uni.hideLoading();
+          // uni.hideLoading();
           this.getDevice();
         })
-        .catch(error => {
-          uni.hideLoading();
-        });
+        // .catch(error => {
+        //   uni.hideLoading();
+        // });
     },
     //获取数据
     getProcedure() {
@@ -240,6 +247,7 @@ export default {
         title: "加载中",
         mask: true
       });
+	  let timestamp1 = new Date().getTime();
       this.$http
         .request({
           url: "/api/MachineReport/allMachineState",
@@ -249,7 +257,7 @@ export default {
           }
         })
         .then(({ machineState: machines }) => {
-          uni.hideLoading();
+         this.$loadTime(timestamp1)
           this.machineList = machines;
           // 筛选数据
           this.setDeviceData();
@@ -269,7 +277,7 @@ export default {
       });
 
       this.allList = this.fileredProcedure.map(p => {
-        p.isDisplay = true;
+        p.deviceVisible = true;
         p.children = machineMap[p.processCode] || [];
         return p;
       });
@@ -295,10 +303,11 @@ export default {
     },
     // 手风琴展开收齐
     accordion(item) {
-      this.$set(item, "isDisplay", !item.isDisplay);
+      this.$set(item, "deviceVisible", !item.deviceVisible);
       this.$forceUpdate();
     }
   }
+  
 };
 </script>
 

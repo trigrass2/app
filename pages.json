@@ -1,5 +1,5 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [ 
 		{
 			"path": "pages/login/login",
 			"style": {
@@ -23,33 +23,49 @@
 			"path": "pages/product/product",
 			"style": {
 				"navigationBarTitleText": "生产任务",
+				"enablePullDownRefresh": true,
 				"app-plus": {
 					"titleNView": {
-						"buttons": [{
+						"buttons": [
+							{
 							"text": "\ue663",
 							"float": "right",
-							"fontSrc": "/static/iconfont.ttf",
+							"fontSrc": "/static/style/font/iconfont.ttf",
 							"fontSize": "20px"
-						}]
+						},
+						{
+							"text": "\ue631",
+							"float": "right",
+							"fontSrc": "/static/style/font/iconfont.ttf",
+							"fontSize": "20px"
+						}
+						]
 					}
-				},
-				"bounce": "none"
+				}
 			}
 		},
 		{
 			"path": "pages/device/device",
 			"style": {
 				"navigationBarTitleText": "设备管理",
+				"enablePullDownRefresh": true,
 				"app-plus": {
 					"titleNView": {
-						"buttons": [{
+						"buttons": [
+							{
 							"text": "\ue663",
 							"float": "right",
-							"fontSrc": "/static/iconfont.ttf",
+							"fontSrc": "/static/style/font/iconfont.ttf",
 							"fontSize": "20px"
-						}]
-					},
-					"bounce": "none"
+						},
+						{
+							"text": "\ue631",
+							"float": "right",
+							"fontSrc": "/static/style/font/iconfont.ttf",
+							"fontSize": "20px"
+						}
+						]
+					}
 				}
 			}
 		},
@@ -74,13 +90,13 @@
 						"buttons": [{
 								"text": "\ue663",
 								"float": "right",
-								"fontSrc": "/static/iconfont.ttf",
+								"fontSrc": "/static/style/font/iconfont.ttf",
 								"fontSize": "20px"
 							},
 							{
 								"text": "\ue631",
 								"float": "right",
-								"fontSrc": "/static/iconfont.ttf",
+								"fontSrc": "/static/style/font/iconfont.ttf",
 								"fontSize": "20px"
 							}
 						]
@@ -107,7 +123,7 @@
 						"buttons": [{
 							"text": "\ue69f",
 							"float": "right",
-							"fontSrc": "/static/iconfont.ttf",
+							"fontSrc": "/static/style/font/iconfont.ttf",
 							"fontSize": "20px"
 						}]
 					}
@@ -124,7 +140,7 @@
 						"buttons": [{
 							"text": "\ue634",
 							"float": "right",
-							"fontSrc": "/static/iconfont.ttf",
+							"fontSrc": "/static/style/font/iconfont.ttf",
 							"fontSize": "20px"
 						}]
 					}
@@ -150,12 +166,6 @@
 				}
 			}
 		}
-        ,{
-            "path" : "pages/analyse/demo",
-            "style" : {
-				"navigationBarTitleText": "demo"
-			}
-        }
     ],
 	"tabBar": {
 		"borderStyle": "white",
@@ -237,10 +247,6 @@
 			{
 				"name": "my",
 				"path": "pages/my/my"
-			},
-			{
-				"name": "demo",
-				"path": "pages/analyse/demo"
 			}
 		]
 	}

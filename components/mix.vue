@@ -1,104 +1,97 @@
 <template>
 	<view>
-		<scroll-view  
-		class="scroll-view"
-		scroll-x="true">	
-		<view 
-		class="mix"
-		:style="{'width':mixWidth+'px'}"
-		v-if="typeList.length">
-			<view 
-			class="min-item"
-			v-for="(chart,i) of chartList"
-			:key="i"
-			:style="{'background-color':getColor(chart.state),'width':chart.value}">
+		<scroll-view class="scroll-view" scroll-x="true">
+			<canvas :style="{'width': cWidth,'height': cHeight}" canvas-id="myCanvas" class="myCanvas"></canvas>
+		</scroll-view>
+		<view class="type" v-if="color.length">
+			<view class="type-item" v-for="item of color" :key="item.state">
+				<text class="type-icon" :style="{'background-color':item.color}"></text>
+				<text class="type-text">{{item.name}}</text>
 			</view>
 		</view>
-		</scroll-view >
-		<!-- 说明 -->
-		<view class="type" 
-		v-if="typeList.length">
-			<view 
-			class="type-item"
-			v-for="type of typeList"
-			:key="type.state">
-				<text 
-				class="type-icon" 
-				:style="{'background-color':type.color}"></text>
-				<text class="type-text">{{type.name}}</text>
-			</view>
-		</view>
-		<!-- 分页 -->
-		<view>
-			<text>{{total}}--{{mixWidth}}</text>
-		</view>
-		<view class="icon">	
-			<text class="iconfont icon-plus" @tap="handlePlus"></text>
-			<text class="iconfont icon-reduce" @tap="handleReduce"></text>
-		</view>
+	</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		props:{
-			typeList:{
-				type:Array
+		props: {
+			width: {
+				type: Number,
+				default: 0
 			},
-			chartList:{
-				type:Array
+			height: {
+				type: Number,
+				default: 0
+			},
+			list: {
+				type: Array,
+				default: () => {
+					return []
+				}
+			},
+			color: {
+				type: Array,
+				default: () => {
+					return []
+				}
 			}
+
+		},
+		onReady: function() {
+			this.cWidth = uni.upx2px(750) + 'px';
+			this.cHeight = uni.upx2px(50) + 'px';
+			this.inti()
 		},
 		data() {
 			return {
-				total:1
+				cWidth: '',
+				cHeight: '',
 			}
 		},
-		computed:{
-			mixWidth:function(){
-				return uni.upx2px(690)*this.total
-			}
-		},
-		methods:{
-			getColor(state){
-			  const typeArr=this.typeList.filter(type=>{
-				return type.state===state
-			  })
-			  const [{color}]=typeArr;
-			  return color;
-			},
-			handlePlus(){
-				// this.total=this.total++
-				console.log('this.total++',this.total++)
-				console.log('this.total',this.total)
-			},
-			handleReduce(){
-				if(this.total===1){
-					return false
+		methods: {
+			inti() {
+				const ctx = uni.createCanvasContext('myCanvas', this)
+				let x = 0;
+
+				this.list.forEach((item, i) => {
+					const [{
+						color
+					}] = this.color.filter(item2 => {
+						return item2.state === item.state
+					});
+
+					ctx.setFillStyle(color)
+					ctx.fillRect(x, 0, item.value, 50)
+					x = x + item.value
+				})
+				ctx.fill()
+				// 清空画板
+				if (!this.list.length) {
+					ctx.clearRect(0, 0, cWidth, cWidth);
 				}
-				// this.total=this.total--
-				console.log('this.total--',this.total--)
-				console.log('this.total',this.total)
+				ctx.draw()
+
+
 			},
 		}
 	}
 </script>
 
-<style lang="scss" scoped>
-	.scroll-view{
+<style lang="scss">
+	.scroll-view {
+		margin-top: 20upx;
 		width: 690upx;
 	}
-	.mix {
-		display: flex;
-		flex-direction: row;
-		// width: 690upx;
-		height: 60upx;
-		background-color: #ccc;
 
-		.min-item {
-			background-color: #007AFF;
-			width: 20%;
-		}
+	.myCanvas {
+		background-color: #f8f8f8;
+	}
+
+	.echart {
+		width: 690upx;
+		height: 50upx;
+		border: 1px solid #4CD964;
 	}
 
 	.type {
@@ -112,21 +105,16 @@
 			justify-content: center;
 			align-items: center;
 			margin-right: 25upx;
-			font-size: $font-24;
-			color: $font-gray;
+			font-size: 24upx;
+			color: #999;
 
 			.type-icon {
-				margin-right: 10upx;
+				margin-right: 8upx;
 				width: 20upx;
-				height: 10upx;
+				height: 15upx;
+				border-radius: 5upx;
 				background-color: #007AFF;
 			}
-		}
-	}
-	// 测试需要用样式
-	.icon{
-		.iconfont{
-			margin-right: 30upx;
 		}
 	}
 </style>
