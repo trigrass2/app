@@ -13,7 +13,9 @@
 			<text class="iconfont icon-list"></text>
 			类型列表
 			</text>
-        <text class="iconfont icon-caidan1" @tap="handleShowTree"></text>
+		<view class="icon-box">	
+        <text class="iconfont icon-menu" @tap="handleShowTree"></text>
+		</view>
       </view>
       <view class="list-item" @tap="skip()">
         <view class="list-left">
@@ -77,7 +79,7 @@ export default {
     },
 	skip(){
 		uni.navigateTo({
-			url:'/pages/analyse/analyseDetail'
+			url:'/pages/analyse/analyseDetail?name=化妆品机器设备'
 		});
 	}
   }

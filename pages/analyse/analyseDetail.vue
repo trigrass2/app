@@ -4,17 +4,15 @@
 		<view class="search">
 			<view class="analyse-title">
 				<view class="sub-title">搜索</view>
-				<text 
-				:class="['iconfont',item.productVisible?'icon-delta-up':'icon-delta-drown']"
-				@tap="searchDisplay"></text>
-			</view>		
+				<text :class="['iconfont',item.productVisible?'icon-delta-up':'icon-delta-drown']" @tap="searchDisplay"></text>
+			</view>
 			<view class="box" v-show="searchVisible">
 				<view class="time">
 					<view class="time-item">
 						<text class="iconfont icon-time"></text>
 						<view class="time-input">
 							<timeSelector @btnConfirm="startConfirm">
-								<input class="uni-input" placeholder="开始时间" v-model="startTime" />
+								<view class="time-text">{{startTime}}</view>
 							</timeSelector>
 						</view>
 					</view>
@@ -22,7 +20,7 @@
 						<text class="iconfont icon-time"></text>
 						<view class="time-input">
 							<timeSelector @btnConfirm="endConfirm">
-								<input class="uni-input" placeholder="结束时间" v-model="endTime" />
+								<view class="time-text">{{endTime}}</view>
 							</timeSelector>
 						</view>
 					</view>
@@ -131,14 +129,14 @@
 		data() {
 			return {
 				// 时间
-				searchVisible:true,
-				startTime: "",
-				endTime: "",
+				searchVisible: true,
+				startTime: '开始时间',
+				endTime: '结束时间',
 				// 饼图
-				cWidth: "",
-				cHeight: "",
+				cWidth: '',
+				cHeight: '',
 				pixelRatio: 1,
-				serverData: "",
+				serverData: '',
 				piearr: [],
 				// 占比
 				list: [{
@@ -167,13 +165,20 @@
 
 			};
 		},
-		onLoad() {
-			_self = this;
+		onLoad(option) {
+			// 设置标题
+			this.setText(option.name)
+				// 初始化图标
+				_self = this;
 			this.cWidth = uni.upx2px(750);
 			this.cHeight = uni.upx2px(500);
 			this.getServerData();
 		},
 		methods: {
+			setText(title) {
+				uni.setNavigationBarTitle({title:title?title:'设备效率分析详情'})
+			},
+			// 时间
 			startConfirm(e) {
 				this.startTime = e.key;
 			},
@@ -247,8 +252,8 @@
 					}
 				});
 			},
-			searchDisplay(){
-				this.searchVisible=!this.searchVisible;
+			searchDisplay() {
+				this.searchVisible = !this.searchVisible;
 			}
 		}
 	};
@@ -268,26 +273,26 @@
 		.time-item {
 			display: flex;
 			flex-direction: row;
-			justify-content: center;
+			// justify-content: center;
 			align-items: center;
 			padding: 0 20upx;
+
 			background: $white-color;
 
 			&:first-child {
 				border-bottom: 1px solid $line-dark-color;
 			}
 
-			.time-input {
-				flex: 1;
+			.time-text {
+				width: 600upx;
+				height: 60upx;
+				line-height: 60upx;
+				padding: 0 15upx;
+				color: $font-light-gray;
 			}
 
 			.iconfont {
 				color: $font-light-gray;
-			}
-
-			.uni-input {
-				padding: 10upx 20upx;
-				line-height: normal;
 			}
 
 		}
@@ -307,7 +312,7 @@
 
 	// 饼图
 	.sub-title {
-		border-left: 10rpx solid #0ea391;
+		border-left: 10rpx solid $blue-color;
 		padding-left: 10rpx;
 		font-size: $font-32;
 		color: #000;
@@ -321,8 +326,9 @@
 		.sub-title {
 			flex: 1;
 		}
+
 		.iconfont {
-			padding-left:15upx;
+			padding-left: 15upx;
 			color: $font-light-gray;
 		}
 	}
@@ -367,6 +373,7 @@
 				border-right: 1px solid $line-dark-color;
 				padding-left: 20upx;
 				line-height: 2.5;
+
 				&:last-child {
 					border: 0;
 				}
@@ -390,6 +397,7 @@
 
 	.formula-list {
 		padding: 10upx 30upx 30upx 30upx;
+
 		.formula-item {
 			position: relative;
 			padding: 20upx 0;

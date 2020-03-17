@@ -4,7 +4,9 @@
 		<view class="farm-title">
 			<text class="title">{{currentItem.wsName}}</text>
 			 <!-- #ifdef MP-WEIXIN -->
-			<text class="iconfont icon-caidan1" @tap="open"></text>
+			 <view class="icon-box">
+			<text class="iconfont icon-menu" @tap="open"></text>
+			</view>
 			<!-- #endif -->			
 		</view>
 		<!-- 抽屉菜单 -->

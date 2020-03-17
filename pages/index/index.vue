@@ -15,7 +15,7 @@
 			<view class="nav-item" v-for="(item,i) in navList" :key="i">
 				<!-- 	<navigator class="nav-item-link" hover-class="none" :url="item.url"> -->
 				<view @tap="skip(item)">
-					<text :class="['iconfont',item.icons]"></text>
+					<text :class="['iconfont',item.icons]" :style="{'background-color':item.color}"></text>
 					<text class="nav-item-text">{{item.text}}</text>
 				</view>
 				<!-- 	</navigator> -->
@@ -71,50 +71,59 @@
 				current: 0,
 				//nav
 				navList: [{
-						icons: 'icon-shengchang',
+						icons: 'icon-produce',
 						text: '生产详情',
-						url: '/pages/product/product'
+						url: '/pages/product/product',
+						color: '#3890d8'
 					},
 					{
-						icons: 'icon-shebei',
+						icons: 'icon-device',
 						text: '设备管理',
-						url: '/pages/device/device'
+						url: '/pages/device/device',
+						color: '#fe6256'
+
 					},
 					{
-						icons: 'icon-fenxi',
+						icons: 'icon-analyse',
 						text: '效力分析',
 						// url: ''
-						url: '/pages/analyse/analyse'
+						url: '/pages/analyse/analyse',
+						color: '#81dd54'
 					},
 					{
-						icons: 'icon-xiaoli',
+						icons: 'icon-effict',
 						text: '效力管理',
 						// url: ''
-						url: '/pages/effect/effect'
+						url: '/pages/effect/effect',
+						color: '#6dadf4'
 					},
 					{
-						icons: 'icon-zhiliang',
+						icons: 'icon-quality',
 						text: '质量管理',
 						// url: ''
-						url: '/pages/quality/quality'
+						url: '/pages/quality/quality',
+						color: '#fac42d'
 					},
 					{
 						icons: 'icon-chaxun',
 						text: '相关查询',
 						// url: ''
-						url: '/pages/search/search'
+						url: '/pages/search/search',
+						color: '#ae7cff'
 					},
 					{
-						icons: 'icon-xiaoxi',
+						icons: 'icon-message',
 						text: '我的消息',
 						// url: ''
-						url: '/pages/info/info'
+						url: '/pages/info/info',
+						color: '#f08551'
 					},
 					{
-						icons: 'icon-woderenwu',
+						icons: 'icon-task',
 						text: '我的任务',
 						// url: ''
-						url: '/pages/info/info'
+						url: '/pages/info/info',
+						color: '#4dd1e6'
 					}
 				],
 				spotVisible: false,
@@ -127,9 +136,15 @@
 			},
 			skip(item) {
 				const {url} = item
-				url && uni.navigateTo({
-					url
-				})
+				if (url==='/pages/product/product'||url==='/pages/device/device') {
+					url && uni.switchTab({url})
+				} else {
+					url && uni.navigateTo({url})
+				}
+
+
+
+
 			}
 		}
 	}
@@ -139,12 +154,13 @@
 	/* 幻灯片 */
 	.swiper-box {
 		height: 400upx;
+
 		.swiper-item {
 			display: flex;
 			justify-content: center;
 			align-items: center;
 			height: 100%;
-			color:$white-color;
+			color: $white-color;
 		}
 
 		.swiper-item image {
@@ -168,11 +184,12 @@
 
 			text {
 				display: block;
-				text-align: center;		
+				text-align: center;
+
 				// 文字
-				&.nav-item-text {					
+				&.nav-item-text {
 					margin-top: 15upx;
-					color:$font-title-color;
+					color: $font-title-color;
 				}
 
 				&.iconfont {
@@ -185,42 +202,8 @@
 					background: $blue-color;
 					color: $white-color;
 					box-shadow: 0px 1px 3px #999;
+
 				}
-
-				&.icon-shengchang {
-					background: #fac42d;
-					
-				}
-
-				&.icon-shebei {
-					background: #fe6256;
-				}
-
-				&.icon-fenxi {
-					background:#81dd54;
-				}
-
-				&.icon-xiaoli {
-					background: #6dadf4;
-					// background: $disabled-color;
-				}
-
-				&.icon-chaxun {
-					background: #ae7cff;
-					// background: $disabled-color;
-				}
-
-				&.icon-xiaoxi {
-					background: #f08551;
-					// background: $disabled-color;
-				}
-
-				&.icon-woderenwu {
-					background: #4dd1e6;
-					// background:$disabled-color;
-				}
-
-
 			}
 		}
 	}

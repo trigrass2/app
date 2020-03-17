@@ -4,8 +4,10 @@
     <view class="farm-title">
       <text class="title">{{currentItem.wsName}}</text>
       <!-- #ifdef MP-WEIXIN -->
-	  <text class="iconfont icon-refresh" @tap="getDevice"></text>
-      <text class="iconfont icon-caidan1" @tap="open"></text>
+      <view class="icon-box">
+        <text class="iconfont icon-refresh" @tap="getDevice"></text>
+        <text class="iconfont icon-menu" @tap="open"></text>
+      </view>
       <!-- #endif -->
     </view>
     <!-- 抽屉菜单-->
@@ -44,7 +46,7 @@
                   <view class="device-item-no">{{device.machineCode}}</view>
                   <view class="device-item-center">
                     <view class="device-item-left">
-                      <text class="iconfont icon-zhusuji01"></text>
+                      <text class="iconfont icon-machine"></text>
                     </view>
                     <view class="device-item-right">
                       <text class="device-item-name">工单：</text>
@@ -82,7 +84,7 @@
                   <view class="device-item-no">{{device.machineCode}}</view>
                   <view class="device-item-center">
                     <view class="device-item-left">
-                      <text class="iconfont icon-zhusuji01"></text>
+                      <text class="iconfont icon-machine"></text>
                     </view>
                     <view class="device-item-right">
                       <text class="ellipsis">{{device.troubleDesc}}</text>
@@ -192,19 +194,17 @@ export default {
     if (e.index === 0) {
       this.visible = !this.visible;
     }
-	if (e.index === 1) {
-	  this.getDevice()
-	}
+    if (e.index === 1) {
+      this.getDevice();
+    }
   },
   onPullDownRefresh() {
-  	this.getDevice();
+    this.getDevice().then(() => {
+      uni.stopPullDownRefresh();
+    });
   },
   methods: {
     init() {
-      // uni.showLoading({
-      //   title: "加载中",
-      //   mask: true
-      // });
       Promise.all([this.getProcedure(), this.getMeauData()])
         .then(([procedure, meau]) => {
           this.meauList = meau;
@@ -214,12 +214,8 @@ export default {
           }
         })
         .then(() => {
-          // uni.hideLoading();
           this.getDevice();
-        })
-        // .catch(error => {
-        //   uni.hideLoading();
-        // });
+        });
     },
     //获取数据
     getProcedure() {
@@ -247,8 +243,8 @@ export default {
         title: "加载中",
         mask: true
       });
-	  let timestamp1 = new Date().getTime();
-      this.$http
+      let timestamp1 = new Date().getTime();
+      return this.$http
         .request({
           url: "/api/MachineReport/allMachineState",
           method: "GET",
@@ -257,7 +253,7 @@ export default {
           }
         })
         .then(({ machineState: machines }) => {
-         this.$loadTime(timestamp1)
+          this.$loadTime(timestamp1);
           this.machineList = machines;
           // 筛选数据
           this.setDeviceData();
@@ -307,7 +303,6 @@ export default {
       this.$forceUpdate();
     }
   }
-  
 };
 </script>
 
@@ -350,7 +345,7 @@ export default {
     display: flex;
     align-items: center;
     margin-right: 40upx;
-	font-size:$font-24;
+    font-size: $font-24;
   }
 
   .tips-icon {
@@ -439,10 +434,10 @@ export default {
           overflow: hidden;
           flex: 1;
           display: flex;
-          flex-direction: column;         
+          flex-direction: column;
           color: $font-title-color;
-		  line-height: 1.5;
-		  font-size: 26upx;
+          line-height: 1.5;
+          font-size: 26upx;
         }
 
         .device-item-percent {
@@ -487,10 +482,12 @@ export default {
 .progress {
   color: $font-light-gray;
   height: 30upx;
+
   /*#ifdef H5*/
   /deep/.uni-progress-info {
     font-size: 24upx;
   }
+
   /*#endif*/
 }
 </style>

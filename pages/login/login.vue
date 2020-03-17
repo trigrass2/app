@@ -10,11 +10,11 @@
 		 	<view class="login-form">
 		 		<view class="login">
 		 			<view class="login-item line">
-		 				<text class="iconfont icon-yonghu1"></text>
+		 				<text class="iconfont icon-user"></text>
 		 				<input class="login-input" placeholder="账号" v-model="user">
 		 			</view>
 		 			<view class="login-item">
-		 				<text class="iconfont icon-mima"></text>
+		 				<text class="iconfont icon-password"></text>
 		 				<input class="login-input"  password placeholder="密码" v-model="password" />
 		 			</view>
 		 		</view>

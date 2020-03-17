@@ -4,12 +4,14 @@
 		<view class="farm-title">
 			<text class="title">{{currentItem.wsName}}</text>
 			<!-- #ifdef MP-WEIXIN -->
-			<text class="iconfont icon-refresh" @tap="getProduct"></text>
-			<text class="iconfont icon-caidan1" @tap="open"></text>
+			<view class="icon-box">
+				<text class="iconfont icon-refresh" @tap="getProduct"></text>
+				<text class="iconfont icon-menu" @tap="open"></text>
+			</view>
 			<!-- #endif -->
 		</view>
 		<!-- 抽屉菜单 -->
-		<view>
+		<view class="pro-list">
 			<view class="pro-item" v-for="item in productList" :key="item.orderNo">
 				<view class="pro-hd">
 					<view class="hd-name">{{item.lineName}}</view>
@@ -29,26 +31,26 @@
 					<!-- /产品编号 -->
 					<view class="pro-info">
 						<view class="info ellipsis md-10">
-							<!-- <text class="info-name">产&ensp;&ensp;&ensp;&ensp;品：</text> -->
+							<!-- <text class="info-name">产&emsp;&emsp;&emsp;&emsp;品：</text> -->
 							<text class="info-name-text">{{item.productName}}</text>
 						</view>
 						<view class="info-row">
 							<view class="info-col">
-								<text class="info-name">完&ensp;成&ensp;数：</text>
+								<text class="info-name">完&ensp;成&ensp;数</text>
 								<text class="info-text">{{item.cpltQty}}</text>
 							</view>
 							<view class="info-col">
-								<text class="info-name">计&ensp;划&ensp;数：</text>
+								<text class="info-name">计&ensp;划&ensp;数</text>
 								<text class="info-text">{{item.qty}}</text>
 							</view>
 						</view>
 						<view class="info-row">
 							<view class="info-col">
-								<text class="info-name">良&ensp;&ensp;&ensp;&ensp;率：</text>
+								<text class="info-name">良&emsp;&emsp;率</text>
 								<text class="info-text">{{item.yield}}%</text>
 							</view>
 							<view class="info-col">
-								<text class="info-name">备&ensp;&ensp;&ensp;&ensp;料：</text>
+								<text class="info-name">备&emsp;&emsp;料</text>
 								<text class="info-text">0%</text>
 							</view>
 						</view>
@@ -57,26 +59,26 @@
 					<view class="pro-info" v-show="item.productVisible">
 						<view class="info-row">
 							<view class="info-col">
-								<text class="info-name">客&ensp;&ensp;&ensp;&ensp;户：</text>
+								<text class="info-name">客&emsp;&emsp;户</text>
 								<text>{{item.customer}}</text>
 							</view>
 							<view class="info-col">
-								<text class="info-name">版&ensp;&ensp;&ensp;&ensp;本：</text>
+								<text class="info-name">版&emsp;&emsp;本</text>
 								<text>{{item.bomVersion}}</text>
 							</view>
 						</view>
 						<view class="pro-line">
 						</view>
 						<view class="info">
-							<text class="info-name">工&ensp;&ensp;&ensp;&ensp;艺：</text>
+							<text class="info-name">工&emsp;&emsp;艺</text>
 							<text>{{item.flowName}}</text>
 						</view>
 						<view class="info">
-							<text class="info-name">备&ensp;&ensp;&ensp;&ensp;注：</text>
+							<text class="info-name">备&emsp;&emsp;注</text>
 							<text>{{item.remarks}}</text>
 						</view>
 						<view class="info">
-							<text class="info-name">计划时间：</text>
+							<text class="info-name">计划时间</text>
 							<text class="info-time">{{$formatdate(item.plannedTime)}}</text>
 						</view>
 					</view>
@@ -104,6 +106,7 @@
 			};
 		},
 		onLoad() {
+
 			this.init();
 		},
 		onNavigationBarButtonTap(e) {
@@ -115,7 +118,9 @@
 			}
 		},
 		onPullDownRefresh() {
-			this.getProduct();
+			this.getProduct().then(() => {
+				uni.stopPullDownRefresh();
+			});
 		},
 		methods: {
 			init() {
@@ -141,11 +146,11 @@
 			},
 			getProduct() {
 				uni.showLoading({
-				  title: "加载中",
-				  mask: true
+					title: "加载中",
+					mask: true
 				});
 				let timestamp1 = new Date().getTime();
-				this.$http
+				return this.$http
 					.request({
 						url: "/api/ProduceReport/wsCodeProduct",
 						method: "GET",
@@ -207,7 +212,7 @@
 			accordion(item) {
 				this.$set(item, "productVisible", !item.productVisible);
 			},
-			
+
 			// loadTime(timestamp1) {
 			// 	let timestamp2 = new Date().getTime();
 			// 	let d = parseInt((timestamp2 - timestamp1) / 1000);
@@ -233,7 +238,9 @@
 		height: 0;
 		border-top: 1px solid $line-color;
 	}
-
+    .pro-list{
+		overflow:hidden;
+	}
 	.pro-item {
 		margin-bottom: 20upx;
 		padding-bottom: 10upx;
@@ -278,6 +285,7 @@
 			height: 65upx;
 			font-size: $font-30;
 			border-top: 1px solid $line-color;
+
 			.name {
 				flex: 1;
 				color: $font-dark-green;
@@ -312,9 +320,15 @@
 		margin: 0 30upx;
 		line-height: 1.5;
 		color: $font-bule;
+		.info-col,.info {
+			display: flex;
+			flex-direction: row;
+			}
 
-		.info-name {
-			padding-right: 10upx;
+		.info-name {	
+           position:relative;
+			width: 120upx;
+			margin-right: 15upx;
 			color: $font-gray;
 		}
 
