@@ -1,6 +1,6 @@
 <template>
 	<view class="effect">
-		<drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
+		<drawer :show="visible" :meau="meauList" @close="close" @getItem="getItem"></drawer>
 		<view class="farm-title">
 			<text class="title">{{currentItem.wsName}}</text>
 			 <!-- #ifdef MP-WEIXIN -->

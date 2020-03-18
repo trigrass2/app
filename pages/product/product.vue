@@ -1,6 +1,6 @@
 <template>
 	<view class="pro">
-		<drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
+		<drawer :show="visible" :meau="meauList" @close="close" @getItem="getItem"></drawer>
 		<view class="farm-title">
 			<text class="title">{{currentItem.wsName}}</text>
 			<!-- #ifdef MP-WEIXIN -->
@@ -212,18 +212,6 @@
 			accordion(item) {
 				this.$set(item, "productVisible", !item.productVisible);
 			},
-
-			// loadTime(timestamp1) {
-			// 	let timestamp2 = new Date().getTime();
-			// 	let d = parseInt((timestamp2 - timestamp1) / 1000);
-			// 	if (d === 0) {
-			// 		setTimeout(function() {
-			// 			uni.hideLoading();
-			// 		}, 1000);
-			// 	} else {
-			// 		uni.hideLoading();
-			// 	}
-			// }
 		}
 	};
 </script>

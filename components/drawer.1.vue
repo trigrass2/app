@@ -45,7 +45,7 @@
 			return {
 				appWrapperHeight: '',
 				isVisible: true,
-				meauList: []
+				meauList: JSON.parse(JSON.stringify(this.meau))
 			};
 		},
 		created() {
@@ -62,15 +62,13 @@
 			});
 		},
 		mounted() {
-			this.$nextTick(function(){
-				const list=this.meau
-				this.meauList = JSON.parse(JSON.stringify(list));
-				this.handleClass(0)
+			this.$nextTick(() => {
+				this.handleClass(0);
 			})
 		},
 		methods: {
-			getVal(item,i) {
-				this.handleClass(i)
+			getVal(item, i) {
+				this.handleClass(i);
 				this.$emit('getItem', item);
 			},
 			close() {
@@ -79,10 +77,12 @@
 			handleClass(current) {
 				this.meauList.forEach((item, i) => {
 					if (current === i) {
-						 this.$set(item ,'isClass',true)
+						item.isClass = true;
 					} else {
-						this.$set(item ,'isClass',false)
-					}		
+						item.isClass = false;
+					}
+
+
 				})
 			}
 		}
@@ -120,8 +120,9 @@
 				line-height: 1.5;
 				@extend .ellipsis;
 			}
-			.current{
-				color:$blue-color;
+
+			.current {
+				color: $blue-color;
 			}
 		}
 

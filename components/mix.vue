@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<scroll-view class="scroll-view" scroll-x="true">
-			<canvas :style="{'width': cWidth,'height': cHeight}" canvas-id="myCanvas" class="myCanvas"></canvas>
+			<canvas :style="{'width': cWidth+'px','height': cHeight+'px'}" canvas-id="myCanvas" class="myCanvas"></canvas>
 		</scroll-view>
 		<view class="type" v-if="color.length">
 			<view class="type-item" v-for="item of color" :key="item.state">
@@ -16,13 +16,13 @@
 <script>
 	export default {
 		props: {
-			width: {
-				type: Number,
-				default: 0
+			width:{
+				type:Number,
+				default:0
 			},
-			height: {
-				type: Number,
-				default: 0
+			height:{
+				type:Number,
+				default:0
 			},
 			list: {
 				type: Array,
@@ -39,14 +39,34 @@
 
 		},
 		onReady: function() {
-			this.cWidth = uni.upx2px(750) + 'px';
-			this.cHeight = uni.upx2px(50) + 'px';
+			this.divWidth = uni.upx2px(this.width);
+			this.cHeight = uni.upx2px(this.height);
 			this.inti()
 		},
 		data() {
 			return {
-				cWidth: '',
+				divWidth: '',
 				cHeight: '',
+			}
+		},
+		computed: {
+			cWidth() {
+				let w=0;
+				const total = this.list
+				.map(item => {
+					return item.value
+				})
+				.reduce(function(a, b) {
+					return a + b;
+				}); 
+			
+				if(this.divWidth>total){
+					w= this.divWidth
+				}else{
+					w=total
+				}
+				return w
+
 			}
 		},
 		methods: {

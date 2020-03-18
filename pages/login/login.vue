@@ -114,7 +114,7 @@
 			}
 		
 			.iconfont {
-				font-size: 50upx;
+				font-size: 45upx;
 				color: #555;
 			}
 		}
@@ -125,8 +125,7 @@
 		
 		.login-input {
 			flex: 1;
-			padding-left: 10px;
-			height: 108upx;
+			padding: 36upx 0 36upx 10px;
 			font-size: 35upx;
 		}
 		

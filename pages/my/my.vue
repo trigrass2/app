@@ -76,13 +76,11 @@
 			color: $blue-color;
 			border-radius: 50%;
 			background: $white-color;
-
 			.iconfont {
 				font-size: 120upx;
 				line-height: 180upx;
 			}
 		}
-
 		.user-info {
 			font-size: 30upx;
 			color: $white-color;
@@ -97,8 +95,11 @@
 		padding: 40upx 20upx;
 
 		.loginOut-btn {
-			background: $blue-color;
-			color: #fff;
+			color:$white-color;
+			background-color: $blue-color;
+			&:active{
+				background-color:#3282c3;
+			}
 		}
 	}
 </style>

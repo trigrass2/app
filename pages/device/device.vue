@@ -1,6 +1,6 @@
 <template>
   <view class="device">
-    <drawer :show="visible" :navData="meauList" @close="close" @getItem="getItem"></drawer>
+    <drawer :show="visible" :meau="meauList" @close="close" @getItem="getItem"></drawer>
     <view class="farm-title">
       <text class="title">{{currentItem.wsName}}</text>
       <!-- #ifdef MP-WEIXIN -->
@@ -49,8 +49,10 @@
                       <text class="iconfont icon-machine"></text>
                     </view>
                     <view class="device-item-right">
-                      <text class="device-item-name">工单：</text>
-                      <text class="ellipsis">{{device.orderNo}}</text>
+                    <!--  <text class="device-item-name"</text> -->
+                      <text class="ellipsis">工单：{{device.orderNo}}</text>					   
+					   <text>状态：{{device.stopreasonName||'无'}}</text>
+					   <text>{{device.troubleDesc||'暂无故障'}}</text>
                     </view>
                   </view>
                   <view class="device-item-percent">
@@ -78,8 +80,8 @@
                 </view>
               </view>
               <!--停机 -->
-              <view class="device-item" v-if="device.state===0||device.state===-1">
-                <view :class="['device-item-box',{stop:device.state===0,fault:device.state===-1}]">
+              <view class="device-item" v-if="device.state===0">
+                <view :class="['device-item-box',!device.stopState?'stop':'fault']">
                   <!-- fault -->
                   <view class="device-item-no">{{device.machineCode}}</view>
                   <view class="device-item-center">
@@ -87,8 +89,9 @@
                       <text class="iconfont icon-machine"></text>
                     </view>
                     <view class="device-item-right">
-                      <text class="ellipsis">{{device.troubleDesc}}</text>
-                      <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
+					   <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
+					   <text>状态：{{device.stopreasonName||'无'}}</text>
+                       <text>{{device.troubleDesc||'暂无故障'}}</text>
                     </view>
                   </view>
                   <view class="device-item-percent">
@@ -115,6 +118,45 @@
                   </view>
                 </view>
               </view>
+			  <!-- 关机 -->
+              <view class="device-item" v-if="device.state===-1">
+                <view :class="['device-item-box',!device.stopState?'normal':'fault']">
+                  <!-- fault -->
+                  <view class="device-item-no">{{device.machineCode}}</view>
+                  <view class="device-item-center">
+                    <view class="device-item-left">
+                      <text class="iconfont icon-machine"></text>
+                    </view>
+                    <view class="device-item-right">
+					   <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
+					   <text>状态：{{device.stopreasonName||'无'}}</text>
+                       <text>{{device.troubleDesc||'暂无故障'}}</text>
+                    </view>
+                  </view>
+                  <view class="device-item-percent">
+                    <progress
+                      show-info
+                      percent="100"
+                      font-size="12"
+                      activeColor="#3890d8"
+                      backgroundColor="#ccc"
+                      stroke-width="4"
+                      border-radius="5"
+                      class="progress"
+                    />
+                    <progress
+                      show-info
+                      percent="100"
+                      font-size="12"
+                      activeColor="#22b14c"
+                      backgroundColor="#ccc"
+                      stroke-width="4"
+                      border-radius="5"
+                      class="progress"
+                    />
+                  </view>
+                </view>
+              </view>			  
             </block>
           </view>
         </view>
@@ -156,7 +198,7 @@ export default {
         },
         {
           value: -1,
-          label: "故障"
+          label: "关机"
         }
       ],
       current: 2,
@@ -209,7 +251,7 @@ export default {
         .then(([procedure, meau]) => {
           this.meauList = meau;
           if (meau.length) {
-            this.currentItem = meau[0];
+            this.currentItem = meau[3];
             this.procedureList = procedure;
           }
         })
@@ -368,7 +410,7 @@ export default {
     display: flex;
     align-items: center;
     padding: 0 20upx;
-    height: 83upx;
+    height: 80upx;
     font-size: 30upx;
     color: $font-title-color;
     background: $white-color;
@@ -400,7 +442,7 @@ export default {
 
       .device-item-box {
         margin: 20upx;
-        height: 210upx;
+        height: 240upx;
         border: 1px solid #ccc;
         background: $white-color;
 
@@ -415,18 +457,17 @@ export default {
           display: flex;
           overflow: hidden;
           padding: 10upx;
-          height: 70upx;
         }
 
         .device-item-left {
           overflow: hidden;
           margin-right: 10upx;
-          width: 65upx;
+          // width: 65upx;
 
           .iconfont {
             font-size: 60upx;
             color: $font-light-gray;
-            line-height: 70upx;
+            // line-height: 70upx;
           }
         }
 
@@ -444,6 +485,14 @@ export default {
           padding: 0 20upx;
         }
       }
+	  .device-item-troble{
+		 margin: 5upx 20upx 0 20upx;
+		 padding: 5upx;
+		  font-size: $font-24;
+		  line-height: 1;
+		  color:$red-color;
+		  
+	  }
 
       .startUp {
         border: 1px solid $green-color;
@@ -475,13 +524,22 @@ export default {
           background: $red-color;
         }
       }
+	  // 正常
+	  .normal{
+		border: 1px solid #696969;
+		
+		.device-item-no {
+		  color: $white-color;
+		  background: #696969;
+		}  
+	  }
     }
   }
 }
 
 .progress {
   color: $font-light-gray;
-  height: 30upx;
+  height: 25upx;
 
   /*#ifdef H5*/
   /deep/.uni-progress-info {

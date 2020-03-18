@@ -8,10 +8,6 @@
 		line-height:1.8;
 	}
 	/*每个页面公共css */
-	// .line{
-	// 	margin: 10upx 0;
-	// 	border-top:1px solid $line-color;
-	// }
 	.none {
 		color: $font-light-gray;
 		font-size: 28upx;
@@ -50,6 +46,9 @@
 		height: 118upx;
 		color:$font-title-color;
         @include line(20upx)
+		&:active{
+			background-color:$hover-color;
+		}
 		.info-text {
 			flex: 1;	
 			.icon-yuandianxiao {
@@ -68,7 +67,6 @@
 		.icon {
 			display: flex;
 			align-items: center;
-	
 			.icon-circle {
 				margin-right: 10upx;
 				width: 8px;

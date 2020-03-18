@@ -74,7 +74,7 @@
 						icons: 'icon-produce',
 						text: '生产详情',
 						url: '/pages/product/product',
-						color: '#3890d8'
+						color: '#57ceec'
 					},
 					{
 						icons: 'icon-device',

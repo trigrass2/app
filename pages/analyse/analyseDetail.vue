@@ -32,7 +32,11 @@
 		<view class="mix">
 			<view class="sub-title">占比图</view>
 			<view class="box">
-				<mix :width="690" :height="50" :list="list" :color="color">
+				<mix 
+				:width="690" 
+				:height="50" 
+				:list="list" 
+				:color="color">
 				</mix>
 			</view>
 		</view>
@@ -144,7 +148,7 @@
 					value: 200
 				}, {
 					state: 0,
-					value: 8
+					value: 20
 				}, {
 					state: -1,
 					value: 100
