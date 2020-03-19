@@ -51,10 +51,12 @@
                     <view class="device-item-right">
                     <!--  <text class="device-item-name"</text> -->
                       <text class="ellipsis">工单：{{device.orderNo}}</text>					   
-					   <text>状态：{{device.stopreasonName||'无'}}</text>
-					   <text>{{device.troubleDesc||'暂无故障'}}</text>
+					   <text>状态：{{device.stopreasonName||'无'}}</text>				
                     </view>
                   </view>
+				  <view class="device-item-trouble ellipsis">
+				  		{{device.troubleDesc}}
+				  </view>
                   <view class="device-item-percent">
                     <progress
                       show-info
@@ -91,9 +93,11 @@
                     <view class="device-item-right">
 					   <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
 					   <text>状态：{{device.stopreasonName||'无'}}</text>
-                       <text>{{device.troubleDesc||'暂无故障'}}</text>
                     </view>
                   </view>
+				  <view class="device-item-trouble ellipsis">
+				  		{{device.troubleDesc}}
+				  </view>
                   <view class="device-item-percent">
                     <progress
                       show-info
@@ -130,9 +134,11 @@
                     <view class="device-item-right">
 					   <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
 					   <text>状态：{{device.stopreasonName||'无'}}</text>
-                       <text>{{device.troubleDesc||'暂无故障'}}</text>
                     </view>
                   </view>
+				  <view class="device-item-trouble ellipsis">
+				  		{{device.troubleDesc}}
+				  </view>
                   <view class="device-item-percent">
                     <progress
                       show-info
@@ -251,7 +257,7 @@ export default {
         .then(([procedure, meau]) => {
           this.meauList = meau;
           if (meau.length) {
-            this.currentItem = meau[3];
+            this.currentItem = meau[0];
             this.procedureList = procedure;
           }
         })
@@ -365,7 +371,6 @@ export default {
     font-size: 26upx;
     color: $font-gray;
     border-right: 1px solid $blue-color;
-
     &:last-child {
       border-right: 0;
     }
@@ -455,19 +460,19 @@ export default {
 
         .device-item-center {
           display: flex;
-          overflow: hidden;
-          padding: 10upx;
+		  flex-direction: row;
+		  align-items: center;
+          padding:10upx 10upx 0 10upx;
+		  height: 90upx;
         }
 
         .device-item-left {
           overflow: hidden;
           margin-right: 10upx;
-          // width: 65upx;
 
           .iconfont {
             font-size: 60upx;
             color: $font-light-gray;
-            // line-height: 70upx;
           }
         }
 
@@ -485,15 +490,6 @@ export default {
           padding: 0 20upx;
         }
       }
-	  .device-item-troble{
-		 margin: 5upx 20upx 0 20upx;
-		 padding: 5upx;
-		  font-size: $font-24;
-		  line-height: 1;
-		  color:$red-color;
-		  
-	  }
-
       .startUp {
         border: 1px solid $green-color;
 
@@ -506,10 +502,16 @@ export default {
           color: $font-light-gray;
         }
       }
-
+      .device-item-trouble{
+		  margin: 0 20upx 10upx 20upx;
+		  padding: 0 5upx;
+		  font-size: 24upx;
+		  line-height: 1.2;
+		  color: $white-color;
+		  background-color: $red-color;
+	  }
       .stop {
         border: 1px solid $yellow-color;
-
         .device-item-no {
           color: $white-color;
           background: $yellow-color;
@@ -518,7 +520,6 @@ export default {
 
       .fault {
         border: 1px solid $red-color;
-
         .device-item-no {
           color: $white-color;
           background: $red-color;
@@ -545,7 +546,6 @@ export default {
   /deep/.uni-progress-info {
     font-size: 24upx;
   }
-
   /*#endif*/
 }
 </style>
