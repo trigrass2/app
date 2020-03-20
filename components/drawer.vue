@@ -60,13 +60,10 @@
 					// #endif
 				}
 			});
-		},
-		mounted() {
-			this.$nextTick(function(){
-				const list=this.meau
-				this.meauList = JSON.parse(JSON.stringify(list));
-				this.handleClass(0)
-			})
+			   setTimeout(()=>{
+			            this.meauList = JSON.parse(JSON.stringify(this.meau));
+			            this.handleClass(0)
+			        },1000)
 		},
 		methods: {
 			getVal(item,i) {
