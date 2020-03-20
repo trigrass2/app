@@ -16,13 +16,13 @@
 <script>
 	export default {
 		props: {
-			width:{
-				type:Number,
-				default:0
+			width: {
+				type: Number,
+				default: 0
 			},
-			height:{
-				type:Number,
-				default:0
+			height: {
+				type: Number,
+				default: 0
 			},
 			list: {
 				type: Array,
@@ -38,10 +38,12 @@
 			}
 
 		},
-		onReady: function() {
-			this.divWidth = uni.upx2px(this.width);
-			this.cHeight = uni.upx2px(this.height);
-			this.inti()
+		mounted: function() {
+			this.$nextTick(()=>{
+				this.divWidth = uni.upx2px(this.width);
+				this.cHeight = uni.upx2px(this.height);
+				this.inti()
+			})
 		},
 		data() {
 			return {
@@ -51,19 +53,19 @@
 		},
 		computed: {
 			cWidth() {
-				let w=0;
+				let w = 0;
 				const total = this.list
-				.map(item => {
-					return item.value
-				})
-				.reduce(function(a, b) {
-					return a + b;
-				}); 
-			
-				if(this.divWidth>total){
-					w= this.divWidth
-				}else{
-					w=total
+					.map(item => {
+						return item.value
+					})
+					.reduce(function(a, b) {
+						return a + b;
+					});
+
+				if (this.divWidth > total) {
+					w = this.divWidth
+				} else {
+					w = total
 				}
 				return w
 
@@ -85,12 +87,16 @@
 					ctx.fillRect(x, 0, item.value, 50)
 					x = x + item.value
 				})
-				ctx.fill()
-				// 清空画板
-				if (!this.list.length) {
-					ctx.clearRect(0, 0, cWidth, cWidth);
-				}
-				ctx.draw()
+
+
+				setTimeout(()=> {
+					ctx.fill()
+					// 清空画板
+					if (!this.list.length) {
+						ctx.clearRect(0, 0, cWidth, cWidth);
+					}
+					ctx.draw()
+				}, 100)
 
 
 			},

@@ -16,7 +16,9 @@
             "delay" : 0
         },
         /* 模块配置 */
-        "modules" : {},
+        "modules" : {
+			"Canvas" : "nvue canvas"  
+		},
         /* 应用发布信息 */
         "distribute" : {
             /* android打包配置 */
@@ -111,6 +113,9 @@
     },
     "h5" : {
         "title" : "Smart.MES",
-        "domain" : ""
+        "domain" : "",
+        "router" : {
+            "mode" : "hash"
+        }
     }
 }

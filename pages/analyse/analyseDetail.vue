@@ -4,7 +4,7 @@
 		<view class="search">
 			<view class="analyse-title">
 				<view class="sub-title">搜索</view>
-				<text :class="['iconfont',item.productVisible?'icon-delta-up':'icon-delta-drown']" @tap="searchDisplay"></text>
+				<text :class="['iconfont',searchVisible?'icon-delta-up':'icon-delta-drown']" @tap="searchDisplay"></text>
 			</view>
 			<view class="box" v-show="searchVisible">
 				<view class="time">
@@ -194,7 +194,6 @@
 				let Pie = {
 					series: []
 				};
-				//这里我后台返回的是数组，所以用等于，如果您后台返回的是单条数据，需要push进去
 				Pie.series = [{
 						name: "一班",
 						data: 50
@@ -277,7 +276,6 @@
 		.time-item {
 			display: flex;
 			flex-direction: row;
-			// justify-content: center;
 			align-items: center;
 			padding: 0 20upx;
 

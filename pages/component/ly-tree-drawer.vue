@@ -4,7 +4,7 @@
      <ly-tree
 	 class="tree"
        node-key="personId"
-       highlightCurrent="true"
+       :highlightCurrent="true"
        :tree-data="treeData"
        :props="props"
        :defaultExpandAll="isExpand"
