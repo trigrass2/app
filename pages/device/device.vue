@@ -252,40 +252,17 @@ export default {
     });
   },
   methods: {
-    init() {
-      Promise.all([this.getProcedure(), this.getMeauData()])
-        .then(([procedure, meau]) => {
-          this.meauList = meau;
-          if (meau.length) {
-            this.currentItem = meau[0];
-            this.procedureList = procedure;
-          }
-        })
-        .then(() => {
-          this.getDevice();
-        });
+    async init() {
+	  this.meauList = await this.$http.request({url: "/api/BWorkShop",method: "GET"});
+	  this.procedureList=await this.$http.request({url: "/api/BProcessList", method: "GET"});
+	    
+	  if (this.meauList.length) {
+	  	  this.currentItem = this.meauList[0];
+	  	  this.getDevice();
+	  }
+	  
     },
-    //获取数据
-    getProcedure() {
-      return this.$http
-        .request({
-          url: "/api/BProcessList",
-          method: "GET"
-        })
-        .then(res => {
-          return Promise.resolve(res);
-        });
-    },
-    getMeauData() {
-      return this.$http
-        .request({
-          url: "/api/BWorkShop",
-          method: "GET"
-        })
-        .then(res => {
-          return Promise.resolve(res);
-        });
-    },
+    // //获取数据
     getDevice() {
       uni.showLoading({
         title: "加载中",

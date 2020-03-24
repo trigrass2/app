@@ -106,7 +106,6 @@
 			};
 		},
 		onLoad() {
-
 			this.init();
 		},
 		onNavigationBarButtonTap(e) {
@@ -123,26 +122,15 @@
 			});
 		},
 		methods: {
-			init() {
-				this.getMeauData()
-					.then(res => {
-						this.meauList = res;
-						if (res.length) {
-							this.currentItem = res[0];
-							this.getProduct();
-						}
-					})
-			},
-			//获取数据
-			getMeauData() {
-				return this.$http
-					.request({
-						url: "/api/BWorkShop",
-						method: "GET"
-					})
-					.then(res => {
-						return Promise.resolve(res);
-					});
+			async init() {
+				this.meauList = await this.$http.request({
+					url: "/api/BWorkShop",
+					method: "GET"
+				});
+				if (this.meauList.length) {
+					this.currentItem = this.meauList[0];
+					this.getProduct();
+				}
 			},
 			getProduct() {
 				uni.showLoading({
@@ -180,7 +168,6 @@
 						let total = product.cpltQty + product.failQty;
 						let yieldNum = product.cpltQty / total;
 						product.yield = total === 0 ? 100 : Math.round(yieldNum * 100);
-
 						// nameline百分比
 						let percentNum = product.cpltQty / product.qty;
 						product.percent = Math.round(percentNum * 100);
@@ -226,11 +213,13 @@
 		height: 0;
 		border-top: 1px solid $line-color;
 	}
-    .pro-list{
-		overflow:hidden;
+
+	.pro-list {
+		overflow: hidden;
 	}
+
 	.pro-item {
-		margin-bottom: 20upx;
+		margin-bottom: 30upx;
 		padding-bottom: 10upx;
 		background: $white-color;
 
@@ -308,13 +297,15 @@
 		margin: 0 30upx;
 		line-height: 1.5;
 		color: $font-bule;
-		.info-col,.info {
+
+		.info-col,
+		.info {
 			display: flex;
 			flex-direction: row;
-			}
+		}
 
-		.info-name {	
-           position:relative;
+		.info-name {
+			position: relative;
 			width: 120upx;
 			margin-right: 15upx;
 			color: $font-gray;
