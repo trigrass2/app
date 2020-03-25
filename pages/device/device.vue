@@ -393,7 +393,7 @@ export default {
     align-items: center;
     padding: 0 20upx;
     height: 80upx;
-    font-size: 30upx;
+    font-size: $font-30;
     color: $font-title-color;
     background: $white-color;
 

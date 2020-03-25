@@ -17,8 +17,8 @@
         },
         /* 模块配置 */
         "modules" : {
-			"Canvas" : "nvue canvas"  
-		},
+            "Canvas" : "nvue canvas"
+        },
         /* 应用发布信息 */
         "distribute" : {
             /* android打包配置 */
@@ -86,8 +86,9 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "D:/work/PSD/app图标和启动封面/star.png",
-                    "xhdpi" : "D:/work/PSD/app图标和启动封面/star.png"
+                    "hdpi" : "D:/work/PSD/smart.app图标和启动封面/star.9.png",
+                    "xhdpi" : "D:/work/PSD/smart.app图标和启动封面/star.9.png",
+                    "xxhdpi" : "D:/work/PSD/smart.app图标和启动封面/star.9.png"
                 }
             }
         }
