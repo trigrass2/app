@@ -37,7 +37,7 @@
           <text class="device-name">{{item.processName}}</text>
           <text :class="['iconfont',item.deviceVisible?'icon-delta-drown':'icon-delta-up']"></text>
         </view>
-        <view v-show="item.deviceVisible?item.deviceVisible:false">
+        <view v-show="item.deviceVisible">
           <view class="device-bd">
             <block v-for="(device,j) in item.children" :key="j">
               <!--启动 -->
@@ -473,10 +473,6 @@ export default {
         .device-item-no {
           color: $white-color;
           background: $green-color;
-        }
-
-        .device-item-name {
-          color: $font-light-gray;
         }
       }
       .device-item-trouble{
