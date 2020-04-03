@@ -50,7 +50,7 @@
                     </view>
                     <view class="device-item-right">
                     <!--  <text class="device-item-name"</text> -->
-                      <text class="ellipsis">工单：{{device.orderNo}}</text>					   
+                      <text class="ellipsis">工单：{{device.orderNo||'无'}}</text>					   
 					   <text>状态：{{device.stopreasonName||'无'}}</text>				
                     </view>
                   </view>
@@ -167,7 +167,7 @@
           </view>
         </view>
       </view>
-      <view class="none" v-if="allList.length===0">暂无数据</view>
+      <view class="none" v-if="!allList.length">暂无数据</view>
     </view>
     <!-- /全部 -->
   </view>
@@ -335,10 +335,10 @@ export default {
 .tabs {
   overflow: hidden;
   display: flex;
-  margin: 0 auto;
-  width: 450upx;
+  margin: 0 20upx;
+  // width: 450upx;
   border: 1px solid $blue-color;
-  border-radius: 15px;
+  border-radius: 10px;
 
   .tabs-items {
     flex: 1;
