@@ -88,6 +88,8 @@
 	}
 
 	.login-content{
+		width: 600upx;
+		// background-color: #fff;
 		padding-bottom: 80upx;
 		.login-logo {
 			padding-bottom: 110upx;
@@ -98,7 +100,7 @@
 			}
 		}	
 		.login-form {
-			padding: 0 90upx;
+			// padding: 0 90upx;
 		}		
 		.login {
 			margin-bottom: 30px;
@@ -136,10 +138,12 @@
 		
 		.login-btn {
 			background: #14e39e;
+			line-height: 3;
 			color: #fff;
 			border: 0;
 			border-radius:10px;
 			font-size: 36upx;
+
 		}
 		
 		.login-btn:after {

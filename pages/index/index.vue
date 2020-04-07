@@ -13,12 +13,10 @@
 		<!-- nav -->
 		<view class="nav">
 			<view class="nav-item" v-for="(item,i) in navList" :key="i">
-				<!-- 	<navigator class="nav-item-link" hover-class="none" :url="item.url"> -->
 				<view @tap="skip(item)">
 					<text :class="['iconfont',item.icons]" :style="{'background-color':item.color}"></text>
 					<text class="nav-item-text">{{item.text}}</text>
 				</view>
-				<!-- 	</navigator> -->
 			</view>
 		</view>
 		<!-- info -->
@@ -141,10 +139,6 @@
 				} else {
 					url && uni.navigateTo({url})
 				}
-
-
-
-
 			}
 		}
 	}

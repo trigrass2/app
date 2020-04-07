@@ -1,14 +1,7 @@
 <template>
 	<view class="effect">
 		<drawer :show="visible" :meau="meauList" @close="close" @getItem="getItem"></drawer>
-		<view class="farm-title">
-			<text class="title">{{currentItem.wsName}}</text>
-			 <!-- #ifdef MP-WEIXIN -->
-			 <view class="icon-box">
-			<text class="iconfont icon-menu" @tap="open"></text>
-			</view>
-			<!-- #endif -->			
-		</view>
+		<headTitle :icon="iconList" :iconTap="iconTap">{{currentItem.wsName}}</headTitle>
 		<!-- 抽屉菜单 -->
 		<view class="effect-list">
 			<view class="effect-item">
@@ -52,6 +45,7 @@
 </template>
 
 <script>
+	import headTitle from "@/components/title.vue";
 	import uCharts from '@/components/uni/u-charts/u-charts.js';
 	import drawer from '@/components/drawer.vue'
 	let _self;
@@ -76,6 +70,7 @@
 
 	export default {
 		components: {
+			headTitle,
 			drawer
 		},
 		data() {
@@ -87,7 +82,8 @@
 				cWidth: '',
 				cHeight: '',
 				pixelRatio: 1,
-				gaugeWidth: 15
+				gaugeWidth: 15,
+				iconList:['icon-refresh','icon-menu']
 			}
 		},
 		onLoad() {
@@ -189,6 +185,18 @@
 			getItem(val) {
 				this.currentItem = val;
 				this.visible = false;
+			},
+			iconTap(type){
+				const _this=this.$parent;
+				switch (type) {
+					case 'icon-refresh':						
+						console.log('刷新');
+						break;
+				
+				case 'icon-menu':
+						_this.open();
+						break;
+				}
 			}
 		}
 	}

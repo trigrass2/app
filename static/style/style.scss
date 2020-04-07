@@ -14,28 +14,6 @@
 		font-size: 28upx;
 		text-align: center;
 	}
-	.farm-title {
-		display: flex;
-		flex-direction: row;
-		padding:20upx;
-		height: 45upx;
-		line-height: 45upx;
-		font-size: 34upx;
-		
-		.title{
-			flex: 1;
-			text-align: left;
-		}
-		
-		.icon-box{		
-		.iconfont{			
-			color: $font-light-gray;
-			font-size: 35upx;
-			margin-left: 30upx;
-		}
-		}
-
-	}
 	/*我的消息*/
 	.push-info{
 		margin-top: 20upx;

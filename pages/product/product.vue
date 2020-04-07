@@ -1,15 +1,7 @@
 <template>
 	<view class="pro">
 		<drawer :show="visible" :meau="meauList" @close="close" @getItem="getItem"></drawer>
-		<view class="farm-title">
-			<text class="title">{{currentItem.wsName}}</text>
-			<!-- #ifdef MP-WEIXIN -->
-			<view class="icon-box">
-				<text class="iconfont icon-refresh" @tap="getProduct"></text>
-				<text class="iconfont icon-menu" @tap="open"></text>
-			</view>
-			<!-- #endif -->
-		</view>
+		<headTitle :icon="iconList" :iconTap="iconTap">{{currentItem.wsName}}</headTitle>
 		<!-- 抽屉菜单 -->
 		<view class="pro-list">
 			<view class="pro-item" v-for="item in productList" :key="item.orderNo">
@@ -92,9 +84,11 @@
 </template>
 
 <script>
+	import headTitle from "@/components/title.vue";
 	import drawer from "@/components/drawer.vue";
 	export default {
 		components: {
+			headTitle,
 			drawer
 		},
 		data() {
@@ -102,7 +96,8 @@
 				visible: false,
 				meauList: [],
 				currentItem: {},
-				productList: []
+				productList: [],
+				iconList:['icon-refresh','icon-menu']
 			};
 		},
 		onLoad() {
@@ -192,13 +187,25 @@
 			getItem(val) {
 				this.currentItem = val;
 				this.visible = false;
-				this.getProduct()
+				this.getProduct();
 
 			},
 			// 手风琴展开收齐
 			accordion(item) {
 				this.$set(item, "productVisible", !item.productVisible);
 			},
+			iconTap(type){
+				const _this=this.$parent;
+				switch (type) {
+					case 'icon-refresh':						
+						_this.getProduct();
+						break;
+				
+				case 'icon-menu':
+						_this.open();
+						break;
+				}
+			}
 		}
 	};
 </script>

@@ -3,11 +3,7 @@
 		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "",
-				"app-plus": {
-					// 将回弹属性关掉
-					"bounce": "none"
-				}
+				"navigationBarTitleText": ""
 			}
 		},
 		{
@@ -69,7 +65,19 @@
 		{
 			"path": "pages/analyse/analyse",
 			"style": {
-				"navigationBarTitleText": "设备效率分析"
+				"navigationBarTitleText": "设备效率分析",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+							"text": "\ue663",
+							"float": "right",
+							"fontSrc": "/static/style/font/iconfont.ttf",
+							"fontSize": "20px"
+						}
+						]
+					}
+				}
 			}
 		},
 		{

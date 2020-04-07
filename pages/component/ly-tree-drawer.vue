@@ -1,16 +1,15 @@
 <template>
   <ly-drawer :visible="show" mode="right" width="80%" @close="close">
-    <scroll-view :scroll-y="true" :style="{height:appWrapperHeight}">  
-     <ly-tree
-	 class="tree"
-       node-key="id"
-       :highlightCurrent="true"
-       :tree-data="treeData"
-       :props="props"
-       :defaultExpandAll="isExpand"
-       @node-click="handleNodeClick"
-     >
-     </ly-tree>	
+    <scroll-view :scroll-y="true" :style="{height:appWrapperHeight}">
+      <ly-tree
+        class="tree"
+        node-key="id"
+        :highlightCurrent="true"
+        :tree-data="treeData"
+        :props="props"
+        :defaultExpandAll="isExpand"
+        @node-click="handleNodeClick"
+      ></ly-tree>
     </scroll-view>
     <view class="footer">
       <view class="button confirm" @tap="confirm">确定</view>
@@ -34,93 +33,27 @@ export default {
       appWrapperHeight: "400px",
       //tree数据
       isExpand: true,
-      // props: {
-      //   label: "personName",
-      //   children: "childs"
-      // },
       currentNode: {}
-      // treeData: [
-      //   {
-      //     personId: 1,
-      //     personName: "一级 1",
-      //     childs: [
-      //       {
-      //         personId: 11,
-      //         personName: "二级 1-1",
-      //         childs: [
-      //           {
-      //             personId: 111,
-      //             personName: "三级 1-1-1"
-      //           }
-      //         ]
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     personId: 2,
-      //     personName: "一级 2",
-      //     childs: [
-      //       {
-      //         personId: 21,
-      //         personName: "二级 2-1",
-      //         childs: [
-      //           {
-      //             personId: 211,
-      //             personName: "三级 2-1-1"
-      //           }
-      //         ]
-      //       },
-      //       {
-      //         personId: 22,
-      //         personName: "二级 2-2",
-      //         childs: [
-      //           {
-      //             personId: 221,
-      //             personName: "三级 2-2-1"
-      //           }
-      //         ]
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     personId: 3,
-      //     personName: "一级 3",
-      //     childs: [
-      //       {
-      //         personId: 31,
-      //         personName: "二级 3-1",
-      //         childs: [
-      //           {
-      //             personId: 311,
-      //             personName: "三级 3-1-1"
-      //           }
-      //         ]
-      //       },
-      //       {
-      //         personId: 32,
-      //         personName: "二级 3-2",
-      //         childs: [
-      //           {
-      //             personId: 321,
-      //             personName: "三级 3-2-1"
-      //           }
-      //         ]
-      //       }
-      //     ]
-      //   }
-      // ]
     };
   },
   props: {
-    show: Boolean,
-	treeData:Array,
-	props:{
-		type:Object,
-		default:{
-			label: "label",
-			children: "children"
-		}
-	}
+    show: {
+      type: Boolean,
+      default: false
+    },
+    treeData: {
+      type: Array,
+      default: () => []
+    },
+    props: {
+      type:Object,
+      default: () => {
+        return {
+          label: "label",
+          children: "children"
+        };
+      }
+    }
   },
   created() {
     // 获取子流程弹框的最大高度
@@ -137,7 +70,7 @@ export default {
   },
   methods: {
     handleNodeClick(obj) {
-      this.currentNode = obj
+      this.currentNode = obj;
     },
     close() {
       this.$emit("close");
@@ -243,5 +176,4 @@ export default {
     background: #f5f5f5;
   }
 }
-
 </style>
