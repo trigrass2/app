@@ -137,8 +137,8 @@
 		}
 		
 		.login-btn {
-			background: #14e39e;
-			line-height: 3;
+			background: #1a6bbd;
+			line-height:2.8;
 			color: #fff;
 			border: 0;
 			border-radius:10px;

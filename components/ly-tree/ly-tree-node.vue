@@ -21,7 +21,10 @@
 			
 			<text v-if="node.loading" class="ly-tree-node__loading-icon ly-iconfont ly-icon-loading"></text>
 			
-			<image v-if="node.icon" class="ly-tree-node__icon" :src="node.icon" mode="widthFix"></image>
+			<template v-if="node.icon && node.icon.length > 0">
+				<image v-if="node.icon.indexOf('/') !== -1" class="ly-tree-node__icon" :src="node.icon" mode="widthFix"></image>
+				<text v-else class="ly-tree-node__icon" :class="node.icon"></text>
+			</template>
 			
 			<text class="ly-tree-node__label">{{node.label}}</text>
 		</view>
@@ -45,7 +48,9 @@
 
 	export default {
 		name: 'LyTreeNode',
+		
 		componentName: 'LyTreeNode',
+		
 		props: {
 			nodeId: [Number, String],
 			renderAfterExpand: {
@@ -67,6 +72,7 @@
 			indent: Number,
 			iconClass: String
 		},
+		
 		data() {
 			return {
 				node: null,
@@ -76,6 +82,9 @@
 				oldIndeterminate: null
 			};
 		},
+		
+		inject: ['tree'],
+		
 		computed: {
 			checkboxVisible() {
 				if (this.checkOnlyLeaf) {
@@ -92,6 +101,7 @@
 				return this.showRadio;
 			}
 		},
+		
 		watch: {
 			'node.indeterminate'(val) {
 				this.handleSelectChange(this.node.checked, val);
@@ -106,9 +116,10 @@
 				}
 			}
 		},
+		
 		methods: {
 			getNodeKey(nodeId) {
-				let node = this.store.root.getChildNodes([nodeId])[0];
+				let node = this.tree.store.root.getChildNodes([nodeId])[0];
 				return getNodeKey(this.tree.nodeKey, node.data);
 			},
 			
@@ -123,15 +134,16 @@
 						indeterminate
 					});
 				}
+				
 				this.oldChecked = checked;
 				this.indeterminate = indeterminate;
 			},
 			
 			handleClick() {
-				this.store.setCurrentNode(this.node);
+				this.tree.store.setCurrentNode(this.node);
 				this.tree.$emit('current-change', {
-					data: this.store.currentNode ? this.store.currentNode.data : null,
-					currentNode: this.store.currentNode
+					data: this.tree.store.currentNode ? this.tree.store.currentNode.data : null,
+					currentNode: this.tree.store.currentNode
 				});
 				this.tree.currentNode = this.node;
 				
@@ -176,10 +188,10 @@
 				this.$nextTick(() => {
 					this.tree.$emit('check', {
 						data: this.node.data,
-						checkedNodes: this.store.getCheckedNodes(),
-						checkedKeys: this.store.getCheckedKeys(),
-						halfCheckedNodes: this.store.getHalfCheckedNodes(),
-						halfCheckedKeys: this.store.getHalfCheckedKeys()
+						checkedNodes: this.tree.store.getCheckedNodes(),
+						checkedKeys: this.tree.store.getCheckedKeys(),
+						halfCheckedNodes: this.tree.store.getHalfCheckedNodes(),
+						halfCheckedKeys: this.tree.store.getHalfCheckedKeys()
 					});
 				});
 			},
@@ -194,20 +206,13 @@
 				});
 			}
 		},
+		
 		created() {
-			let parent = this.$parent;
-			
-			while (!parent.isTree) {
-				parent = parent.$parent;
-			}
-			this.tree = parent;
-			
 			if (!this.tree) {
 				throw new Error('Can not find node\'s tree.');
 			}
-
-			this.store = this.tree.getStore();
-			this.node = this.store.root.getChildNodes([this.nodeId])[0];
+			
+			this.node = this.tree.store.nodesMap[this.nodeId];
 			
 			if (this.node.expanded) {
 				this.expanded = true;
@@ -227,6 +232,10 @@
 					}
 				});
 			}
+		},
+		
+		beforeDestroy() {
+			this.$parent = null;
 		}
 	};
 </script>

@@ -1,5 +1,7 @@
 import Node from './node';
-import {getNodeKey} from '../tool/util';
+import {
+	getNodeKey
+} from '../tool/util';
 
 export default class TreeStore {
 	constructor(options) {
@@ -151,6 +153,16 @@ export default class TreeStore {
 		if (defaultCheckedKeys.indexOf(node.key) !== -1) {
 			node.setChecked(true, !this.checkStrictly);
 		}
+	}
+	
+	toggleExpendAll(isExpandAll) {
+		const allNodes = this._getAllNodes();
+		
+		allNodes.forEach(item => {
+			const node = this.getNode(item.key); 
+			
+			if (node) isExpandAll ? node.expand() : node.collapse();
+		});
 	}
 
 	setDefaultCheckedKey(newVal) {
@@ -330,16 +342,6 @@ export default class TreeStore {
 		});
 
 		this._setCheckedKeys(key, leafOnly, checkedKeys);
-	}
-	
-	toggleExpendAll(isExpandAll) {
-		const allNodes = this._getAllNodes();
-		
-		allNodes.forEach(item => {
-			const node = this.getNode(item.key); 
-			
-			if (node) isExpandAll ? node.expand() : node.collapse();
-		});
 	}
 
 	setDefaultExpandedKeys(keys) {

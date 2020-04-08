@@ -10,7 +10,7 @@
     <!-- 列表 -->
     <view class="list">
       <headTitle :icon="iconList" :iconTap="iconTap" class="title">
-		  <text class="iconfont icon-list"></text>
+		  <text class="iconfont icon-list"/>
 		  {{selectedData.label||'设备'}}列表
 	  </headTitle>
       <view class="list-item" v-for="machine of MachineList" :key="machine.id" @tap="skip()">
@@ -23,15 +23,17 @@
             <view class="col-name">编号：</view>
             <view class="col-text">{{machine.machineCode}}</view>
           </view>
-          <!-- 					<view class="row">
-						<view class="col-name">效率：</view>
-						<view class="col-text">
-							<progress show-info percent="80" activeColor="#00cc66" font-size="14" stroke-width="4" border-radius="3" class="progress" />
-						</view>
-          </view>-->
+          <!-- 					
+		  <view class="row">
+				<view class="col-name">效率：</view>
+				<view class="col-text">
+					<progress show-info percent="80" activeColor="#00cc66" font-size="14" stroke-width="4" border-radius="3" class="progress" />
+				</view>
+          </view>
+		  -->
         </view>
         <view class="list-right">
-          <text class="iconfont icon-arrow-right"></text>
+          <text class="iconfont icon-arrow-right"/>
         </view>
       </view>
       <view class="none" v-if="!MachineList.length">暂无数据</view>
@@ -94,7 +96,6 @@ export default {
         .then(res => {
           uni.hideLoading();
           this.MachineList = res;
-          console.log("res", res);
         })
         .catch(() => {
           uni.hideLoading();

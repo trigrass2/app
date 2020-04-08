@@ -293,34 +293,6 @@
 </script>
 
 <style lang="scss" scoped>
-	.tabs {
-		overflow: hidden;
-		display: flex;
-		margin: 0 20upx;
-		// width: 450upx;
-		border: 1px solid $blue-color;
-		border-radius: 5px;
-
-		.tabs-items {
-			flex: 1;
-			text-align: center;
-			height: 75upx;
-			line-height: 75upx;
-			font-size: 26upx;
-			color: $font-gray;
-			border-right: 1px solid $blue-color;
-
-			&:last-child {
-				border-right: 0;
-			}
-		}
-
-		.active {
-			color: $white-color;
-			background: $blue-color;
-		}
-	}
-
 	.tips {
 		display: flex;
 		margin: 30upx 0 10upx 0;
@@ -356,7 +328,7 @@
 			padding: 0 20upx;
 			height: 80upx;
 			font-size: $font-30;
-			color: $font-title-color;
+			color: $font-text-color;
 			background: $white-color;
 
 			.device-name {
@@ -420,7 +392,7 @@
 						flex: 1;
 						display: flex;
 						flex-direction: column;
-						color: $font-title-color;
+						color: $font-text-color;
 						line-height: 1.5;
 						font-size: 26upx;
 					}

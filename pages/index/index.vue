@@ -89,6 +89,13 @@
 						color: '#81dd54'
 					},
 					{
+						icons: 'icon-file',
+						text: '工艺追溯',
+						// url: ''
+						url: '/pages/retrospect/retrospect',
+						color: '#4dd1e6'
+					},
+					{
 						icons: 'icon-effict',
 						text: '效力管理',
 						// url: ''
@@ -115,13 +122,6 @@
 						// url: ''
 						url: '/pages/info/info',
 						color: '#f08551'
-					},
-					{
-						icons: 'icon-task',
-						text: '我的任务',
-						// url: ''
-						url: '/pages/info/info',
-						color: '#4dd1e6'
 					}
 				],
 				spotVisible: false,
@@ -133,11 +133,17 @@
 				this.current = e.detail.current;
 			},
 			skip(item) {
-				const {url} = item
-				if (url==='/pages/product/product'||url==='/pages/device/device') {
-					url && uni.switchTab({url})
+				const {
+					url
+				} = item
+				if (url === '/pages/product/product' || url === '/pages/device/device') {
+					url && uni.switchTab({
+						url
+					})
 				} else {
-					url && uni.navigateTo({url})
+					url && uni.navigateTo({
+						url
+					})
 				}
 			}
 		}
@@ -183,7 +189,7 @@
 				// 文字
 				&.nav-item-text {
 					margin-top: 15upx;
-					color: $font-title-color;
+					color: $font-text-color;
 				}
 
 				&.iconfont {

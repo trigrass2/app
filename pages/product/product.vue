@@ -319,7 +319,7 @@
 		}
 
 		.info-name-text {
-			color: $font-title-color;
+			color: $font-text-color;
 		}
 
 		.info-text {

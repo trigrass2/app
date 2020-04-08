@@ -1,101 +1,12 @@
 import {
 	markNodeData,
+	objectAssign,
+	arrayFindIndex,
+	getChildState,
+	reInitChecked,
+	getPropertyFromData,
 	NODE_KEY
 } from '../tool/util';
-
-const objectAssign = function(target) {
-	for (let i = 1, j = arguments.length; i < j; i++) {
-		let source = arguments[i] || {};
-		for (let prop in source) {
-			if (source.hasOwnProperty(prop)) {
-				let value = source[prop];
-				if (value !== undefined) {
-					target[prop] = value;
-				}
-			}
-		}
-	}
-
-	return target;
-};
-
-// TODO: use native Array.find, Array.findIndex when IE support is dropped
-const arrayFindIndex = function(arr, pred) {
-	for (let i = 0; i !== arr.length; ++i) {
-		if (pred(arr[i])) {
-			return i;
-		}
-	}
-	return -1;
-};
-
-const getChildState = function(node) {
-	let all = true;
-	let none = true;
-	let allWithoutDisable = true;
-	for (let i = 0, j = node.length; i < j; i++) {
-		const n = node[i];
-		if (n.checked !== true || n.indeterminate) {
-			all = false;
-			if (!n.disabled) {
-				allWithoutDisable = false;
-			}
-		}
-		if (n.checked !== false || n.indeterminate) {
-			none = false;
-		}
-	}
-
-	return {
-		all,
-		none,
-		allWithoutDisable,
-		half: !all && !none
-	};
-};
-
-const reInitChecked = function(node) {
-	if (!node || node.childNodesId.length === 0) return;
-
-	let childNodes = node.getChildNodes(node.childNodesId);
-	const {
-		all,
-		none,
-		half
-	} = getChildState(childNodes);
-	if (all) {
-		node.checked = true;
-		node.indeterminate = false;
-	} else if (half) {
-		node.checked = false;
-		node.indeterminate = true;
-	} else if (none) {
-		node.checked = false;
-		node.indeterminate = false;
-	}
-
-	let parent = node.getParent(node.parentId);
-	if (!parent || parent.level === 0) return;
-
-	if (!node.store().checkStrictly) {
-		reInitChecked(parent);
-	}
-};
-
-const getPropertyFromData = function(node, prop) {
-	const props = node.store().props;
-	const data = node.data || {};
-	const config = props[prop];
-
-	if (typeof config === 'function') {
-		return config(data, node);
-	} else if (typeof config === 'string') {
-		return data[config];
-	} else if (typeof config === 'undefined') {
-		const dataProp = data[prop];
-		return dataProp === undefined ? '' : dataProp;
-	}
-};
 
 const getStore = function(store) {
 	let thisStore = store;
@@ -109,6 +20,7 @@ let nodeIdSeed = 0;
 
 export default class Node {
 	constructor(options) {
+		this.time = new Date().getTime();
 		this.id = nodeIdSeed++;
 		this.text = null;
 		this.checked = false;
@@ -139,10 +51,11 @@ export default class Node {
 		this.disabled = getPropertyFromData(this, 'disabled');
 		this.nextSibling = null;
 		this.previousSibling = null;
+		this.icon = '';
 
 		if (this.parentId !== null) {
 			let parent = this.getParent(this.parentId);
-			//由于这里做了修改，默认第一个对象不会被注册到nodesMap中，所以找不到parent会报错，所以默认parent的level是0
+			// 由于这里做了修改，默认第一个对象不会被注册到nodesMap中，所以找不到parent会报错，所以默认parent的level是0
 			if (!parent) {
 				parent = {
 					level: 0
@@ -208,9 +121,12 @@ export default class Node {
 
 		this.updateLeafState();
 	}
+	
+	destroyStore() {
+		getStore(null)
+	}
 
 	setData(data) {
-
 		if (!Array.isArray(data)) {
 			markNodeData(this, data);
 		}
@@ -339,13 +255,13 @@ export default class Node {
 		}
 	}
 
-	//为了避免APP端parent嵌套结构导致报错，这里parent需要从nodesMap中获取
+	// 为了避免APP端parent嵌套结构导致报错，这里parent需要从nodesMap中获取
 	getParent(parentId) {
 		if (!parentId) return null;
 		return this.store().nodesMap[parentId];
 	}
 
-	//为了避免APP端childNodes嵌套结构导致报错，这里childNodes需要从nodesMap中获取
+	// 为了避免APP端childNodes嵌套结构导致报错，这里childNodes需要从nodesMap中获取
 	getChildNodes(childNodesId) {
 		let childNodes = [];
 		if (childNodesId.length === 0) return childNodes;
@@ -416,8 +332,9 @@ export default class Node {
 	setChecked(value, deep, recursion, passValue) {
 		this.indeterminate = value === 'half';
 		this.checked = value === true;
-
+		
 		if (this.store().checkStrictly) return;
+		if (this.store().showRadio) return;
 
 		if (!(this.shouldLoadData() && !this.store().checkDescendants)) {
 			let childNodes = this.getChildNodes(this.childNodesId);

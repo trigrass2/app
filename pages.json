@@ -1,6 +1,5 @@
 {
-	"pages": [ 
-		{
+	"pages": [{
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": ""
@@ -19,19 +18,18 @@
 				"enablePullDownRefresh": true,
 				"app-plus": {
 					"titleNView": {
-						"buttons": [
+						"buttons": [{
+								"text": "\ue663",
+								"float": "right",
+								"fontSrc": "/static/style/font/iconfont.ttf",
+								"fontSize": "20px"
+							},
 							{
-							"text": "\ue663",
-							"float": "right",
-							"fontSrc": "/static/style/font/iconfont.ttf",
-							"fontSize": "20px"
-						},
-						{
-							"text": "\ue631",
-							"float": "right",
-							"fontSrc": "/static/style/font/iconfont.ttf",
-							"fontSize": "20px"
-						}
+								"text": "\ue631",
+								"float": "right",
+								"fontSrc": "/static/style/font/iconfont.ttf",
+								"fontSize": "20px"
+							}
 						]
 					}
 				}
@@ -44,19 +42,18 @@
 				"enablePullDownRefresh": true,
 				"app-plus": {
 					"titleNView": {
-						"buttons": [
+						"buttons": [{
+								"text": "\ue663",
+								"float": "right",
+								"fontSrc": "/static/style/font/iconfont.ttf",
+								"fontSize": "20px"
+							},
 							{
-							"text": "\ue663",
-							"float": "right",
-							"fontSrc": "/static/style/font/iconfont.ttf",
-							"fontSize": "20px"
-						},
-						{
-							"text": "\ue631",
-							"float": "right",
-							"fontSrc": "/static/style/font/iconfont.ttf",
-							"fontSize": "20px"
-						}
+								"text": "\ue631",
+								"float": "right",
+								"fontSrc": "/static/style/font/iconfont.ttf",
+								"fontSize": "20px"
+							}
 						]
 					}
 				}
@@ -68,14 +65,12 @@
 				"navigationBarTitleText": "设备效率分析",
 				"app-plus": {
 					"titleNView": {
-						"buttons": [
-							{
+						"buttons": [{
 							"text": "\ue663",
 							"float": "right",
 							"fontSrc": "/static/style/font/iconfont.ttf",
 							"fontSize": "20px"
-						}
-						]
+						}]
 					}
 				}
 			}
@@ -158,15 +153,19 @@
 			"style": {
 				"navigationBarTitleText": "我的"
 			}
+		}, {
+			"path": "pages/retrospect/retrospect",
+			"style": {
+				"navigationBarTitleText": "工艺追溯"
+			}
 		}
-    ],
+	],
 	"tabBar": {
 		// "borderStyle": "white",
 		"backgroundColor": "#ffffff",
 		"color": "#333",
 		"selectedColor": "#3890d8",
-		"list": [
-			{
+		"list": [{
 				"pagePath": "pages/index/index",
 				"text": "首页",
 				"iconPath": "static/images/icon_home.png",
@@ -202,7 +201,7 @@
 	},
 	// 开发环境配置
 	"condition": {
-		"current": 8,
+		"current": 9,
 		"list": [{
 				"name": "login",
 				"path": "pages/login/login"
@@ -253,6 +252,10 @@
 			{
 				"name": "my",
 				"path": "pages/my/my"
+			},
+			{
+				"name": "retrospect",
+				"path": "pages/retrospect/retrospect"
 			}
 		]
 	}

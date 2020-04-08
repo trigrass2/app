@@ -31,15 +31,16 @@
 
 	export default {
 		name: 'LyTree',
+		
 		componentName: 'LyTree',
+		
 		components: {
 			LyTreeNode
 		},
+		
 		data() {
-			const elId = `ly_${Math.ceil(Math.random() * 10e5).toString(36)}`
-			
 			return {
-				elId,
+				elId: `ly_${Math.ceil(Math.random() * 10e5).toString(36)}`,
 				store: {
 					ready: false
 				},
@@ -47,6 +48,13 @@
 				childNodesId: []
 			};
 		},
+		
+		provide() {
+		    return {
+		       tree: this
+		    }
+		},
+		
 		props: {
 			// 展示数据
 			treeData: Array,
@@ -129,7 +137,7 @@
 			
 			// 配置选项
 			props: {
-				type: Object,
+				type: [Object, Function],
 				default () {
 					return {
 						children: 'children', // 指定子树为节点对象的某个属性值
@@ -178,6 +186,7 @@
 				default: false
 			}
 		},
+		
 		computed: {
 			children: {
 				set(value) {
@@ -199,6 +208,7 @@
 				return !(this.store.ready && this.ready);
 			}
 		},
+		
 		watch: {
 			toggleExpendAll(newVal) {
 				this.store.toggleExpendAll(newVal);
@@ -218,18 +228,20 @@
 			},
 			'store.root.childNodesId'(newVal) {
 				this.childNodesId = newVal;
+			},
+			childNodesId(){
+				this.$nextTick(() => {
+					this.$emit('ly-tree-render-completed');
+				});
 			}
 		},
+		
 		methods: {
-			getStore() {
-				return this.store;
-			},
-			
 			/*
-				说明：对树节点进行筛选操作
-				参数：(value, data)
-					1、接收一个任意类型的参数，该参数会在 filter-node-method 中作为第一个参数
-					2、搜索指定节点的节点数据，不传代表搜索所有节点，假如要搜索A节点下面的数据，那么nodeData代表treeData中A节点的数据
+			 * @description 对树节点进行筛选操作
+			 * @method filter
+			 * @param {all} value 在 filter-node-method 中作为第一个参数
+			 * @param {Object} data 搜索指定节点的节点数据，不传代表搜索所有节点，假如要搜索A节点下面的数据，那么nodeData代表treeData中A节点的数据
 			*/
 			filter(value, data) {
 				if (!this.filterNodeMethod) throw new Error('[Tree] filterNodeMethod is required when filter');
@@ -237,42 +249,51 @@
 			},
 			
 			/*
-				说明：获取节点的唯一标识符
-				参数：(node)节点数据
+			 * @description 获取节点的唯一标识符
+			 * @method getNodeKey
+			 * @param {String, Number} nodeId
+			 * @return {String, Number} 匹配到的数据中的某一项数据
 			*/
 			getNodeKey(nodeId) {
 				let node = this.store.root.getChildNodes([nodeId])[0];
 				return getNodeKey(this.nodeKey, node.data);
 			},
 			
-			/*
-				说明：获取节点路径
-				参数：(data)节点数据
-			*/
+		   /*
+		    * @description 获取节点路径
+		    * @method getNodePath
+		    * @param {Object} data 节点数据
+		    * @return {Array} 路径数组
+		   */
 			getNodePath(data) {
 				return this.store.getNodePath(data);
 			},
 			
 			/*
-				说明：若节点可被选择（即 show-checkbox 为 true），则返回目前被选中的节点所组成的数组
-				参数：(leafOnly, includeHalfChecked) 接收两个 boolean 类型的参数
-					1. 是否只是叶子节点，默认值为 false 
-					2. 是否包含半选节点，默认值为 false
+			 * @description 若节点可被选择（即 show-checkbox 为 true），则返回目前被选中的节点所组成的数组
+			 * @method getCheckedNodes
+			 * @param {Boolean} leafOnly 是否只是叶子节点，默认false
+			 * @param {Boolean} includeHalfChecked 是否包含半选节点，默认false
+			 * @return {Array} 目前被选中的节点所组成的数组
 			*/
 			getCheckedNodes(leafOnly, includeHalfChecked) {
 				return this.store.getCheckedNodes(leafOnly, includeHalfChecked);
 			},
 			
 			/*
-				说明：若节点可被选择（即 show-checkbox 为 true），则返回目前被选中的节点的 key 所组成的数组
-				参数：(leafOnly) 接收一个 boolean 类型的参数，若为 true 则仅返回被选中的叶子节点的 keys，默认值为 false
+			 * @description 若节点可被选择（即 show-checkbox 为 true），则返回目前被选中的节点的 key 所组成的数组
+			 * @method getCheckedKeys
+			 * @param {Boolean} leafOnly 是否只是叶子节点，默认false,若为 true 则仅返回被选中的叶子节点的 keys
+			 * @return {Array} 目前被选中的节点所组成的数组
 			*/
 			getCheckedKeys(leafOnly) {
 				return this.store.getCheckedKeys(leafOnly);
 			},
 			
 			/*
-				说明：获取当前被选中节点的 data，若没有节点被选中则返回 null
+			 * @description 获取当前被选中节点的 data，若没有节点被选中则返回 null
+			 * @method getCurrentNode
+			 * @return {Object} 当前被选中节点的 data，若没有节点被选中则返回 null
 			*/
 			getCurrentNode() {
 				const currentNode = this.store.getCurrentNode();
@@ -280,28 +301,30 @@
 			},
 			
 			/*
-				说明：获取当前被选中节点的 key，使用此方法必须设置 node-key 属性，若没有节点被选中则返回 null
+			 * @description 获取当前被选中节点的 key，若没有节点被选中则返回 null
+			 * @method getCurrentKey
+			 * @return {all} 当前被选中节点的 key， 若没有节点被选中则返回 null
 			*/
 			getCurrentKey() {
-				if (!this.nodeKey) throw new Error('[Tree] nodeKey is required in getCurrentKey');
 				const currentNode = this.getCurrentNode();
 				return currentNode ? currentNode[this.nodeKey] : null;
 			},
 			
 			/*
-				说明：设置目前勾选的节点，使用此方法必须设置 node-key 属性
-				参数：(nodes) 接收勾选节点数据的数组
+			 * @description 设置目前勾选的节点
+			 * @method setCheckedNodes
+			 * @param {Array} nodes 接收勾选节点数据的数组
+			 * @param {Boolean} leafOnly 是否只是叶子节点, 若为 true 则仅设置叶子节点的选中状态，默认值为 false
 			*/
 			setCheckedNodes(nodes, leafOnly) {
-				if (!this.nodeKey) throw new Error('[Tree] nodeKey is required in setCheckedNodes');
 				this.store.setCheckedNodes(nodes, leafOnly);
 			},
 			
 			/*
-				说明：通过 keys 设置目前勾选的节点，使用此方法必须设置 node-key 属性
-				参数：(keys, leafOnly) 接收两个参数
-					1. 勾选节点的 key 的数组 
-					2. boolean 类型的参数，若为 true 则仅设置叶子节点的选中状态，默认值为 false
+			 * @description 通过 keys 设置目前勾选的节点
+			 * @method setCheckedKeys
+			 * @param {Array} keys 勾选节点的 key 的数组 
+			 * @param {Boolean} leafOnly 是否只是叶子节点, 若为 true 则仅设置叶子节点的选中状态，默认值为 false
 			*/
 			setCheckedKeys(keys, leafOnly) {
 				if (!this.nodeKey) throw new Error('[Tree] nodeKey is required in setCheckedKeys');
@@ -309,33 +332,38 @@
 			},
 			
 			/*
-				说明：通过 key / data 设置某个节点的勾选状态，使用此方法必须设置 node-key 属性
-				参数：(key/data, checked, deep) 接收三个参数
-					1. 勾选节点的 key 或者 data 
-					2. boolean 类型，节点是否选中 
-					3. boolean 类型，是否设置子节点 ，默认为 false
+			 * @description 通过 key / data 设置某个节点的勾选状态
+			 * @method setChecked
+			 * @param {all} data 勾选节点的 key 或者 data 
+			 * @param {Boolean} checked 节点是否选中
+			 * @param {Boolean} deep 是否设置子节点 ，默认为 false
 			*/
 			setChecked(data, checked, deep) {
 				this.store.setChecked(data, checked, deep);
 			},
 			
 			/*
-				说明：若节点可被选择（即 show-checkbox 为 true），则返回目前半选中的节点所组成的数组
+			 * @description 若节点可被选择（即 show-checkbox 为 true），则返回目前半选中的节点所组成的数组
+			 * @method getHalfCheckedNodes
+			 * @return {Array} 目前半选中的节点所组成的数组
 			*/
 			getHalfCheckedNodes() {
 				return this.store.getHalfCheckedNodes();
 			},
 			
 			/*
-				说明：若节点可被选择（即 show-checkbox 为 true），则返回目前半选中的节点的 key 所组成的数组
+			 * @description 若节点可被选择（即 show-checkbox 为 true），则返回目前半选中的节点的 key 所组成的数组
+			 * @method getHalfCheckedKeys
+			 * @return {Array} 目前半选中的节点的 key 所组成的数组
 			*/
 			getHalfCheckedKeys() {
 				return this.store.getHalfCheckedKeys();
 			},
 			
 			/*
-				说明：通过 node 设置某个节点的当前选中状态，使用此方法必须设置 node-key 属性
-				参数：(node) 待被选节点的 node
+			 * @description 通过 node 设置某个节点的当前选中状态
+			 * @method setCurrentNode
+			 * @param {Object} node 待被选节点的 node
 			*/
 			setCurrentNode(node) {
 				if (!this.nodeKey) throw new Error('[Tree] nodeKey is required in setCurrentNode');
@@ -343,8 +371,9 @@
 			},
 			
 			/*
-				说明：通过 key 设置某个节点的当前选中状态，使用此方法必须设置 node-key 属性
-				参数：(key) 待被选节点的 key，若为 null 则取消当前高亮的节点
+			 * @description 通过 key 设置某个节点的当前选中状态
+			 * @method setCurrentKey
+			 * @param {all} key 待被选节点的 key，若为 null 则取消当前高亮的节点
 			*/
 			setCurrentKey(key) {
 				if (!this.nodeKey) throw new Error('[Tree] nodeKey is required in setCurrentKey');
@@ -352,71 +381,80 @@
 			},
 			
 			/*
-				说明：根据 data 或者 key 拿到 Tree 组件中的 node
-				参数：(data) 要获得 node 的 key 或者 data
+			 * @description 根据 data 或者 key 拿到 Tree 组件中的 node
+			 * @method getNode
+			 * @param {all} data 要获得 node 的 key 或者 data
 			*/
 			getNode(data) {
 				return this.store.getNode(data);
 			},
 			
 			/*
-				说明：删除 Tree 中的一个节点，使用此方法必须设置 node-key 属性
-				参数：(data) 要删除的节点的 data 或者 node
+			 * @description 删除 Tree 中的一个节点
+			 * @method remove
+			 * @param {all} data 要删除的节点的 data 或者 node
 			*/
 			remove(data) {
 				this.store.remove(data);
 			},
 			
 			/*
-				说明：为 Tree 中的一个节点追加一个子节点
-				参数：(data, parentNode) 接收两个参数
-					1. 要追加的子节点的 data 
-					2. 子节点的 parent 的 data、key 或者 node
+			 * @description 为 Tree 中的一个节点追加一个子节点
+			 * @method append
+			 * @param {Object} data 要追加的子节点的 data 
+			 * @param {Object} parentNode 子节点的 parent 的 data、key 或者 node
 			*/
 			append(data, parentNode) {
 				this.store.append(data, parentNode);
 			},
 			
 			/*
-				说明：为 Tree 的一个节点的前面增加一个节点
-				参数：(data, refNode) 接收两个参数
-					1. 要增加的节点的 data 
-					2. 要增加的节点的后一个节点的 data、key 或者 node
+			 * @description 为 Tree 的一个节点的前面增加一个节点
+			 * @method insertBefore
+			 * @param {Object} data 要增加的节点的 data 
+			 * @param {all} refNode 要增加的节点的后一个节点的 data、key 或者 node
 			*/
 			insertBefore(data, refNode) {
 				this.store.insertBefore(data, refNode);
 			},
 			
 			/*
-				说明：为 Tree 的一个节点的后面增加一个节点
-				参数：	(data, refNode) 接收两个参数
-					1. 要增加的节点的 data 
-					2. 要增加的节点的前一个节点的 data、key 或者 node
+			 * @description 为 Tree 的一个节点的后面增加一个节点
+			 * @method insertAfter
+			 * @param {Object} data 要增加的节点的 data 
+			 * @param {all} refNode 要增加的节点的前一个节点的 data、key 或者 node
 			*/
 			insertAfter(data, refNode) {
 				this.store.insertAfter(data, refNode);
 			},
 			
 			/*
-				说明：通过 keys 设置节点子元素，使用此方法必须设置 node-key 属性
-				参数：(key, data) 接收两个参数
-					1. 节点 key 
-					2. 节点数据的数组
+			 * @description 通过 keys 设置节点子元素
+			 * @method updateKeyChildren
+			 * @param {String, Number} key 节点 key 
+			 * @param {Object} data 节点数据的数组
 			*/
 			updateKeyChildren(key, data) {
 				if (!this.nodeKey) throw new Error('[Tree] nodeKey is required in updateKeyChild');
 				this.store.updateChildren(key, data);
 			}
 		},
+		
 		created() {
 			this.isTree = true;
-
+			
+			let props = this.props;
+			if (typeof this.props === 'function') props = this.props();
+			if (typeof props !== 'object') throw new Error('props must be of object type.');
+			
 			this.store = new TreeStore({
 				key: this.nodeKey,
 				data: this.treeData,
 				lazy: this.lazy,
-				props: this.props,
+				props: props,
 				load: this.load,
+				showCheckbox: this.showCheckbox,
+				showRadio: this.showRadio,
 				currentNodeKey: this.currentNodeKey,
 				checkStrictly: this.checkStrictly || this.checkOnlyLeaf,
 				checkDescendants: this.checkDescendants,
@@ -431,6 +469,7 @@
 
 			this.childNodesId = this.store.root.childNodesId;
 		},
+		
 		beforeDestroy() {
 			if (this.accordion) {
 				uni.$off(`${this.elId}-tree-node-expand`)

@@ -14,6 +14,33 @@
 		font-size: 28upx;
 		text-align: center;
 	}
+	.tabs {
+		overflow: hidden;
+		display: flex;
+		margin: 0 20upx;
+		// width: 450upx;
+		border: 1px solid $blue-color;
+		border-radius: 5px;
+	
+		.tabs-items {
+			flex: 1;
+			text-align: center;
+			height: 75upx;
+			line-height: 75upx;
+			font-size: 26upx;
+			color: $font-gray;
+			border-right: 1px solid $blue-color;
+	
+			&:last-child {
+				border-right: 0;
+			}
+		}
+	
+		.active {
+			color: $white-color;
+			background: $blue-color;
+		}
+	}
 	/*我的消息*/
 	.push-info{
 		margin-top: 20upx;
@@ -25,7 +52,7 @@
 		position:relative;
 		padding: 0 30upx;
 		height: 118upx;
-		color:$font-title-color;
+		color:$font-text-color;
         @include line(20upx)
 		&:active{
 			background-color:$hover-color;

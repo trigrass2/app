@@ -314,10 +314,11 @@
 
 	// 饼图
 	.sub-title {
-		border-left: 10rpx solid $blue-color;
-		padding-left: 10rpx;
+		// border-left: 10rpx solid $blue-color;
+		padding-left: 20upx;
+		line-height: 2;
 		font-size: $font-32;
-		color: #000;
+		color:$font-text-color;
 	}
 
 	.analyse-title {
