@@ -5,7 +5,7 @@
 			'is-checked': !node.disabled && node.checked }"
 	 role="treeitem" name="LyTreeNode" ref="node">
 		<view class="ly-tree-node__content" :style="{ 'padding-left': (node.level - 1) * indent + 'px' }">
-			<text @tap.stop="handleExpandIconClick" :class="[{ 'is-leaf': node.isLeaf, expanded: !node.isLeaf && node.expanded }, 'ly-tree-node__expand-icon', iconClass ? iconClass : 'ly-iconfont ly-icon-caret-right']"></text>
+			<text @tap.stop="handleExpandIconClick" :class="[{ 'is-leaf': node.isLeaf&&!node.data.isAsync, expanded: !node.isLeaf && node.expanded }, 'ly-tree-node__expand-icon', iconClass ? iconClass : 'ly-iconfont ly-icon-caret-right']"></text>
 			
 			<text v-if="checkboxVisible" class="ly-checkbox" @tap.stop="handleCheckChange(!node.checked)">
 				<text class="ly-checkbox__input" :class="[{'is-indeterminate': node.indeterminate, 'is-checked': node.checked, 'is-disabled': !!node.disabled}]">
@@ -27,6 +27,7 @@
 			</template>
 			
 			<text class="ly-tree-node__label">{{node.label}}</text>
+			<text v-if="!!node.data.iconClass" :class="['iconfont',node.data.iconClass]" @tap.stop="handleIconClick"></text>
 		</view>
 		<view v-if="!renderAfterExpand || childNodeRendered" v-show="expanded" class="ly-tree-node__children" role="group">
 			<ly-tree-node v-for="cNodeId in node.childNodesId" 
@@ -163,7 +164,9 @@
 				
 				this.tree.$emit('node-click', this.node);
 			},
-			
+			handleIconClick(){
+				this.tree.$emit('icon-click', this.node);
+			},
 			handleExpandIconClick() {
 				if (this.node.isLeaf) return;
 				
@@ -239,3 +242,6 @@
 		}
 	};
 </script>
+<style lang="scss" scoped>
+	.iconfont{margin-left: 5upx;color:#999;}
+</style>

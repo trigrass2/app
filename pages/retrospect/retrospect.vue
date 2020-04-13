@@ -7,22 +7,22 @@
 			<!-- 产品 -->
 			<view class="from-list" v-show="ative==='Product'">
 				<view class="item">
-					<input class="uni-input" placeholder="工单" v-model="fabric.workOrder" />
+					<input class="uni-input" placeholder="工单" v-model="fabric.orderNo" />
 				</view>
 				<view class="item">
-					<input class="uni-input" placeholder="产品批次" v-model="fabric.batch" />
+					<input class="uni-input" placeholder="产品批次" v-model="fabric.sfc" />
 				</view>
 				<view class="item">
-					<picker mode="date" :value="fabric.startDate" @change="changeStartDate">
-						<view :class="['uni-input',{'input-color':!fabric.startDate}]">
-							{{fabric.startDate||'开始时间'}}
+					<picker mode="date" :value="fabric.startDay" @change="changestartDay">
+						<view :class="['uni-input',{'input-color':!fabric.startDay}]">
+							{{fabric.startDay||'开始时间'}}
 						</view>
 					</picker>
 				</view>
 				<view class="item">
-					<picker mode="date" :value="fabric.endDate" @change="changeEndDate">
-						<view :class="['uni-input',{'input-color':!fabric.endDate}]">
-							{{fabric.endDate||'结束时间'}}
+					<picker mode="date" :value="fabric.endDay" @change="changeendDay">
+						<view :class="['uni-input',{'input-color':!fabric.endDay}]">
+							{{fabric.endDay||'结束时间'}}
 						</view>
 					</picker>
 				</view>
@@ -30,25 +30,37 @@
 			<!-- 物料 -->
 			<view class="from-list" v-show="ative==='Material'">
 				<view class="item">
-					<input class="uni-input" placeholder="工单" v-model="matters.matter" />
+					<input class="uni-input" placeholder="工单" v-model="matCodes.matCode" />
 				</view>
 				<view class="item">
-					<input class="uni-input" placeholder="产品批次" v-model="matters.batch" />
+					<input class="uni-input" placeholder="产品批次" v-model="matCodes.matSfc" />
 				</view>
 			</view>
 			<view class="search-btn">
 				<view class="btn-item">
-					<button type="primary" plain="true">清空</button>
+					<button type="primary" plain="true" @tap="clear">清空</button>
 				</view>
 				<view class="btn-item">
-					<button type="primary">查询</button>
+					<button type="primary" @tap="search">查询</button>
 				</view>
 			</view>
 		</view>
-		<!-- reviewTree -->
+		<!-- reviewTree -->			
 		<view class="reviewTree">
-			<reviewTree ref="reviewTree" />
+			<scroll-view
+			scroll-x="true" 
+			class="review-scroll">
+			<reviewTree 
+			ref="tree" 
+			:product-map="productDict" 
+			:material-map="materialDict" 
+			:process-map="processDict" 
+			:step-map="stepDict"
+			:emp-map="empDict" 
+			@materialData="getMaterial" />
+		</scroll-view>	
 		</view>
+		
 	</view>
 </template>
 
@@ -70,7 +82,8 @@
 				stepDict: {},
 				empDict: {},
 				// tabs
-				tabsList: [{
+				tabsList: [
+					{
 						label: '以产品追溯',
 						value: 'Product'
 					},
@@ -81,14 +94,14 @@
 				],
 				ative: 'Product',
 				fabric: {
-					workOrder: '',
-					batch: '',
-					startDate: '',
-					endDate: ''
+					orderNo: '',
+					sfc: '2G001',
+					startDay: '',
+					endDay: ''
 				},
-				matters: {
-					matter: '',
-					batch: ''
+				matCodes: {
+					matCode: '',
+					matSfc: ''
 				}
 
 			}
@@ -96,25 +109,38 @@
 		onLoad() {
 			this.getFetchDicts();
 		},
+		computed: {
+			form() {
+				const isMaterial = this.ative !== 'Product'
+				if (isMaterial) {
+					return {
+						isMaterial,
+						...this.matCodes
+					}
+				}
+				return {
+					isMaterial,
+					...this.fabric
+				}
+			}
+		},
 		methods: {
-			// tabs
-			tabsTap(val) {},
 			// 日期
-			changeStartDate(val) {
+			changestartDay(val) {
 				const {
 					detail: {
 						value
 					}
 				} = val
-				this.fabric.startDate = value;
+				this.fabric.startDay = value;
 			},
-			changeEndDate(val) {
+			changeendDay(val) {
 				const {
 					detail: {
 						value
 					}
 				} = val
-				this.fabric.endDate = value;
+				this.fabric.endDay = value;
 			},
 			// tabs
 			getAtive(val) {
@@ -137,8 +163,23 @@
 						this.stepDict = res.BProcessStep
 						this.empDict = res.SEmployee
 					})
+			},
+			search() {
+				this.$refs.tree.fetchData(this.form)
+			},
+			// 获取物料的数据
+			getMaterial(val) {
+				this.ative = val.isMaterial ? 'Material' : 'Product';
+				for (let key in this.matCodes) {
+					this.matCodes[key] = val[key]
+				}
+			},
+			clear(){
+				let form=this.ative==='Product'?this.fabric:this.matCodes;
+				Object.keys(form).forEach(function(key){	
+				     form[key]=''				
+				});
 			}
-
 		}
 	}
 </script>
@@ -174,7 +215,6 @@
 				}
 			}
 		}
-
 	}
 
 	.from-list {
@@ -182,10 +222,10 @@
 			border-bottom: 1px solid $line-color;
 		}
 	}
-
 	// reviewTree
+	.review-scroll{width: 750upx;}
 	.reviewTree {
-		margin-top: 20upx;
+		margin: 20upx 0;
 		background-color: $white-color;
 	}
 </style>

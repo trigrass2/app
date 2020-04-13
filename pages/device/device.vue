@@ -45,10 +45,23 @@
 										{{device.troubleDesc}}
 									</view>
 									<view class="device-item-percent">
-										<progress show-info percent="100" font-size="12" activeColor="#3890d8" backgroundColor="#ccc" stroke-width="4"
-										 border-radius="5" class="progress" />
-										<progress show-info percent="100" font-size="12" activeColor="#22b14c" backgroundColor="#ccc" stroke-width="4"
-										 border-radius="5" class="progress" />
+										<progress 
+										show-info percent="100" 
+										font-size="12" 
+										activeColor="#3890d8"
+										 backgroundColor="#ccc" 
+										 stroke-width="4"
+										 border-radius="3" 
+										 class="progress" />
+										<progress 
+										show-info 
+										percent="100" 
+										font-size="12" 
+										activeColor="#22b14c"
+										backgroundColor="#ccc" 
+										stroke-width="4"
+										border-radius="3" 
+										class="progress" />
 									</view>
 								</view>
 							</view>
@@ -70,10 +83,24 @@
 										{{device.troubleDesc}}
 									</view>
 									<view class="device-item-percent">
-										<progress show-info percent="100" font-size="12" activeColor="#3890d8" backgroundColor="#ccc" stroke-width="4"
-										 border-radius="5" class="progress" />
-										<progress show-info percent="100" font-size="12" activeColor="#22b14c" backgroundColor="#ccc" stroke-width="4"
-										 border-radius="5" class="progress" />
+										<progress 
+										show-info 
+										percent="100" 
+										font-size="12" 
+										activeColor="#3890d8" 
+										backgroundColor="#ccc" 
+										stroke-width="4"
+										border-radius="3" 
+										class="progress" />
+										<progress 
+										show-info 
+										percent="100" 
+										font-size="12" 
+										activeColor="#22b14c" 
+										backgroundColor="#ccc" 
+										stroke-width="4"
+										border-radius="3" 
+										class="progress" />
 									</view>
 								</view>
 							</view>
@@ -95,10 +122,24 @@
 										{{device.troubleDesc}}
 									</view>
 									<view class="device-item-percent">
-										<progress show-info percent="100" font-size="12" activeColor="#3890d8" backgroundColor="#ccc" stroke-width="4"
-										 border-radius="5" class="progress" />
-										<progress show-info percent="100" font-size="12" activeColor="#22b14c" backgroundColor="#ccc" stroke-width="4"
-										 border-radius="5" class="progress" />
+										<progress 
+									    show-info 
+										percent="100" 
+										font-size="12" 
+										activeColor="#3890d8" 
+										backgroundColor="#ccc" 
+										stroke-width="4"
+										border-radius="3" 
+										class="progress" />
+										<progress 
+										show-info 
+										percent="100" 
+										font-size="12" 
+										activeColor="#22b14c" 
+										backgroundColor="#ccc" 
+										stroke-width="4"
+										border-radius="3"
+										class="progress" />
 									</view>
 								</view>
 							</view>
@@ -431,7 +472,6 @@
 
 				.fault {
 					border: 1px solid $red-color;
-
 					.device-item-no {
 						color: $white-color;
 						background: $red-color;
@@ -441,7 +481,6 @@
 				// 正常
 				.normal {
 					border: 1px solid #696969;
-
 					.device-item-no {
 						color: $white-color;
 						background: #696969;
@@ -454,7 +493,7 @@
 	.progress {
 		color: $font-light-gray;
 		height: 25upx;
-
+		// font-size:12upx !important;
 		/*#ifdef H5*/
 		/deep/.uni-progress-info {
 			font-size: 24upx;

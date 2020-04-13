@@ -84,7 +84,7 @@
 		flex-direction: column;
 		width: 100%;
 		min-height: 100%;
-		background: linear-gradient(to bottom, #3890d8 0%, #47acfc 100%);
+		background:#3b99fb;
 	}
 
 	.login-content{
@@ -92,7 +92,7 @@
 		// background-color: #fff;
 		padding-bottom: 80upx;
 		.login-logo {
-			padding-bottom: 110upx;
+			padding-bottom: 60upx;
 			text-align: center;		
 			image {
 				width: 254upx;

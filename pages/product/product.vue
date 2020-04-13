@@ -8,8 +8,13 @@
 				<view class="pro-hd">
 					<view class="hd-name">{{item.lineName}}</view>
 					<view class="hd-percent">
-						<progress active duration="5" font-size="12" activeColor="#3890d8" backgroundColor="#ddd" stroke-width="3"
-						 border-radius="5" :percent="item.percent" />
+						<progress 
+						 font-size="12" 
+						 activeColor="#3890d8" 
+						 backgroundColor="#ddd" 
+						 stroke-width="5"
+						 border-radius="3" 
+						 :percent="item.percent" />
 					</view>
 					<view class="hd-state">{{getState(item.percent)}}{{item.percent}}%</view>
 				</view>
@@ -28,21 +33,21 @@
 						</view>
 						<view class="info-row">
 							<view class="info-col">
-								<text class="info-name">完&ensp;成&ensp;数</text>
+								<text class="info-name">完&ensp;成&ensp;数：</text>
 								<text class="info-text">{{item.cpltQty}}</text>
 							</view>
 							<view class="info-col">
-								<text class="info-name">计&ensp;划&ensp;数</text>
+								<text class="info-name">计&ensp;划&ensp;数：</text>
 								<text class="info-text">{{item.qty}}</text>
 							</view>
 						</view>
 						<view class="info-row">
 							<view class="info-col">
-								<text class="info-name">良&emsp;&emsp;率</text>
+								<text class="info-name">良&emsp;&emsp;率：</text>
 								<text class="info-text">{{item.yield}}%</text>
 							</view>
 							<view class="info-col">
-								<text class="info-name">备&emsp;&emsp;料</text>
+								<text class="info-name">备&emsp;&emsp;料：</text>
 								<text class="info-text">0%</text>
 							</view>
 						</view>
@@ -51,26 +56,26 @@
 					<view class="pro-info" v-show="item.productVisible">
 						<view class="info-row">
 							<view class="info-col">
-								<text class="info-name">客&emsp;&emsp;户</text>
+								<text class="info-name">客&emsp;&emsp;户：</text>
 								<text>{{item.customer}}</text>
 							</view>
 							<view class="info-col">
-								<text class="info-name">版&emsp;&emsp;本</text>
+								<text class="info-name">版&emsp;&emsp;本：</text>
 								<text>{{item.bomVersion}}</text>
 							</view>
 						</view>
 						<view class="pro-line">
 						</view>
 						<view class="info">
-							<text class="info-name">工&emsp;&emsp;艺</text>
+							<text class="info-name">工&emsp;&emsp;艺：</text>
 							<text>{{item.flowName}}</text>
 						</view>
 						<view class="info">
-							<text class="info-name">备&emsp;&emsp;注</text>
+							<text class="info-name">备&emsp;&emsp;注：</text>
 							<text>{{item.remarks}}</text>
 						</view>
 						<view class="info">
-							<text class="info-name">计划时间</text>
+							<text class="info-name">计划时间：</text>
 							<text class="info-time">{{$formatdate(item.plannedTime)}}</text>
 						</view>
 					</view>
@@ -313,7 +318,7 @@
 
 		.info-name {
 			position: relative;
-			width: 120upx;
+			width: 140upx;
 			margin-right: 15upx;
 			color: $font-gray;
 		}

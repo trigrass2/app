@@ -72,7 +72,7 @@
 						icons: 'icon-produce',
 						text: '生产详情',
 						url: '/pages/product/product',
-						color: '#57ceec'
+						color: '#fe9f15'
 					},
 					{
 						icons: 'icon-device',
@@ -86,42 +86,42 @@
 						text: '效力分析',
 						// url: ''
 						url: '/pages/analyse/analyse',
-						color: '#81dd54'
+						color: '#2f96f9'
 					},
 					{
 						icons: 'icon-file',
 						text: '工艺追溯',
 						// url: ''
 						url: '/pages/retrospect/retrospect',
-						color: '#4dd1e6'
+						color: '#17bc84'
 					},
 					{
 						icons: 'icon-effict',
 						text: '效力管理',
 						// url: ''
 						url: '/pages/effect/effect',
-						color: '#6dadf4'
+						color: '#5396f0'
 					},
 					{
 						icons: 'icon-quality',
 						text: '质量管理',
 						// url: ''
 						url: '/pages/quality/quality',
-						color: '#fac42d'
+						color: '#f8b220'
 					},
 					{
-						icons: 'icon-chaxun',
+						icons: 'icon-search',
 						text: '相关查询',
 						// url: ''
 						url: '/pages/search/search',
-						color: '#ae7cff'
+						color: '#9761ff'
 					},
 					{
 						icons: 'icon-message',
 						text: '我的消息',
 						// url: ''
 						url: '/pages/info/info',
-						color: '#f08551'
+						color: '#eb6a3b'
 					}
 				],
 				spotVisible: false,
@@ -188,20 +188,19 @@
 
 				// 文字
 				&.nav-item-text {
-					margin-top: 15upx;
-					color: $font-text-color;
+					margin-top: 5upx;
+					color:$font-gray;
 				}
 
 				&.iconfont {
 					margin: 0 auto;
-					width: 95upx;
-					height: 95upx;
-					line-height: 95upx;
+					width: 100upx;
+					height: 100upx;
+					line-height: 100upx;
 					font-size: 50upx;
-					border-radius: 50%;
+					border-radius: 40%;
 					background: $blue-color;
 					color: $white-color;
-					box-shadow: 0px 1px 3px #999;
 
 				}
 			}
