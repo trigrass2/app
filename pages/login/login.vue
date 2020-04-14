@@ -11,22 +11,31 @@
 		 		<view class="login">
 		 			<view class="login-item line">
 		 				<text class="iconfont icon-user"></text>
-		 				<input class="login-input" placeholder="账号" v-model="user">
+		 				<input
+						placeholder-style="color:rgb(207,207,207)" 						
+						placeholder="账号" 
+						v-model="user"
+						class="login-input" >
 		 			</view>
 		 			<view class="login-item">
 		 				<text class="iconfont icon-password"></text>
-		 				<input class="login-input"  password placeholder="密码" v-model="password" />
+		 				<input 						 
+						password
+						placeholder-style="color:rgb(207,207,207)" 
+						placeholder="密码" 
+						v-model="password" 
+						class="login-input" />
 		 			</view>
 		 		</view>
 		 		<!--/登陆表单-->
 		 		<view>
-		 			<button class="login-btn" @tap="submit">立即登录</button>
+		 			<button class="login-btn" @tap="submit">登&emsp;录</button>
 		 		</view>
 		 	</view>
 		 	<!-- form -->
 		 </view>
 		</view>
-		<view class="login-text">©2019广州阳普智能系统科技公司</view>
+		<view class="login-text">©2020广州阳普智能系统科技公司</view>
 	</view>
 </template>
 <script>
@@ -88,8 +97,7 @@
 	}
 
 	.login-content{
-		width: 600upx;
-		// background-color: #fff;
+		width: 100%;
 		padding-bottom: 80upx;
 		.login-logo {
 			padding-bottom: 60upx;
@@ -98,10 +106,8 @@
 				width: 254upx;
 				height: 234upx;
 			}
-		}	
-		.login-form {
-			// padding: 0 90upx;
-		}		
+		}
+		.login-form {padding: 0 40upx;}			
 		.login {
 			margin-bottom: 30px;
 			background: #fafafa;
@@ -117,10 +123,9 @@
 		
 			.iconfont {
 				font-size: 45upx;
-				color: #555;
+				color:$font-gray;
 			}
-		}
-		
+		}		
 		.line {
 			border-bottom: 1px solid #dadada;
 		}
@@ -129,11 +134,9 @@
 			flex: 1;
 			padding: 36upx 0 36upx 10px;
 			font-size: 35upx;
-		}
-		
-		.input-placeholder,
+		}		
 		.login-input {
-			color: #444;
+			color:$font-text-color;
 		}
 		
 		.login-btn {
@@ -142,7 +145,7 @@
 			color: #fff;
 			border: 0;
 			border-radius:10px;
-			font-size: 36upx;
+			font-size:$font-36;
 
 		}
 		
@@ -170,6 +173,6 @@
 		color: #d5e9f3;
 	}
 /*#ifdef H5*/
-uni-page-body{height: 100%;}
+uni-page-body{min-height: 100%;}
 /*#endif*/
 </style>

@@ -1,13 +1,15 @@
 <template>
 	<view>
-		<ly-tree 
-		node-key="id" 
-		:ready="ready"
-		:props="props"
-		:tree-data="treeData" 		 
-		@node-click="loadNodes"
-		@icon-click="iconClick">
-		</ly-tree>
+		<scroll-view scroll-x="true" 
+		class="review-scroll">
+			<ly-tree
+			node-key="id" 
+			:ready="ready" 
+			:props="props" 
+			:tree-data="treeData" 
+			@node-click="loadNodes" 
+			@icon-click="iconClick" />
+		</scroll-view>
 	</view>
 </template>
 
@@ -61,12 +63,12 @@
 			};
 		},
 		methods: {
-           date(val){
-			  return this.$formatdate(val).split(' ')[0];
-		   },
+			date(val) {
+				return this.$formatdate(val).split(' ')[0];
+			},
 			// tree树形
 			fetchData(form) {
-				this.ready =false
+				this.ready = false
 				this.treeData = []
 
 				return this.$http
@@ -76,7 +78,7 @@
 						data: form
 					})
 					.then(res => {
-						this.ready =true
+						this.ready = true
 						this.treeData = this._buildTree(res)
 						this.processData = res.processData.map(item => {
 							return {
@@ -100,7 +102,7 @@
 						// console.log('this.treeData',this.treeData)
 					})
 					.catch(() => {
-						this.ready =true
+						this.ready = true
 					})
 
 			},
@@ -110,7 +112,7 @@
 				return data.state.map(item => {
 					const node = {
 						id: Date.parse(new Date()) + (Math.random() * 5),
-						title: `产品【${this.productMap[item.matCode]}】 ${item.sfc}`						
+						title: `产品【${this.productMap[item.matCode]}】 ${item.sfc}`
 					}
 					if (ioMap[item.sfc]) {
 						node.children = ioMap[item.sfc]
@@ -136,7 +138,7 @@
 					}
 					const node = {
 						id: Date.parse(new Date()) + (Math.random() * 5),
-						title: `工序【${this.processMap[item.processCode]}】 ${this.date(item.inputTime)} 【${this.empMap[item.empCode]}】`						
+						title: `工序【${this.processMap[item.processCode]}】 ${this.date(item.inputTime)} 【${this.empMap[item.empCode]}】`
 					}
 					if (dataMap[item.ioGuid]) {
 						node.children = dataMap[item.ioGuid]
@@ -146,22 +148,31 @@
 				}, {})
 			},
 			_toNode(item) {
-			return {
-				    id: Date.parse(new Date()) + (Math.random() * 5),
-					title: `${this.stepMap[item.stepId]} - ${item.stepType === '料' ? `【${this.productMap[item.matCode] || this.materialMap[item.matCode]}】` : ''}${item.val}`,					
+				return {
+					id: Date.parse(new Date()) + (Math.random() * 5),
+					title: `${this.stepMap[item.stepId]} - ${item.stepType === '料' ? `【${this.productMap[item.matCode] || this.materialMap[item.matCode]}】` : ''}${item.val}`,
 					isAsync: !!this.productMap[item.matCode],
-					iconClass:item.stepType&&!!item.stepType?'icon-search':'',
+					iconClass: item.stepType && !!item.stepType ? 'icon-search' : '',
 					rawData: item
 				}
-	
+
 			},
 			loadNodes(node) {
-				const {data: {isAsync,children,rawData}} = node;
-				const isChildren=children && children.length > 0
-			
-				if (isAsync &&!isChildren) {
-			         uni.showLoading({title: "加载中",mask: true});
-					 this.$http
+				const {
+					data: {
+						isAsync,
+						children,
+						rawData
+					}
+				} = node;
+				const isChildren = children && children.length > 0
+
+				if (isAsync && !isChildren) {
+					uni.showLoading({
+						title: "加载中",
+						mask: true
+					});
+					this.$http
 						.request({
 							url: '/api/MaterialTraceability/Nodes',
 							method: "GET",
@@ -170,24 +181,40 @@
 							}
 						})
 						.then(res => {
-                                 uni.hideLoading();
-							     const children = this._createIoMap(res)[rawData.val]
-								 this.$set(node, 'expanded', true)								
-							     this.$set(node.data, 'children', children)
+							uni.hideLoading();
+							const children = this._createIoMap(res)[rawData.val]
+							this.$set(node, 'expanded', true)
+							this.$set(node.data, 'children', children)
 						})
-						.catch(()=>{
+						.catch(() => {
 							uni.hideLoading();
 						})
 
 				}
 
 			},
-			iconClick(node){
-				const{data:{rawData:{matCode,val}}}=node;
-				const form={isMaterial:true,matCode,matSfc:val};
-				this.$emit('materialData',form)
+			iconClick(node) {
+				const {
+					data: {
+						rawData: {
+							matCode,
+							val
+						}
+					}
+				} = node;
+				const form = {
+					isMaterial: true,
+					matCode,
+					matSfc: val
+				};
+				this.$emit('materialData', form)
 				this.fetchData(form);
 			}
 		}
 	};
 </script>
+<style lang="scss" scoped>
+	.review-scroll {
+		width: 750upx;
+	}
+</style>

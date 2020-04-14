@@ -29,29 +29,6 @@
 
 <style lang="scss" scoped>
 	.tabs {
-		overflow: hidden;
-		display: flex;
 		margin: 0;
-		border: 1px solid $blue-color;
-		border-radius: 5px;
-
-		.tabs-items {
-			flex: 1;
-			text-align: center;
-			height: 75upx;
-			line-height: 75upx;
-			font-size: 26upx;
-			color: $font-gray;
-			border-right: 1px solid $blue-color;
-
-			&:last-child {
-				border-right: 0;
-			}
-		}
-
-		.active {
-			color: $white-color;
-			background: $blue-color;
-		}
 	}
 </style>

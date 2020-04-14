@@ -47,9 +47,6 @@
 		</view>
 		<!-- reviewTree -->			
 		<view class="reviewTree">
-			<scroll-view
-			scroll-x="true" 
-			class="review-scroll">
 			<reviewTree 
 			ref="tree" 
 			:product-map="productDict" 
@@ -58,7 +55,6 @@
 			:step-map="stepDict"
 			:emp-map="empDict" 
 			@materialData="getMaterial" />
-		</scroll-view>	
 		</view>
 		
 	</view>
@@ -190,10 +186,6 @@
 		padding: 40upx 20px;
 		background-color: $white-color;
 
-		.tabs {
-			margin: 0;
-		}
-
 		.input-color {
 			color: $font-light-gray;
 		}
@@ -219,11 +211,12 @@
 
 	.from-list {
 		.item {
+			padding: 5upx 0;
 			border-bottom: 1px solid $line-color;
+			.uni-input{font-size:$font-32;}
 		}
 	}
 	// reviewTree
-	.review-scroll{width: 750upx;}
 	.reviewTree {
 		margin: 20upx 0;
 		background-color: $white-color;

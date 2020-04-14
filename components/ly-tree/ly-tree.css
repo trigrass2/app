@@ -85,7 +85,7 @@
 }
 
 .ly-tree-node>.ly-tree-node__children {
-	overflow: hidden;
+	/* overflow: hidden; */
 	background-color: transparent
 }
 

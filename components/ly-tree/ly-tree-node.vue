@@ -243,5 +243,5 @@
 	};
 </script>
 <style lang="scss" scoped>
-	.iconfont{margin-left: 5upx;color:#999;}
+	.iconfont{margin-left: 5rpx;color:#999;}
 </style>

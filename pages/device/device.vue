@@ -44,25 +44,28 @@
 									<view class="device-item-trouble ellipsis">
 										{{device.troubleDesc}}
 									</view>
-									<view class="device-item-percent">
-										<progress 
-										show-info percent="100" 
-										font-size="12" 
-										activeColor="#3890d8"
-										 backgroundColor="#ccc" 
-										 stroke-width="4"
-										 border-radius="3" 
-										 class="progress" />
-										<progress 
-										show-info 
-										percent="100" 
-										font-size="12" 
-										activeColor="#22b14c"
-										backgroundColor="#ccc" 
-										stroke-width="4"
-										border-radius="3" 
-										class="progress" />
-									</view>
+									<view class="device-item-progress">
+										<view class="progress-bar" >
+											<progress
+											percent="100" 
+											activeColor="#3890d8"
+											 backgroundColor="#ccc" 
+											 stroke-width="4"
+											 border-radius="3"/>
+										</view>
+                                        <view class="progress-text">100%</view>
+									</view>	 
+									<view class="device-item-progress">
+										<view class="progress-bar" >
+											<progress
+											percent="100" 
+											activeColor="#22b14c"
+											 backgroundColor="#ccc" 
+											 stroke-width="4"
+											 border-radius="3"/>
+										</view>
+                                        <view class="progress-text">100%</view>
+									</view>	
 								</view>
 							</view>
 							<!--停机 -->
@@ -82,25 +85,27 @@
 									<view class="device-item-trouble ellipsis">
 										{{device.troubleDesc}}
 									</view>
-									<view class="device-item-percent">
-										<progress 
-										show-info 
-										percent="100" 
-										font-size="12" 
-										activeColor="#3890d8" 
-										backgroundColor="#ccc" 
-										stroke-width="4"
-										border-radius="3" 
-										class="progress" />
-										<progress 
-										show-info 
-										percent="100" 
-										font-size="12" 
-										activeColor="#22b14c" 
-										backgroundColor="#ccc" 
-										stroke-width="4"
-										border-radius="3" 
-										class="progress" />
+									<view class="device-item-progress">
+										<view class="progress-bar" >
+											<progress
+											percent="100" 
+											activeColor="#3890d8"
+											 backgroundColor="#ccc" 
+											 stroke-width="4"
+											 border-radius="3"/>
+										</view>
+                                        <view class="progress-text">100%</view>
+									</view>	 
+									<view class="device-item-progress">
+										<view class="progress-bar" >
+											<progress
+											percent="100" 
+											activeColor="#22b14c"
+											 backgroundColor="#ccc" 
+											 stroke-width="4"
+											 border-radius="3"/>
+										</view>
+                                        <view class="progress-text">100%</view>
 									</view>
 								</view>
 							</view>
@@ -121,25 +126,27 @@
 									<view class="device-item-trouble ellipsis">
 										{{device.troubleDesc}}
 									</view>
-									<view class="device-item-percent">
-										<progress 
-									    show-info 
-										percent="100" 
-										font-size="12" 
-										activeColor="#3890d8" 
-										backgroundColor="#ccc" 
-										stroke-width="4"
-										border-radius="3" 
-										class="progress" />
-										<progress 
-										show-info 
-										percent="100" 
-										font-size="12" 
-										activeColor="#22b14c" 
-										backgroundColor="#ccc" 
-										stroke-width="4"
-										border-radius="3"
-										class="progress" />
+									<view class="device-item-progress">
+										<view class="progress-bar" >
+											<progress
+											percent="100" 
+											activeColor="#3890d8"
+											 backgroundColor="#ccc" 
+											 stroke-width="4"
+											 border-radius="3"/>
+										</view>
+                                        <view class="progress-text">100%</view>
+									</view>	 
+									<view class="device-item-progress">
+										<view class="progress-bar" >
+											<progress
+											percent="100" 
+											activeColor="#22b14c"
+											 backgroundColor="#ccc" 
+											 stroke-width="4"
+											 border-radius="3"/>
+										</view>
+                                        <view class="progress-text">100%</view>
 									</view>
 								</view>
 							</view>
@@ -378,7 +385,7 @@
 
 			.iconfont {
 				width: 30upx;
-				font-size: 30upx;
+				font-size:$font-26;
 				color: $font-light-gray;
 			}
 		}
@@ -438,8 +445,18 @@
 						font-size: 26upx;
 					}
 
-					.device-item-percent {
-						padding: 0 20upx;
+					.device-item-progress {
+						margin: 0 20upx;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						height: 24upx;
+						.progress-bar{flex: 1;}
+						.progress-text{
+							margin-left: 10upx; 
+							font-size: $font-24;
+							color:$font-light-gray;
+							}
 					}
 				}
 
@@ -490,15 +507,4 @@
 		}
 	}
 
-	.progress {
-		color: $font-light-gray;
-		height: 25upx;
-		// font-size:12upx !important;
-		/*#ifdef H5*/
-		/deep/.uni-progress-info {
-			font-size: 24upx;
-		}
-
-		/*#endif*/
-	}
 </style>

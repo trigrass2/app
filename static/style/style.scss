@@ -4,14 +4,18 @@
 		width: 100%;
 		background: $gray-bj-color;
 		font-family:Helvetica;
-		font-size:28upx;
+		font-size:$font-28;
 		line-height:1.8;
 	}
 	/*每个页面公共css */
+	// 全局按钮
+	button[type=primary] {background-color:$blue-color;}
+	button[plain] {border:1px solid $blue-color !important;color: $blue-color !important;}
+	.button-hover{background-color: #2b89ec;color:$white-color;}
+	
 	.none {
 		padding: 20upx 0;
 		color: $font-light-gray;
-		font-size: 28upx;
 		text-align: center;
 	}
 	.tabs {
@@ -25,9 +29,8 @@
 		.tabs-items {
 			flex: 1;
 			text-align: center;
-			height: 75upx;
-			line-height: 75upx;
-			font-size: 26upx;
+			line-height:2.5;
+			font-size:$font-30;
 			color: $font-gray;
 			border-right: 1px solid $blue-color;
 	
@@ -61,7 +64,7 @@
 			flex: 1;	
 			.icon-yuandianxiao {
 				padding-right: 10upx;
-				font-size: 12px;
+				font-size:$font-24;
 				
 			}
 	
@@ -88,3 +91,4 @@
 			}
 		}
 	}
+

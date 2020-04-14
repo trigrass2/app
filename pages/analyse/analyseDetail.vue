@@ -25,7 +25,7 @@
 						</view>
 					</view>
 				</view>
-				<button type="primary">搜索</button>
+				<button type="primary">搜&emsp;索</button>
 			</view>
 		</view>
 		<!-- 占比 -->
@@ -278,7 +278,7 @@
 			flex-direction: row;
 			align-items: center;
 			padding: 0 20upx;
-
+            height: 75upx;
 			background: $white-color;
 
 			&:first-child {
@@ -286,10 +286,9 @@
 			}
 
 			.time-text {
-				width: 600upx;
-				height: 60upx;
-				line-height: 60upx;
 				padding: 0 15upx;
+				width: 600upx;
+				line-height: 75upx;				
 				color: $font-light-gray;
 			}
 
@@ -299,12 +298,7 @@
 
 		}
 
-		button {
-			margin-top: 20upx;
-			font-size: $font-30;
-			background: $blue-color;
-			color: #fff;
-		}
+		button {margin-top: 20upx;}
 	}
 
 	.mix {

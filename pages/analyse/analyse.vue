@@ -155,14 +155,14 @@ export default {
 <style lang="scss" scoped>
 // 列表
 .list {
-  font-size:$font-26;
+  font-size: $font-28;
   background-color: $white-color;
   .list-item {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px 30upx;
+    padding: 10px 30upx;	
     border-bottom: 1px solid $line-dark-color;
     &:nth-child(even) {
       background-color: $bj-gray;
@@ -210,7 +210,7 @@ export default {
       color: $white-color;
     }
     color: $white-color;
-    background-color: $bj-current-blue;
+    background-color:$blue-color;
   }
 }
 .title{

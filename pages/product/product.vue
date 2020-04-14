@@ -10,7 +10,7 @@
 					<view class="hd-percent">
 						<progress 
 						 font-size="12" 
-						 activeColor="#3890d8" 
+						 activeColor="#22b14c" 
 						 backgroundColor="#ddd" 
 						 stroke-width="5"
 						 border-radius="3" 
@@ -290,11 +290,8 @@
 
 		.actvie {
 			margin-bottom: 20upx;
-
-			background: #a0ccf0;
-
-			.name,
-			.iconfont {
+			background-color: #a0ccf0;
+			.name,.iconfont {
 				color: $white-color;
 			}
 		}

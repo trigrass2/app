@@ -25,9 +25,6 @@
 				default: ()=> {}
 			}
 		},
-		mounted() {
-			console.log('icon', this.icon)
-		},
 		data() {
 			return {}
 		}
@@ -41,7 +38,7 @@
 		padding: 20upx 30upx;
 		height: 50upx;
 		line-height: 50upx;
-		font-size: 36upx;
+		font-size:$font-36;
 		.title {
 			flex: 1;
 			text-align: left;

@@ -29,7 +29,7 @@
 			</view>
 		</view>
 		<view class="loginOut">
-			<button class="loginOut-btn" @tap="signOut">退出登录</button>
+			<button type="primary" @tap="signOut">退出登录</button>
 		</view>
 	</view>
 </template>
@@ -93,13 +93,5 @@
 
 	.loginOut {
 		padding: 40upx 20upx;
-
-		.loginOut-btn {
-			color:$white-color;
-			background-color: $blue-color;
-			&:active{
-				background-color:#3282c3;
-			}
-		}
 	}
 </style>
