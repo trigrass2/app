@@ -3,8 +3,8 @@
 		<drawer :show="visible" :meau="meauList" @close="close" @getItem="getItem"></drawer>
 		<headTitle :icon="iconList" :iconTap="iconTap">{{currentItem.wsName}}</headTitle>
 		<!-- 抽屉菜单-->
-		<view class="tabs">
-			<view v-for="tab in tabs" :key="tab.value" @tap="tabChage(tab.value)" :class="[{ active:current===tab.value},'tabs-items']">{{tab.label}}</view>
+		<view class="tab-box">
+			<tabs :tabs="tabs" :ative="current" @getAtive="tabChage"/>
 		</view>
 		<!-- /tabs -->
 		<view class="tips">
@@ -160,13 +160,8 @@
 	</view>
 </template>
 <script>
-	import headTitle from "@/components/title.vue";
-	import drawer from "@/components/drawer.vue";
+
 	export default {
-		components: {
-			headTitle,
-			drawer
-		},
 		data() {
 			return {
 				visible: false,
@@ -315,8 +310,8 @@
 				this.getDevice();
 			},
 			// 选项卡的操作
-			tabChage(index) {
-				this.current = index;
+			tabChage(val) {
+				this.current = val;
 				this.setDeviceData();
 			},
 			// 手风琴展开收齐
@@ -365,7 +360,7 @@
 			background: $green-color;
 		}
 	}
-
+    .tab-box{margin: 0 20upx;}
 	.device-list {
 		margin-bottom: 20upx;
 		padding: 0 20upx;

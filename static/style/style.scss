@@ -11,7 +11,7 @@
 	// 全局按钮
 	button[type=primary] {background-color:$blue-color;}
 	button[plain] {border:1px solid $blue-color !important;color: $blue-color !important;}
-	.button-hover{background-color: #2b89ec;color:$white-color;}
+	.button-hover{background-color: #2b89ec!important;color:$white-color!important;}
 	
 	.none {
 		padding: 20upx 0;

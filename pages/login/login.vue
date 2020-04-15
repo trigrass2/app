@@ -43,8 +43,8 @@
 	export default {
 		data() {
 			return {
-				user: '',
-				password: ''
+				user: 'admin',
+				password: '123456'
 			}
 		},
 		methods: {
@@ -92,7 +92,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		min-height: 100%;
+		height: 100%;
 		background:#3b99fb;
 	}
 
@@ -173,6 +173,6 @@
 		color: #d5e9f3;
 	}
 /*#ifdef H5*/
-uni-page-body{min-height: 100%;}
+uni-page-body{height: 100%;}
 /*#endif*/
 </style>

@@ -4,12 +4,19 @@ import http from './util/http'
 import formatdate from 'static/js/formatdate'
 import loadTime from 'static/js/loadTime'
 import store from 'store/index'
+// 自定义组件
+import tabs from '@/components/tabs.vue';
+import headTitle from "@/components/title.vue";
+import drawer from "@/components/drawer.vue";
 
 Vue.config.productionTip = false
 Object.defineProperty(Vue.prototype, '$http', { value: http });
 Object.defineProperty(Vue.prototype, '$formatdate', { value: formatdate });
 Object.defineProperty(Vue.prototype, '$loadTime', { value: loadTime });
 // Vue.prototype.$http = request
+Vue.component('tabs',tabs)
+Vue.component('headTitle',headTitle)
+Vue.component('drawer',drawer)
 
 App.mpType = 'app'
 

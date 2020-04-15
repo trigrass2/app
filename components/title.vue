@@ -10,7 +10,6 @@
 		<!-- #endif -->
 	</view>
 </template>
-
 <script>
 	export default {
 		props: {
@@ -24,9 +23,6 @@
 				type: Function,
 				default: ()=> {}
 			}
-		},
-		data() {
-			return {}
 		}
 	}
 </script>

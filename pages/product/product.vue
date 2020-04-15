@@ -87,15 +87,8 @@
 		<view class="none" v-if="!productList.length">暂无数据</view>
 	</view>
 </template>
-
 <script>
-	import headTitle from "@/components/title.vue";
-	import drawer from "@/components/drawer.vue";
 	export default {
-		components: {
-			headTitle,
-			drawer
-		},
 		data() {
 			return {
 				visible: false,
@@ -216,10 +209,7 @@
 </script>
 
 <style lang="scss" scoped>
-	.md-10 {
-		padding-bottom: 10upx;
-	}
-
+	.md-10 {padding-bottom: 10upx;}
 	.pro-line {
 		margin: 15upx 0;
 		height: 0;

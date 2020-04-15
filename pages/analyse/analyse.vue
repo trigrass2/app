@@ -42,12 +42,9 @@
 </template>
 <!-- /BMachineModel/Tree -->
 <script>
-import headTitle from "@/components/title.vue";
 import LyTreeDrawer from "../component/ly-tree-drawer.vue";
-
 export default {
   components: {
-    headTitle,
     LyTreeDrawer
   },
   data() {

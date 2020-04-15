@@ -15,7 +15,7 @@
 				default: () => []
 			},
 			ative: {
-				type: String,
+				type:[String,Number],
 				default: ''
 			}
 		},
@@ -28,7 +28,4 @@
 </script>
 
 <style lang="scss" scoped>
-	.tabs {
-		margin: 0;
-	}
 </style>

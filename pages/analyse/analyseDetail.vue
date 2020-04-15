@@ -3,13 +3,13 @@
 		<!-- 搜索 -->
 		<view class="search">
 			<view class="analyse-title">
-				<view class="sub-title">搜索</view>
-				<text :class="['iconfont',searchVisible?'icon-delta-up':'icon-delta-drown']" @tap="searchDisplay"></text>
+				<view class="sub-title"><view class="icon"/>搜索</view>
+				<text :class="['iconfont',searchVisible?'icon-delta-up':'icon-delta-drown']" @tap="searchDisplay"/>
 			</view>
 			<view class="box" v-show="searchVisible">
 				<view class="time">
 					<view class="time-item">
-						<text class="iconfont icon-time"></text>
+						<text class="iconfont icon-time"/>
 						<view class="time-input">
 							<timeSelector @btnConfirm="startConfirm">
 								<view class="time-text">{{startTime}}</view>
@@ -17,7 +17,7 @@
 						</view>
 					</view>
 					<view class="time-item">
-						<text class="iconfont icon-time"></text>
+						<text class="iconfont icon-time"/>
 						<view class="time-input">
 							<timeSelector @btnConfirm="endConfirm">
 								<view class="time-text">{{endTime}}</view>
@@ -30,22 +30,20 @@
 		</view>
 		<!-- 占比 -->
 		<view class="mix">
-			<view class="sub-title">占比图</view>
+			<view class="sub-title"><view class="icon"/>占比图</view>
 			<view class="box">
 				<mix 
 				:width="690" 
-				:height="50" 
+				:height="70" 
 				:list="list" 
 				:color="color">
 				</mix>
 			</view>
 		</view>
 		<!-- 饼图 -->
-		<view class="echart">
-			<view class="sub-title">设备效率饼图</view>
-			<view class="echart-box">
-				<canvas canvas-id="canvasPie" id="canvasPie" class="charts-pie" @touchstart="touchPie"></canvas>
-			</view>
+		<view class="echart-box">
+			<view class="sub-title"><view class="icon"/>设备效率饼图</view>
+			<canvas canvas-id="canvasPie" id="canvasPie" class="charts-pie" @touchstart="touchPie"/>
 		</view>
 		<!-- 列表 -->
 		<view class="box">
@@ -78,7 +76,7 @@
 		</view>
 		<!-- 公式 -->
 		<view class="formula">
-			<view class="sub-title">计算公式</view>
+			<view class="sub-title"><view class="icon"/>计算公式</view>
 			<view class="formula-list">
 				<view class="formula-item">
 					<view class="formula-name">
@@ -293,6 +291,7 @@
 			}
 
 			.iconfont {
+				font-size:$font-26;
 				color: $font-light-gray;
 			}
 
@@ -304,15 +303,24 @@
 	.mix {
 		margin: 20upx 0;
 		background-color: $white-color;
+		.box{padding-top: 0;}
 	}
 
 	// 饼图
 	.sub-title {
-		// border-left: 10rpx solid $blue-color;
-		padding-left: 20upx;
-		line-height: 2;
-		font-size: $font-32;
+		display: flex;
+		flex-direction: row;
+		padding: 20upx;
+		line-height: 1;
+		font-size: $font-36;
 		color:$font-text-color;
+		.icon{
+		margin-right: 10upx; 
+		width: 10upx; 
+		height:36upx;
+		 border-radius: 5upx;
+		background-color: $blue-color;
+		}
 	}
 
 	.analyse-title {
@@ -330,19 +338,13 @@
 		}
 	}
 
-	.echart {
+	.echart-box {
+		overflow: hidden;
 		background: $white-color;
 
 		.charts-pie {
 			width: 750upx;
 			height: 500upx;
-			background-color: $white-color;
-		}
-
-		.echart-box {
-			width: 750rpx;
-			height: 500rpx;
-			background-color: $white-color;
 		}
 	}
 

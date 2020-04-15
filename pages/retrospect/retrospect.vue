@@ -61,12 +61,12 @@
 </template>
 
 <script>
-	import tabs from '@/components/tabs.vue';
+	// import tabs from '@/components/tabs.vue';
 	import reviewTree from './component/reviewTree.vue';
 	export default {
 		name: 'Retrospect',
 		components: {
-			tabs,
+			// tabs,
 			reviewTree
 		},
 		data() {
