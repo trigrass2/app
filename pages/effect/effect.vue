@@ -45,9 +45,7 @@
 </template>
 
 <script>
-	import headTitle from "@/components/title.vue";
-	import uCharts from '@/components/uni/u-charts/u-charts.js';
-	import drawer from '@/components/drawer.vue'
+	import uCharts from '@/components/uni/u-charts/u-charts';
 	let _self;
 	let data = {
 		categories: [{
@@ -69,10 +67,6 @@
 	}
 
 	export default {
-		components: {
-			headTitle,
-			drawer
-		},
 		data() {
 			return {
 				visible: false,

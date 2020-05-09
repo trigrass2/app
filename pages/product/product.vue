@@ -231,7 +231,6 @@
 			align-items: center;
 			padding: 0 30upx;
 			height: 75upx;
-
 			// border-bottom: 1px solid $line-color;
 			.hd-name {
 				overflow: hidden;

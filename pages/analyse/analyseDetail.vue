@@ -117,7 +117,7 @@
 </template>
 
 <script>
-	import uCharts from "@/components/uni/u-charts/u-charts.js";
+	import uCharts from "@/components/uni/u-charts/u-charts";
 	import timeSelector from "@/components/wing-time-selector/wing-time-selector.vue";
 	import mix from "@/components/mix.vue";
 	var _self;

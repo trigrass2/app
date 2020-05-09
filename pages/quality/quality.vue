@@ -28,7 +28,7 @@
 </template>
 
 <script>
-	import uCharts from '@/components/uni/u-charts/u-charts.js';
+	import uCharts from '@/components/uni/u-charts/u-charts';
 	var _self;
 	var canvaColumn = null;
 

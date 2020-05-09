@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import App from './App'
-import http from './util/http'
-import formatdate from 'static/js/formatdate'
-import loadTime from 'static/js/loadTime'
 import store from 'store/index'
+import http from '@/util/http'
+
+import formatdate from '@/common/formatdate'
+import loadTime from '@/common/loadTime'
 // 自定义组件
 import tabs from '@/components/tabs.vue';
 import headTitle from "@/components/title.vue";
