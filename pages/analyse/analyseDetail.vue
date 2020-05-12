@@ -3,13 +3,14 @@
 		<!-- 搜索 -->
 		<view class="search">
 			<view class="analyse-title">
-				<view class="sub-title"><view class="icon"/>搜索</view>
-				<text :class="['iconfont',searchVisible?'icon-delta-up':'icon-delta-drown']" @tap="searchDisplay"/>
+				<view class="sub-title">
+					<view class="icon" />搜索</view>
+				<text :class="['iconfont',searchVisible?'icon-delta-up':'icon-delta-drown']" @tap="searchDisplay" />
 			</view>
 			<view class="box" v-show="searchVisible">
 				<view class="time">
 					<view class="time-item">
-						<text class="iconfont icon-time"/>
+						<text class="iconfont icon-time" />
 						<view class="time-input">
 							<timeSelector @btnConfirm="startConfirm">
 								<view class="time-text">{{startTime}}</view>
@@ -17,7 +18,7 @@
 						</view>
 					</view>
 					<view class="time-item">
-						<text class="iconfont icon-time"/>
+						<text class="iconfont icon-time" />
 						<view class="time-input">
 							<timeSelector @btnConfirm="endConfirm">
 								<view class="time-text">{{endTime}}</view>
@@ -30,20 +31,31 @@
 		</view>
 		<!-- 占比 -->
 		<view class="mix">
-			<view class="sub-title"><view class="icon"/>占比图</view>
-			<view class="box">
+			<view class="sub-title">
+				<view class="icon" />占比图</view>
+			<!-- 			<view class="box">
 				<mix 
 				:width="690" 
 				:height="70" 
 				:list="list" 
 				:color="color">
 				</mix>
-			</view>
+			</view> -->
+			<!-- #ifdef APP-PLUS || H5 -->
+			<view class="m-20">
+				<view id="echarts" class="echarts" @tap="echarts.onClick" :prop="option" :change:prop="echarts.updateEcharts" />
+			</view>			
+			<!-- #endif -->
+			<!-- #ifndef APP-PLUS || H5 -->
+			<view>非 APP、H5 环境不支持</view>
+			<!-- #endif -->
+			<!-- </view> -->
 		</view>
 		<!-- 饼图 -->
 		<view class="echart-box">
-			<view class="sub-title"><view class="icon"/>设备效率饼图</view>
-			<canvas canvas-id="canvasPie" id="canvasPie" class="charts-pie" @touchstart="touchPie"/>
+			<view class="sub-title">
+				<view class="icon" />设备效率饼图</view>
+			<canvas canvas-id="canvasPie" id="canvasPie" class="charts-pie" @touchstart="touchPie" />
 		</view>
 		<!-- 列表 -->
 		<view class="box">
@@ -76,7 +88,8 @@
 		</view>
 		<!-- 公式 -->
 		<view class="formula">
-			<view class="sub-title"><view class="icon"/>计算公式</view>
+			<view class="sub-title">
+				<view class="icon" />计算公式</view>
 			<view class="formula-list">
 				<view class="formula-item">
 					<view class="formula-name">
@@ -118,15 +131,15 @@
 
 <script>
 	import uCharts from "@/components/uni/u-charts/u-charts";
-	import timeSelector from "@/components/wing-time-selector/wing-time-selector.vue";
-	import mix from "@/components/mix.vue";
+	import timeSelector from "@/components/uni/wing-time-selector/wing-time-selector.vue";
+	// import mix from "@/components/mix.vue";
 	var _self;
 	var canvaPie = null;
 
 	export default {
 		components: {
 			timeSelector,
-			mix
+			// mix
 		},
 		data() {
 			return {
@@ -140,45 +153,82 @@
 				pixelRatio: 1,
 				serverData: '',
 				piearr: [],
-				// 占比
-				list: [{
-					state: 1,
-					value: 200
-				}, {
-					state: 0,
-					value: 20
-				}, {
-					state: -1,
-					value: 100
-				}],
-				color: [{
-					state: 1,
-					color: '#2fc25b',
-					name: '启动'
-				}, {
-					state: 0,
-					color: '#facc14',
-					name: '停机'
-				}, {
-					state: -1,
-					color: '#f04864',
-					name: '故障'
-				}]
+				option: {
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'shadow'
+						}
+					},
+					legend: {
+						data: ['直接访问', '邮件营销', '联盟广告']
+					},
+					grid: {
+						top:'35%',
+						left: '0',
+						right: '0%',
+						bottom: '0%',
+						containLabel: true
+					},
+					xAxis: {
+						type: 'value',
+						max: 660,
+						axisLine: {
+							show: false
+						},
+						axisLabel: {
+							show: false
+						}
+					},
+					yAxis: {
+						type: 'category',
+						data: ['周一'],
+						axisLine: {
+							show: false
+						},
+						axisLabel: {
+							show: false
+						}
+					},
+					series: [{
+							name: '直接访问',
+							type: 'bar',
+							stack: '总量',
+							barWidth: '100%',
+							data: [320]
+						},
+						{
+							name: '邮件营销',
+							type: 'bar',
+							stack: '总量',
 
+							data: [120]
+						},
+						{
+							name: '联盟广告',
+							type: 'bar',
+							stack: '总量',
+
+							data: [220]
+						}
+					]
+				}
 			};
 		},
 		onLoad(option) {
 			// 设置标题
 			this.setText(option.name)
-				// 初始化图标
-				_self = this;
+			// 初始化图标
+			_self = this;
 			this.cWidth = uni.upx2px(750);
 			this.cHeight = uni.upx2px(500);
 			this.getServerData();
 		},
 		methods: {
 			setText(title) {
-				uni.setNavigationBarTitle({title:title?title:'设备效率分析详情'})
+				uni.setNavigationBarTitle({
+					title: title ? title : '设备效率分析详情'
+				})
 			},
 			// 时间
 			startConfirm(e) {
@@ -255,12 +305,50 @@
 			},
 			searchDisplay() {
 				this.searchVisible = !this.searchVisible;
+			},
+			// echartjs
+			onViewClick(options) {
+				console.log(options)
 			}
 		}
 	};
 </script>
-
+<script module="echarts" lang="renderjs">
+	let myChart
+	export default {
+		mounted() {
+			if (typeof window.echarts === 'function') {
+				this.initEcharts()
+			} else {
+				// 动态引入较大类库避免影响页面展示
+				const script = document.createElement('script')
+				// view 层的页面运行在 www 根目录，其相对路径相对于 www 计算
+				script.src = 'static/echarts.js'
+				script.onload = this.initEcharts.bind(this)
+				document.head.appendChild(script)
+			}
+		},
+		methods: {
+			initEcharts() {
+				myChart = echarts.init(document.getElementById('echarts'))
+				// 观测更新的数据在 view 层可以直接访问到
+				myChart.setOption(this.option)
+			},
+			updateEcharts(newValue, oldValue, ownerInstance, instance) {
+				// 监听 service 层数据变更
+				myChart.setOption(newValue)
+			},
+			onClick(event, ownerInstance) {
+				// 调用 service 层的方法
+				ownerInstance.callMethod('onViewClick', {
+					test: 'test'
+				})
+			}
+		}
+	}
+</script>
 <style lang="scss" scoped>
+	.m-20{padding: 20upx;}
 	.search {
 		box-sizing: border-box;
 		background-color: $white-color;
@@ -276,7 +364,7 @@
 			flex-direction: row;
 			align-items: center;
 			padding: 0 20upx;
-            height: 75upx;
+			height: 75upx;
 			background: $white-color;
 
 			&:first-child {
@@ -286,26 +374,25 @@
 			.time-text {
 				padding: 0 15upx;
 				width: 600upx;
-				line-height: 75upx;				
+				line-height: 75upx;
 				color: $font-light-gray;
 			}
 
 			.iconfont {
-				font-size:$font-26;
+				font-size: $font-26;
 				color: $font-light-gray;
 			}
 
 		}
 
-		button {margin-top: 20upx;}
+		button {
+			margin-top: 20upx;
+		}
 	}
-
-	.mix {
+    .mix{
 		margin: 20upx 0;
 		background-color: $white-color;
-		.box{padding-top: 0;}
 	}
-
 	// 饼图
 	.sub-title {
 		display: flex;
@@ -313,13 +400,14 @@
 		padding: 20upx;
 		line-height: 1;
 		font-size: $font-36;
-		color:$font-text-color;
-		.icon{
-		margin-right: 10upx; 
-		width: 10upx; 
-		height:36upx;
-		 border-radius: 5upx;
-		background-color: $blue-color;
+		color: $font-text-color;
+
+		.icon {
+			margin-right: 10upx;
+			width: 10upx;
+			height: 36upx;
+			border-radius: 5upx;
+			background-color: $blue-color;
 		}
 	}
 
@@ -410,5 +498,9 @@
 				color: $font-gray;
 			}
 		}
+	}
+
+	.echarts {
+		height: 130upx;
 	}
 </style>

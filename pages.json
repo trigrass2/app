@@ -159,7 +159,13 @@
 				"navigationBarTitleText": "工艺追溯"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/demo/demo",
+            "style" : {
+				"navigationBarTitleText": "demo"
+			}
+        }
+    ],
 	"tabBar": {
 		// "borderStyle": "white",
 		"backgroundColor": "#ffffff",
@@ -201,11 +207,17 @@
 	},
 	// 开发环境配置
 	"condition": {
-		"current": 9,
-		"list": [{
+		"current": 0,
+		"list": [
+			{
+				"name": "demo",
+				"path": "pages/demo/demo"
+			}, 
+			{
 				"name": "login",
 				"path": "pages/login/login"
-			}, {
+			}, 
+			{
 				"name": "home",
 				"path": "pages/index/index"
 			},
