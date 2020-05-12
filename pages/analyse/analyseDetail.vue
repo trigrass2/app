@@ -164,7 +164,7 @@
 						data: ['直接访问', '邮件营销', '联盟广告']
 					},
 					grid: {
-						top:'35%',
+						top:'45%',
 						left: '0',
 						right: '0%',
 						bottom: '0%',
@@ -487,7 +487,7 @@
 
 		.formula-item {
 			position: relative;
-			padding: 20upx 0;
+			padding: 20upx ;
 			border-bottom: 1px solid $line-dark-color;
 
 			&:nth-child(even) {

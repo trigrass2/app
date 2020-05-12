@@ -11,7 +11,6 @@
 				})
 			}
 			// #endif
-
 			//#ifdef H5
 			this.skipH5()
 			if ('onhashchange' in window) {
@@ -27,6 +26,7 @@
 			...mapState(['hasLogin'])
 		},
 		methods: {
+			//#ifdef H5
 			skipH5() {
 				if (!this.hasLogin) {
 					uni.reLaunch({
@@ -40,6 +40,7 @@
 					}
 				}
 			}
+			//#endif			
 		}
 	}
 </script>

@@ -204,71 +204,71 @@
 		"usingComponents": {
 			"ly-tree-node": "/components/ly-tree/ly-tree-node"
 		}
-	},
-	// 开发环境配置
-	"condition": {
-		"current": 0,
-		"list": [
-			{
-				"name": "demo",
-				"path": "pages/demo/demo"
-			}, 
-			{
-				"name": "login",
-				"path": "pages/login/login"
-			}, 
-			{
-				"name": "home",
-				"path": "pages/index/index"
-			},
-			{
-				"name": "quality",
-				"path": "pages/quality/quality"
-			},
-			{
-				"name": "my",
-				"path": "pages/my/my"
-			},
-			{
-				"name": "device",
-				"path": "pages/device/device"
-			},
-			{
-				"name": "product",
-				"path": "pages/product/product"
-			},
-			{
-				"name": "effect",
-				"path": "pages/effect/effect"
-			},
-			{
-				"name": "search",
-				"path": "pages/search/search"
-			},
-			{
-				"name": "info",
-				"path": "pages/info/info"
-			},
-			{
-				"name": "infoDetails",
-				"path": "pages/info/infoDetails"
-			},
-			{
-				"name": "analyse",
-				"path": "pages/analyse/analyse"
-			},
-			{
-				"name": "analyseDetail",
-				"path": "pages/analyse/analyseDetail"
-			},
-			{
-				"name": "my",
-				"path": "pages/my/my"
-			},
-			{
-				"name": "retrospect",
-				"path": "pages/retrospect/retrospect"
-			}
-		]
 	}
+	// 开发环境配置
+	// "condition": {
+	// 	"current": 0,
+	// 	"list": [
+	// 		{
+	// 			"name": "demo",
+	// 			"path": "pages/demo/demo"
+	// 		}, 
+	// 		{
+	// 			"name": "login",
+	// 			"path": "pages/login/login"
+	// 		}, 
+	// 		{
+	// 			"name": "home",
+	// 			"path": "pages/index/index"
+	// 		},
+	// 		{
+	// 			"name": "quality",
+	// 			"path": "pages/quality/quality"
+	// 		},
+	// 		{
+	// 			"name": "my",
+	// 			"path": "pages/my/my"
+	// 		},
+	// 		{
+	// 			"name": "device",
+	// 			"path": "pages/device/device"
+	// 		},
+	// 		{
+	// 			"name": "product",
+	// 			"path": "pages/product/product"
+	// 		},
+	// 		{
+	// 			"name": "effect",
+	// 			"path": "pages/effect/effect"
+	// 		},
+	// 		{
+	// 			"name": "search",
+	// 			"path": "pages/search/search"
+	// 		},
+	// 		{
+	// 			"name": "info",
+	// 			"path": "pages/info/info"
+	// 		},
+	// 		{
+	// 			"name": "infoDetails",
+	// 			"path": "pages/info/infoDetails"
+	// 		},
+	// 		{
+	// 			"name": "analyse",
+	// 			"path": "pages/analyse/analyse"
+	// 		},
+	// 		{
+	// 			"name": "analyseDetail",
+	// 			"path": "pages/analyse/analyseDetail"
+	// 		},
+	// 		{
+	// 			"name": "my",
+	// 			"path": "pages/my/my"
+	// 		},
+	// 		{
+	// 			"name": "retrospect",
+	// 			"path": "pages/retrospect/retrospect"
+	// 		}
+	// 	]
+	// }
 }

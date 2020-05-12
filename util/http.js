@@ -8,7 +8,7 @@ import store from 'store/index'
 const request = (opt) => {
 	const headers = {
 		'Content-Type': 'application/json',
-		'Authorization': store.state.uerInfo.token || ''
+		'Authorization': store.state.userToken
 	}
 	 let promise = new Promise(function(resolve, reject) {
 	 uni.request({

@@ -2,12 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-const uerInfo=uni.getStorageSync('uerInfo')
+const userName=uni.getStorageSync('userName')
 
 const store = new Vuex.Store({
     state: {
-		hasLogin:uerInfo?true:false,
-        uerInfo:uerInfo?JSON.parse(uerInfo):{},
+		hasLogin:userName?true:false,
+        userName,
+		userToken:'',
 	    workShop:[]
     },
     mutations: {
@@ -15,19 +16,19 @@ const store = new Vuex.Store({
 
             state.hasLogin = true
             // state.uerInfo.token = provider.token
-            state.uerInfo.userName = provider.userName	
+            state.userName = provider.userName	
             uni.setStorage({      
-                key: 'uerInfo',
-                data:  JSON.stringify(provider) 
+                key: 'userName',
+                data:provider.userName 
             });
 			
         },
 		//退出登录
         logout(state) {        
             state.hasLogin = false
-            state.uerInfo = {}
+            state.userName = ''
             uni.removeStorage({
-                key: 'uerInfo',
+                key: 'userName',
             });
         },
 		set_workShop(state,param){
