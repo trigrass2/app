@@ -74,7 +74,7 @@
 					}
 				}).then((res) => {
 					const {empName}=res
-					this.login({userName:empName})
+					this.login({token:"",userInfo:{userName:empName}})
 					uni.reLaunch({
 						url: '/pages/index/index'
 					})
@@ -82,7 +82,6 @@
 
 			}
 		},
-		onLoad() {}
 	}
 </script>
 

@@ -2,38 +2,48 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-const userName=uni.getStorageSync('userName')
+const userInfo = uni.getStorageSync('userInfo');
 
 const store = new Vuex.Store({
-    state: {
-		hasLogin:userName?true:false,
-        userName,
-		userToken:'',
-	    workShop:[]
-    },
-    mutations: {
-        login(state, provider) {  
+	state: {
+		hasLogin: !!userInfo,
+		userInfo,
+		workShop: []
+	},
+	mutations: {
+		login(state, provider) {
+			const {
+				token,
+				userInfo
+			} = provider
 
-            state.hasLogin = true
-            // state.uerInfo.token = provider.token
-            state.userName = provider.userName	
-            uni.setStorage({      
-                key: 'userName',
-                data:provider.userName 
-            });
-			
-        },
+			state.hasLogin = true
+			state.userInfo = userInfo
+
+			uni.setStorage({
+				key: 'userInfo',
+				data:userInfo
+			});
+			uni.setStorage({
+				key: 'userToken',
+				data: token
+			});
+
+		},
 		//退出登录
-        logout(state) {        
-            state.hasLogin = false
-            state.userName = ''
-            uni.removeStorage({
-                key: 'userName',
-            });
-        },
-		set_workShop(state,param){
-			state.workShop=param;
+		logout(state) {
+			state.hasLogin = false
+			state.userInfo = ''
+			uni.clearStorageSync();
+		},
+		set_workShop(state, param) {
+			state.workShop = param;
 		}
-    }
+	},
+	actions:{
+		getWorkShop(context){
+			
+		}
+	}
 });
 export default store;

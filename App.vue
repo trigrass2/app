@@ -20,10 +20,12 @@
 			}
 			//#endif
 		},
-		onShow: function() {},
-		onHide: function() {},
+		onShow: function() {
+		},
+		onHide: function() {
+		},
 		computed: {
-			...mapState(['hasLogin'])
+			...mapState(['hasLogin','userInfo'])
 		},
 		methods: {
 			//#ifdef H5

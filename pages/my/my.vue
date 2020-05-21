@@ -5,7 +5,7 @@
 			<view class="user-icon">
 				<text class="iconfont icon-yonghu"></text>
 			</view>
-			<text class="user-info">你好，{{userName}}</text>
+			<text class="user-info">你好，{{userInfo.userName}}</text>
 		</view>
 		<!-- info -->
 		<view class="push-info">
@@ -47,7 +47,7 @@
 		},
 		onLoad() {},
 		computed: {
-			...mapState(['userName'])
+			...mapState(['userInfo'])
 		},
 		methods: {
 			...mapMutations(['logout']),

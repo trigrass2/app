@@ -5,10 +5,11 @@ import store from 'store/index'
 @param method 请求方法
 @param data请求参数
 */
+const userToken=uni.getStorageSync('userToken');
 const request = (opt) => {
 	const headers = {
 		'Content-Type': 'application/json',
-		'Authorization': store.state.userToken
+		'Authorization': userToken
 	}
 	 let promise = new Promise(function(resolve, reject) {
 	 uni.request({

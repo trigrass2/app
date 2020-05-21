@@ -47,6 +47,7 @@
 <script>
 	import uniSwiperDot from "@/components/uni/uni-swiper-dot/uni-swiper-dot.vue";
 	export default {
+		name: 'Index',
 		components: {
 			uniSwiperDot
 		},
@@ -84,42 +85,36 @@
 					{
 						icons: 'icon-analyse',
 						text: '效力分析',
-						// url: ''
 						url: '/pages/analyse/analyse',
 						color: '#23bab5'
 					},
 					{
 						icons: 'icon-file',
 						text: '工艺追溯',
-						// url: ''
 						url: '/pages/retrospect/retrospect',
 						color: '#00b7ee'
 					},
 					{
 						icons: 'icon-effict',
 						text: '效力管理',
-						// url: ''
 						url: '/pages/effect/effect',
 						color: '#5a9ef1'
 					},
 					{
 						icons: 'icon-quality',
 						text: '质量管理',
-						// url: ''
 						url: '/pages/quality/quality',
 						color: '#f9b823'
 					},
 					{
 						icons: 'icon-search',
 						text: '相关查询',
-						// url: ''
 						url: '/pages/search/search',
 						color: '#9f68ff'
 					},
 					{
 						icons: 'icon-message',
 						text: '我的消息',
-						// url: ''
 						url: '/pages/info/info',
 						color: '#ed7240'
 					}
@@ -127,7 +122,6 @@
 				spotVisible: false,
 			}
 		},
-		onLoad() {},
 		methods: {
 			change(e) {
 				this.current = e.detail.current;
@@ -189,7 +183,7 @@
 				// 文字
 				&.nav-item-text {
 					margin-top: 5upx;
-					color:$font-gray;
+					color: $font-gray;
 					font-size: $font-24;
 				}
 
@@ -199,7 +193,7 @@
 					height: 95upx;
 					line-height: 95upx;
 					font-size: 40upx;
-					border-radius:50%;
+					border-radius: 50%;
 					background: $blue-color;
 					color: $white-color;
 
