@@ -91,7 +91,7 @@
 				ative: 'Product',
 				fabric: {
 					orderNo: '',
-					sfc: '2G001',
+					sfc: '',
 					startDay: '',
 					endDay: ''
 				},

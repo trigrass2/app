@@ -15,6 +15,7 @@
 						placeholder-style="color:rgb(207,207,207)" 						
 						placeholder="账号" 
 						v-model="user"
+						type="text"
 						class="login-input" >
 		 			</view>
 		 			<view class="login-item">
@@ -43,8 +44,8 @@
 	export default {
 		data() {
 			return {
-				user: 'admin',
-				password: '123456'
+				user:'',
+				password: ''
 			}
 		},
 		methods: {

@@ -82,12 +82,12 @@
 						color: '#fb9f44'
 
 					},
-					{
-						icons: 'icon-analyse',
-						text: '效力分析',
-						url: '/pages/analyse/analyse',
-						color: '#23bab5'
-					},
+					// {
+					// 	icons: 'icon-analyse',
+					// 	text: '效力分析',
+					// 	url: '/pages/analyse/analyse',
+					// 	color: '#23bab5'
+					// },
 					{
 						icons: 'icon-file',
 						text: '工艺追溯',
@@ -108,16 +108,16 @@
 					},
 					{
 						icons: 'icon-search',
-						text: '相关查询',
+						text: '追溯查询',
 						url: '/pages/search/search',
 						color: '#9f68ff'
 					},
-					{
-						icons: 'icon-message',
-						text: '我的消息',
-						url: '/pages/info/info',
-						color: '#ed7240'
-					}
+					// {
+					// 	icons: 'icon-message',
+					// 	text: '我的消息',
+					// 	url: '/pages/info/info',
+					// 	color: '#ed7240'
+					// }
 				],
 				spotVisible: false,
 			}

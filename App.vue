@@ -11,14 +11,14 @@
 				})
 			}
 			// #endif
-			//#ifdef H5
-			this.skipH5()
-			if ('onhashchange' in window) {
-				window.onhashchange = () => {
-					this.skipH5()
-				}
-			}
-			//#endif
+			// //#ifdef H5
+			// this.skipH5()
+			// if ('onhashchange' in window) {
+			// 	window.onhashchange = () => {
+			// 		this.skipH5()
+			// 	}
+			// }
+			// //#endif
 		},
 		onShow: function() {
 		},
@@ -28,21 +28,21 @@
 			...mapState(['hasLogin','userInfo'])
 		},
 		methods: {
-			//#ifdef H5
-			skipH5() {
-				if (!this.hasLogin) {
-					uni.reLaunch({
-						url: '/'
-					})
-				} else {
-					if (window.location.hash === '#/') {
-						uni.reLaunch({
-							url: '/pages/index/index'
-						})
-					}
-				}
-			}
-			//#endif			
+			// //#ifdef H5
+			// skipH5() {
+			// 	if (!this.hasLogin) {
+			// 		uni.reLaunch({
+			// 			url: '/'
+			// 		})
+			// 	} else {
+			// 		if (window.location.hash === '#/') {
+			// 			uni.reLaunch({
+			// 				url: '/pages/index/index'
+			// 			})
+			// 		}
+			// 	}
+			// }
+			// //#endif			
 		}
 	}
 </script>

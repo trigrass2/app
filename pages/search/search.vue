@@ -1,7 +1,6 @@
 <template>
 	<view class="search">
-	<!-- 	<view><button type="primary" @tap="scan">点击扫描</button></view> -->
-	你好，我是扫描页面。
+	 追溯查询页面
 	</view>
 </template>
 
