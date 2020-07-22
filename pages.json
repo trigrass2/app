@@ -166,7 +166,6 @@
 		}
 	],
 	"tabBar": {
-		// "borderStyle": "white",
 		"backgroundColor": "#ffffff",
 		"color": "#333",
 		"selectedColor": "#3890d8",
@@ -203,6 +202,17 @@
 		"usingComponents": {
 			"ly-tree-node": "/components/ly-tree/ly-tree-node"
 		}
-	}
+	},
+	// 开发模式
+	
+	"condition": {
+	    "current": 0, 
+	    "list": [
+			{
+	            "name": "index", 
+	            "path": "pages/index/index"	           
+	        }
 
+	    ]
+	}
 }

@@ -5,7 +5,7 @@
 			<swiper class="swiper-box" @change="change">
 				<swiper-item v-for="(item, index) in info" :key="index">
 					<view class="swiper-item">
-						<image :src="item.url" mode="aspectFill" />
+						<image :src="item.url" mode="scaleToFill" />
 					</view>
 				</swiper-item>
 			</swiper>
@@ -147,7 +147,7 @@
 <style lang="scss" scoped>
 	/* 幻灯片 */
 	.swiper-box {
-		height: 400upx;
+		height: 300upx;
 
 		.swiper-item {
 			display: flex;
@@ -159,7 +159,7 @@
 
 		.swiper-item image {
 			width: 100%;
-			height: 100%;
+			// height: 100%;
 		}
 	}
 
@@ -168,13 +168,13 @@
 		display: flex;
 		flex-wrap: wrap;
 		box-sizing: border-box;
-		padding: 60upx 0 10upx 0;
+		padding:30upx 0 0 0;
 		background: $white-color;
 
 		.nav-item {
 			box-sizing: border-box;
 			width: 25%;
-			padding-bottom: 50upx;
+			padding-bottom: 30upx;
 
 			text {
 				display: block;
@@ -192,7 +192,7 @@
 					width: 95upx;
 					height: 95upx;
 					line-height: 95upx;
-					font-size: 40upx;
+					font-size: 50upx;
 					border-radius: 50%;
 					background: $blue-color;
 					color: $white-color;

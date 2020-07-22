@@ -13,7 +13,7 @@
 		  <text class="iconfont icon-list"/>
 		  {{selectedData.label||'设备'}}列表
 	  </headTitle>
-      <view class="list-item" v-for="machine of MachineList" :key="machine.id" @tap="skip()">
+      <view class="list-item" v-for="machine of MachineList" :key="machine.id" @tap="skip(machine.machineName)">
         <view class="list-left">
           <view class="row">
             <view class="col-name">名称：</view>
@@ -118,9 +118,9 @@ export default {
         this.getMachine();
       }
     },
-    skip() {
+    skip(name) {
       uni.navigateTo({
-        url: "/pages/analyse/analyseDetail?name=化妆品机器设备"
+        url: `/pages/analyse/analyseDetail?name=${name}`
       });
     },
     formatTree(treeData) {
