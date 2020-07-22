@@ -161,7 +161,7 @@
 						}
 					},
 					legend: {
-						data: ['直接访问', '邮件营销', '联盟广告']
+						data: ['运行', '停机', '故障']
 					},
 					grid: {
 						top:'45%',
@@ -191,21 +191,21 @@
 						}
 					},
 					series: [{
-							name: '直接访问',
+							name: '运行',
 							type: 'bar',
 							stack: '总量',
 							barWidth: '100%',
+							color:'#00cc66',
 							data: [320]
 						},
 						{
-							name: '邮件营销',
+							name: '停机',
 							type: 'bar',
 							stack: '总量',
-
 							data: [120]
 						},
 						{
-							name: '联盟广告',
+							name: '故障',
 							type: 'bar',
 							stack: '总量',
 
@@ -216,6 +216,7 @@
 			};
 		},
 		onLoad(option) {
+			console.log('option',option)
 			// 设置标题
 			this.setText(option.name)
 			// 初始化图标
