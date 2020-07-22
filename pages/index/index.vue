@@ -1,16 +1,19 @@
 <template>
 	<view class="home">
-		<!-- 幻灯片 -->
-		<uni-swiper-dot :info="info" :current="current" :mode="mode" :dots-styles="dotsStyles" field="content">
-			<swiper class="swiper-box" @change="change">
-				<swiper-item v-for="(item, index) in info" :key="index">
-					<view class="swiper-item">
-						<image :src="item.url" mode="scaleToFill" />
-					</view>
-				</swiper-item>
-			</swiper>
-		</uni-swiper-dot>
-		<!-- nav -->
+		<swiper class="swiper" 
+		:indicator-color="dotColor"
+		:indicator-active-color='activeColor'
+		:indicator-dots="indicatorDots"
+		:autoplay="autoplay" 
+		:interval="interval" 
+		:duration="duration">
+			<swiper-item v-for="(item, index) in info" :key="index">
+				<view class="swiper-item">
+					<image :src="item" mode="scaleToFill" />
+				</view>
+			</swiper-item>
+		</swiper>
+		<!-- 幻灯片 -->	
 		<view class="nav">
 			<view class="nav-item" v-for="(item,i) in navList" :key="i">
 				<view @tap="skip(item)">
@@ -19,7 +22,7 @@
 				</view>
 			</view>
 		</view>
-		<!-- info -->
+		<!-- nav -->	
 		<view class="push-info">
 			<view class="push-info-item">
 				<view class="info-text">
@@ -42,32 +45,27 @@
 				</view>
 			</view>
 		</view>
+		<!-- info -->
 	</view>
 </template>
 <script>
-	import uniSwiperDot from "@/components/uni/uni-swiper-dot/uni-swiper-dot.vue";
+
 	export default {
 		name: 'Index',
-		components: {
-			uniSwiperDot
-		},
 		data() {
 			return {
 				//幻灯片
-				info: [{
-					url: '/static/images/banner/banner1.jpg',
-				}],
-				modeIndex: -1,
-				styleIndex: -1,
-				mode: 'long',
-				dotsStyles: {
-					backgroundColor: 'rgba(83, 200, 249,0.3)',
-					border: '1px rgba(83, 200, 249,0.3) solid',
-					color: '#fff',
-					selectedBackgroundColor: 'rgba(83, 200, 249,0.9)',
-					selectedBorder: '1px rgba(83, 200, 249,0.9) solid'
-				},
-				current: 0,
+				indicatorDots: true,
+				autoplay: false,
+				interval: 2000,
+				duration: 500,
+				dotColor:'rgba(255,255,255,.6)',
+				activeColor:'#4ca2fb',				
+				info: [
+					 '/static/images/banner/banner1.jpg',
+					'/static/images/banner/banner1.jpg',
+					 '/static/images/banner/banner1.jpg'
+				],
 				//nav
 				navList: [{
 						icons: 'icon-produce',
@@ -145,36 +143,32 @@
 </script>
 
 <style lang="scss" scoped>
-	/* 幻灯片 */
-	.swiper-box {
-		height: 300upx;
-
+	.swiper {
+		height: 400rpx;
 		.swiper-item {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100%;
-			color: $white-color;
+			display: block;
+			height: 400rpx;
+			line-height: 400rpx;
+			text-align: center;
+			image {
+				width: 100%;
+				height: 100%;
+			}
 		}
-
-		.swiper-item image {
-			width: 100%;
-			// height: 100%;
-		}
+		
 	}
-
 	/*菜单*/
 	.nav {
 		display: flex;
 		flex-wrap: wrap;
 		box-sizing: border-box;
-		padding:30upx 0 0 0;
+		padding: 40upx 0 0 0;
 		background: $white-color;
 
 		.nav-item {
 			box-sizing: border-box;
 			width: 25%;
-			padding-bottom: 30upx;
+			padding-bottom: 40upx;
 
 			text {
 				display: block;
