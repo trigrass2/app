@@ -55,15 +55,13 @@
 		data() {
 			return {
 				//幻灯片
-				indicatorDots: true,
+				indicatorDots: false,
 				autoplay: false,
 				interval: 2000,
 				duration: 500,
 				dotColor:'rgba(255,255,255,.6)',
 				activeColor:'#4ca2fb',				
 				info: [
-					 '/static/images/banner/banner1.jpg',
-					'/static/images/banner/banner1.jpg',
 					 '/static/images/banner/banner1.jpg'
 				],
 				//nav
