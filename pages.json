@@ -204,7 +204,6 @@
 		}
 	},
 	// 开发模式
-	
 	"condition": {
 	    "current": 0, 
 	    "list": [

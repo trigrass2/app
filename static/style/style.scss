@@ -24,21 +24,18 @@
 		margin: 0 20upx;
 		// width: 450upx;
 		border: 1px solid $blue-color;
-		border-radius: 5px;
-	
+		border-radius: 5px;	
 		.tabs-items {
 			flex: 1;
 			text-align: center;
 			line-height:2.5;
 			font-size:$font-30;
 			color: $font-gray;
-			border-right: 1px solid $blue-color;
-	
+			border-right: 1px solid $blue-color;	
 			&:last-child {
 				border-right: 0;
 			}
-		}
-	
+		}	
 		.active {
 			color: $white-color;
 			background: $blue-color;
@@ -54,7 +51,7 @@
 		align-items: center;
 		position:relative;
 		padding: 0 30upx;
-		height: 118upx;
+		height: 100upx;
 		color:$font-text-color;
         @include line(20upx)
 		&:active{
@@ -64,10 +61,8 @@
 			flex: 1;	
 			.icon-yuandianxiao {
 				padding-right: 10upx;
-				font-size:$font-24;
-				
-			}
-	
+				font-size:$font-24;				
+			}	
 			.info-time {
 				font-size:$font-26;
 				padding-left: 10upx;
