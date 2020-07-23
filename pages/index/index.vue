@@ -104,7 +104,7 @@
 						icons: 'icon-produce',
 						text: '生产详情',
 						url: '/pages/product/product',
-						color: 'linear-gradient(#fb635a, #e55a53)'
+						color: 'linear-gradient(#fb635a, #c8524b)'
 					},
 					{
 						icons: 'icon-device',
@@ -128,25 +128,25 @@
 						icons: 'icon-effict',
 						text: '效力管理',
 						url: '/pages/effect/effect',
-						color: 'linear-gradient(#f59d60, #ff7f45)'
+						color: 'linear-gradient(#d6698d, #b93461)'
 					},
 					{
 						icons: 'icon-quality',
 						text: '质量管理',
 						url: '/pages/quality/quality',
-						color: 'linear-gradient(#5ec5e6, #4996e8)'
+						color: 'linear-gradient(#6cc5da, #409fae)'
 					},
 					{
 						icons: 'icon-search',
 						text: '相关查询',
 						url: '/pages/search/search',
-						color: 'linear-gradient(#f4ca5b, #f3b64c)'
+						color: 'linear-gradient(#f4ca5b, #daa623)'
 					},
 					{
 						icons: 'icon-message',
 						text: '我的消息',
 						url: '/pages/info/info',
-						color: 'linear-gradient(#b76ada, #8e57d4)'
+						color: 'linear-gradient(#b76ada, #952ecc)'
 					},
 					// 测试用
 				{
