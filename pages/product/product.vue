@@ -243,6 +243,7 @@
 
 			.hd-percent {
 				flex: 1;
+				background: #09BB07;
 			}
 
 			.hd-state {
@@ -279,7 +280,7 @@
 
 		.actvie {
 			margin-bottom: 20upx;
-			background-color: #a0ccf0;
+			background-color: #8eb2f9;
 			.name,.iconfont {
 				color: $white-color;
 			}

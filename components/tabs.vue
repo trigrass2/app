@@ -1,6 +1,10 @@
 <template>
 	<view class="tabs">
-		<view v-for="tabsItem of tabs" :key="tabsItem.value" :class="['tabs-items',{'active':ative===tabsItem.value}]" @tap="tabsTap(tabsItem.value)">
+		<view 
+		v-for="tabsItem of tabs" 
+		:key="tabsItem.value" 
+		:class="['tabs-items',{'active':ative===tabsItem.value}]" 
+		@tap="tabsTap(tabsItem.value)">
 			{{tabsItem.label}}
 		</view>
 	</view>

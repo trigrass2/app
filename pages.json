@@ -198,7 +198,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "阳普",
-		"navigationBarBackgroundColor": "#3b99fb",
+		"navigationBarBackgroundColor": "#3a89fc",
 		"usingComponents": {
 			"ly-tree-node": "/components/ly-tree/ly-tree-node"
 		}
