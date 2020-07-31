@@ -19,6 +19,10 @@ Vue.component('tabs',tabs)
 Vue.component('headTitle',headTitle)
 Vue.component('drawer',drawer)
 
+// 引入全局uView
+import uView from 'uview-ui'
+Vue.use(uView)
+
 App.mpType = 'app'
 
 const app = new Vue({

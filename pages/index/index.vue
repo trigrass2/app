@@ -1,4 +1,57 @@
 <template>
+	<view>
+		<u-navbar :is-back="false">
+			<text class="nav-name">上海控软网络科技有限公司</text>
+		</u-navbar>
+		<!-- nav -->
+		<view class="banner"></view>
+		<!-- banner -->
+	    <view >
+	    	{{week}}
+	    </view>
+	</view>
+</template>
+
+<script>
+import week from '@/common/week';
+	export default {
+		name: 'Index',
+		data() {
+			return {
+				week: ''
+			}
+		},
+		onLoad() {
+            this.week=week
+		},
+		methods: {
+			getTime(){
+				this.getResult('mm-dd');
+			}
+	
+			
+		}
+	}
+</script>
+<style lang="scss" scoped>
+	.nav-name {
+		margin-left: 30rpx;
+		font-size: $font-32;
+		font-weight: bold;
+	}
+
+	.banner {
+		margin: 0 30rpx;
+		height: 300rpx;
+		background: #1890ff;
+		border-radius: 20rpx;
+	}
+
+	/deep/ .u-border-bottom:after {
+		border: 0;
+	}
+</style>
+<!-- <template>
 	<view class="home">
 		<swiper class="banner-swiper" :indicator-color="banner.dotColor" :indicator-active-color='banner.activeColor'
 		 :indicator-dots="banner.indicatorDots" :autoplay="banner.autoplay" :interval="banner.interval" :duration="banner.duration">
@@ -8,7 +61,7 @@
 				</view>
 			</swiper-item>
 		</swiper>
-		<!-- swiper -->
+	
 		<view class="common-menu">
 			<text class="title">常用菜单</text>
 			<view class="menu">
@@ -20,7 +73,7 @@
 				</view>
 			</view>
 		</view>
-		<!-- 常用菜单 -->
+		
 		<view class="menu-box">
 			<text class="title">全部菜单</text>
 			<swiper class="menu-swiper" :indicator-color="menuSwiper.dotColor" :indicator-active-color='menuSwiper.activeColor'
@@ -38,7 +91,7 @@
 				</swiper-item>
 			</swiper>
 		</view>
-		<!-- nav -->
+
 		<view class="push-info">
 			<view class="push-info-item">
 				<view class="info-text">
@@ -61,15 +114,15 @@
 				</view>
 			</view>
 		</view>
-		<!-- info -->
+	
 	</view>
-</template>
-<script>
+</template> -->
+<!-- <script>
 	export default {
 		name: 'Index',
 		data() {
 			return {
-				//ad幻灯片
+		
 				banner: {
 					indicatorDots: false,
 					autoplay: false,
@@ -81,7 +134,7 @@
 				info: [
 					'/static/images/banner/banner1.jpg',
 				],
-				//nav
+			
 				menuSwiper: {
 					indicatorDots: true,
 					autoplay: false,
@@ -138,7 +191,7 @@
 						url: '/pages/info/info',
 						color: '#f3b64c'
 					},
-					// 测试用
+				
 					{
 						icons: 'icon-produce',
 						text: '生产详情',
@@ -235,8 +288,8 @@
 			}
 		}
 	}
-</script>
-<style lang="scss" scoped>
+</script> -->
+<!-- <style lang="scss" scoped>
 	.banner-swiper {
 		height: 350rpx;
 
@@ -316,3 +369,4 @@
 		color:#444;
 	}
 </style>
+ -->

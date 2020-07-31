@@ -48,8 +48,9 @@
 </script>
 
 <style lang="scss">
-	@import 'static/style/common/uni.css';
-	@import 'static/style/iconfont.css';
-	@import 'static/style/style.scss';
+	// @import 'static/style/common/uni.css';	
+	// @import 'static/style/style.scss';
+	@import "uview-ui/index.scss";
+	// @import 'static/style/iconfont.css';
 	@import url("components/ly-tree/ly-tree.css");
 </style>
