@@ -9,6 +9,8 @@ import loadTime from '@/common/loadTime'
 import tabs from '@/components/tabs.vue';
 import headTitle from "@/components/title.vue";
 import drawer from "@/components/drawer.vue";
+// 最新
+import popup from "@/components/popup.vue";
 
 Vue.config.productionTip = false
 Object.defineProperty(Vue.prototype, '$http', { value: http });
@@ -18,6 +20,9 @@ Object.defineProperty(Vue.prototype, '$loadTime', { value: loadTime });
 Vue.component('tabs',tabs)
 Vue.component('headTitle',headTitle)
 Vue.component('drawer',drawer)
+
+//**最新组件** 
+Vue.component('popup',popup)
 
 // 引入全局uView
 import uView from 'uview-ui'

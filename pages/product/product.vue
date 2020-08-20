@@ -1,335 +1,269 @@
 <template>
-	<view class="pro">
-		<drawer :show="visible" :meau="meauList" @close="close" @getItem="getItem"></drawer>
-		<headTitle :icon="iconList" :iconTap="iconTap">{{currentItem.wsName}}</headTitle>
-		<!-- 抽屉菜单 -->
-		<view class="pro-list">
-			<view class="pro-item" v-for="item in productList" :key="item.orderNo">
-				<view class="pro-hd">
-					<view class="hd-name">{{item.lineName}}</view>
-					<view class="hd-percent">
-						<progress 
-						 font-size="12" 
-						 activeColor="#22b14c" 
-						 backgroundColor="#ddd" 
-						 stroke-width="5"
-						 border-radius="3" 
-						 :percent="item.percent" />
-					</view>
-					<view class="hd-state">{{getState(item.percent)}}{{item.percent}}%</view>
-				</view>
-				<!-- /hd -->
-				<view @tap="accordion(item)" :class="[{actvie:item.productVisible},'pro-name',]">
-					<!-- pro-actvie -->
-					<text class="name">{{item.orderNo}}</text>
-					<text :class="['iconfont',item.productVisible?'icon-delta-drown':'icon-delta-up']"></text>
-				</view>
-				<view class="pro-info-box">
-					<!-- /产品编号 -->
-					<view class="pro-info">
-						<view class="info ellipsis md-10">
-							<!-- <text class="info-name">产&emsp;&emsp;&emsp;&emsp;品：</text> -->
-							<text class="info-name-text">{{item.productName}}</text>
-						</view>
-						<view class="info-row">
-							<view class="info-col">
-								<text class="info-name">完&ensp;成&ensp;数：</text>
-								<text class="info-text">{{item.cpltQty}}</text>
-							</view>
-							<view class="info-col">
-								<text class="info-name">计&ensp;划&ensp;数：</text>
-								<text class="info-text">{{item.qty}}</text>
-							</view>
-						</view>
-						<view class="info-row">
-							<view class="info-col">
-								<text class="info-name">良&emsp;&emsp;率：</text>
-								<text class="info-text">{{item.yield}}%</text>
-							</view>
-							<view class="info-col">
-								<text class="info-name">备&emsp;&emsp;料：</text>
-								<text class="info-text">0%</text>
-							</view>
-						</view>
-					</view>
-					<!-- /产品信息 -->
-					<view class="pro-info" v-show="item.productVisible">
-						<view class="info-row">
-							<view class="info-col">
-								<text class="info-name">客&emsp;&emsp;户：</text>
-								<text>{{item.customer}}</text>
-							</view>
-							<view class="info-col">
-								<text class="info-name">版&emsp;&emsp;本：</text>
-								<text>{{item.bomVersion}}</text>
-							</view>
-						</view>
-						<view class="pro-line">
-						</view>
-						<view class="info">
-							<text class="info-name">工&emsp;&emsp;艺：</text>
-							<text>{{item.flowName}}</text>
-						</view>
-						<view class="info">
-							<text class="info-name">备&emsp;&emsp;注：</text>
-							<text>{{item.remarks}}</text>
-						</view>
-						<view class="info">
-							<text class="info-name">计划时间：</text>
-							<text class="info-time">{{$formatdate(item.plannedTime)}}</text>
-						</view>
-					</view>
-					<!-- /产品信息展开收起 -->
-				</view>
-			</view>
-			<!-- 循环 -->
-		</view>
-		<view class="none" v-if="!productList.length">暂无数据</view>
-	</view>
+  <view>
+    <u-navbar :is-back="true" :background="navbar.background">
+      <view class="navbar-left">
+        <view class="title">生产详情</view>
+        <view class="subTitle">{{wsName}}</view>
+      </view>
+      <view class="navbar-right" slot="right">
+        <view class="navbar-icon">
+          <u-icon class="icon-item" name="grid" color="#333" size="45" @click.native="handleMenu" />
+          <u-icon
+            class="icon-item"
+            name="reload"
+            color="#333"
+            size="45"
+            @click.native="handleRefresh"
+          />
+        </view>
+      </view>
+    </u-navbar>
+    <!-- nav -->
+    <view class="u-page">
+      <view class="product">
+        <view class="product-item" v-for="(product,i) in productList" :key="i">
+          <view class="product-hd">
+            <view class="row">
+              <view class="col col-info">
+                <view class="hd-item">
+                  <text class="name">产线：</text>
+                  <text>{{product.lineName}}</text>
+                </view>
+                <view class="hd-item">
+                  <text class="name">工单：</text>
+                  <text>{{product.orderNo}}</text>
+                </view>
+                <view class="hd-item ellipsis">
+                  <text class="name">产品：</text>
+                  <text>{{product.productName}}</text>
+                </view>
+              </view>
+              <view class="col col-progress">
+                <u-circle-progress
+                  class="progress"
+                  type="primary"
+                  width="132"
+                  border-width="6"
+                  duration="1000"
+                  :percent="product.percent"
+                >
+                  {{product.percent === 0 ? "未生产" : product.percent === 100 ? "已完成" : "生产中"}}
+                  {{product.percent}}%
+                </u-circle-progress>
+              </view>
+              <view class="col col-icon">
+                <u-icon
+                  :name="product.visible?'arrow-down-fill':'arrow-up-fill'"
+                  color="#ccc"
+                  size="20"
+                  @tap="accordion(product)"
+                />
+              </view>
+            </view>
+          </view>
+          <!--hd -->
+          <view class="prouct-bd" v-show="product.visible">
+            <u-line color="#ccc" />
+            <view class="prouct-info">
+              <u-row>
+                <u-col span="6">
+                  <view class="info-item">
+                    <text class="info-name">完&ensp;成&ensp;数：</text>
+                    <text class="info-text text-dec">{{product.cpltQty}}</text>
+                  </view>
+                  <view class="info-item">
+                    <text class="info-name">良&emsp;&emsp;率：</text>
+                    <text class="info-text text-dec">{{product.yield}}%</text>
+                  </view>
+                  <view class="info-item">
+                    <text class="info-name">客&emsp;&emsp;户：</text>
+                    <text class="info-text">{{product.customer}}</text>
+                  </view>
+                </u-col>
+                <u-col span="6">
+                  <view class="info-item">
+                    <text class="info-name">计&ensp;划&ensp;数：</text>
+                    <text class="info-text text-dec">{{product.qty}}</text>
+                  </view>
+                  <view class="info-item">
+                    <text class="info-name">备&emsp;&emsp;料：</text>
+                    <text class="info-text text-dec">0%</text>
+                  </view>
+                  <view class="info-item">
+                    <text class="info-name">版&emsp;&emsp;本：</text>
+                    <text class="info-text">{{product.bomVersion}}</text>
+                  </view>
+                </u-col>
+              </u-row>
+            </view>
+            <u-line color="#eee" border-style="dashed" />
+            <view class="prouct-assist">
+              <view>
+                <text class="assist-name">工&emsp;&emsp;艺：</text>
+                <text class="assist-text">{{product.flowName}}</text>
+              </view>
+              <view class="ellipsis">
+                <text class="assist-name">备&emsp;&emsp;注：</text>
+                <text class="assist-text">{{product.remarks}}</text>
+              </view>
+              <view>
+                <text class="assist-name">计划时间：</text>
+                <text class="assist-time">{{$formatdate(product.plannedTime)}}</text>
+              </view>
+            </view>
+          </view>
+          <!-- bd -->
+        </view>
+      </view>
+      <u-empty v-if="!productList.length" margin-top="30" icon-size="100" text="数据为空" mode="data" />
+    </view>
+    <!-- page -->
+    <popup ref="popup" @getWorkShop="getWorkShop" />
+    <!-- popup -->
+    <u-tabbar
+      v-model="nav.current"
+      :list="nav.list"
+      :mid-button="nav.isMid"
+      :active-color="nav.activeColor"
+    />
+  </view>
 </template>
 <script>
-	export default {
-		data() {
-			return {
-				visible: false,
-				meauList: [],
-				currentItem: {},
-				productList: [],
-				iconList:['icon-refresh','icon-menu']
-			};
-		},
-		onLoad() {
-			this.init();
-		},
-		onNavigationBarButtonTap(e) {
-			if (e.index === 0) {
-				this.visible = !this.visible;
-			}
-			if (e.index === 1) {
-				this.getProduct();
-			}
-		},
-		onPullDownRefresh() {
-			this.getProduct().then(() => {
-				uni.stopPullDownRefresh();
-			});
-		},
-		methods: {
-			async init() {
-				this.meauList = await this.$http.request({
-					url: "/api/BWorkShop",
-					method: "GET"
-				});
-				if (this.meauList.length) {
-					this.currentItem = this.meauList[0];
-					this.getProduct();
-				}
-			},
-			getProduct() {
-				uni.showLoading({
-					title: "加载中",
-					mask: true
-				});
-				let timestamp1 = new Date().getTime();
-				return this.$http
-					.request({
-						url: "/api/ProduceReport/wsCodeProduct",
-						method: "GET",
-						data: {
-							wsCode: this.currentItem.wsCode
-						}
-					})
-					.then(({
-						productList
-					}) => {
-						this.$loadTime(timestamp1)
-						this.setProduct(productList);
-					})
-					.catch(() => {
-						uni.hideLoading();
-					});
-			},
-			// 处理数据
-			setProduct(productList) {
-				this.productList = productList.map((product, i) => {
-					if (product && i === 0) {
-						product.productVisible = true;
-					}
+import { mapState } from "vuex";
+export default {
+  name: "Product",
+  data() {
+    return {
+      navbar: {
+        background: {
+          backgroundColor: "#ffffff",
+        },
+      },
+      // 车间
+      wsName: "车间列表",
+      wsCode: "",
+      productList: [],
+    };
+  },
+  computed: {
+    ...mapState(["nav"]),
+  },
+  methods: {
+    handleMenu() {
+      this.$refs.popup.visible = true;
+    },
+    handleRefresh() {
+      this.productAjax();
+    },
+    getWorkShop(item) {
+      const { wsName, wsCode } = item;
+      this.wsName = wsName;
+      this.wsCode = wsCode;
+      this.productAjax();
+    },
+    productAjax() {
+      uni.showLoading({
+        title: "加载中",
+        mask: true,
+      });
 
-					if (product) {
-						// 良率
-						let total = product.cpltQty + product.failQty;
-						let yieldNum = product.cpltQty / total;
-						product.yield = total === 0 ? 100 : Math.round(yieldNum * 100);
-						// nameline百分比
-						let percentNum = product.cpltQty / product.qty;
-						product.percent = Math.round(percentNum * 100);
-
-						return product;
-					}
-				});
-			},
-			// 重置数据
-			getState(val) {
-				return val === 0 ? "未生产" : val === 100 ? "已完成" : "生产中";
-			},
-			//抽屉菜单操作
-			open() {
-				this.visible = !this.visible;
-			},
-			//回调函数抽屉关闭
-			close(val) {
-				this.visible = val;
-			},
-			// 抽屉点击函数
-			getItem(val) {
-				this.currentItem = val;
-				this.visible = false;
-				this.getProduct();
-
-			},
-			// 手风琴展开收齐
-			accordion(item) {
-				this.$set(item, "productVisible", !item.productVisible);
-			},
-			iconTap(type){
-				const _this=this.$parent;
-				switch (type) {
-					case 'icon-refresh':						
-						_this.getProduct();
-						break;
-				
-				case 'icon-menu':
-						_this.open();
-						break;
-				}
-			}
-		}
-	};
+      return this.$http
+        .request({
+          url: "/api/ProduceReport/wsCodeProduct",
+          method: "GET",
+          data: {
+            wsCode: this.wsCode,
+          },
+        })
+        .then(({ productList }) => {
+          uni.hideLoading();
+          this.setProduct(productList);
+        })
+        .catch(() => {
+          uni.hideLoading();
+        });
+    },
+    setProduct(productList) {
+      this.productList = productList.map((product, i) => {
+        if (product) {
+          product.visible = i ? false : true;
+          // 良率
+          let total = product.cpltQty + product.failQty;
+          let yieldNum = product.cpltQty / total;
+          product.yield = total === 0 ? 100 : Math.round(yieldNum * 100);
+          // nameline百分比
+          let percentNum = product.cpltQty / product.qty;
+          product.percent = Math.round(percentNum * 100);
+          return product;
+        }
+      });
+    },
+    accordion(item) {
+      this.$set(item, "visible", !item.visible);
+    },
+  },
+};
 </script>
-
 <style lang="scss" scoped>
-	.md-10 {padding-bottom: 10upx;}
-	.pro-line {
-		margin: 15upx 0;
-		height: 0;
-		border-top: 1px solid $line-color;
-	}
-
-	.pro-list {
-		overflow: hidden;
-	}
-
-	.pro-item {
-		margin-bottom: 30upx;
-		padding-bottom: 10upx;
-		background: $white-color;
-
-		.pro-hd {
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			padding: 0 30upx;
-			height: 75upx;
-			// border-bottom: 1px solid $line-color;
-			.hd-name {
-				overflow: hidden;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-				margin-right: 40upx;
-				max-width: 200upx;
-				color: $font-bule;
-			}
-
-			.hd-percent {
-				flex: 1;
-				background: #09BB07;
-			}
-
-			.hd-state {
-				margin-left: 10upx;
-				font-size: 24upx;
-				color: $font-light-gray;
-			}
-		}
-
-		/*生产编号*/
-		.pro-name {
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-end;
-			align-items: center;
-			// margin-bottom: 10upx;
-			padding: 0 30upx;
-			height: 65upx;
-			font-size: $font-30;
-			border-top: 1px solid $line-color;
-
-			.name {
-				flex: 1;
-				color: $font-dark-green;
-				font-weight: bold;
-				@extend .ellipsis;
-			}
-
-			.iconfont {
-				font-size: $font-26;
-				color: $font-light-gray;
-			}
-		}
-
-		.actvie {
-			margin-bottom: 20upx;
-			background-color: #8eb2f9;
-			.name,.iconfont {
-				color: $white-color;
-			}
-		}
-	}
-
-	.pro-info-box {
-		padding-bottom: 20upx;
-	}
-
-	/*生产信息*/
-	.pro-info {
-		margin: 0 30upx;
-		line-height: 1.5;
-		color: $font-bule;
-
-		.info-col,
-		.info {
-			display: flex;
-			flex-direction: row;
-		}
-
-		.info-name {
-			position: relative;
-			width: 140upx;
-			margin-right: 15upx;
-			color: $font-gray;
-		}
-
-		.info-name-text {
-			color: $font-text-color;
-		}
-
-		.info-text {
-			color: $font-bule;
-			text-decoration: underline;
-		}
-
-		.info-time {
-			color: $font-orange;
-		}
-
-		.info-row {
-			display: flex;
-			flex-direction: row;
-
-			.info-col {
-				flex: 1;
-			}
-		}
-	}
+// 产线
+.product {
+  .product-item {
+    margin-bottom: 20rpx;
+    background-color: $white-color;
+  }
+  .progress {
+    font-size: 20rpx;
+    color: $font-light-gray;
+  }
+  .product-hd {
+    padding: 25rpx;
+    line-height: 1.7;
+    .name {
+      color: $font-gray;
+    }
+    .row {
+      display: flex;
+      flex-direction: row;
+      .col-info {
+        width: 500rpx;
+      }
+      .col-progress {
+        margin: 5rpx 20rpx 0 20rpx;
+        width: 132rpx;
+      }
+      .col-icon {
+        width: 35rpx;
+        line-height: initial;
+        text-align: center;
+      }
+    }
+  }
+  .prouct-bd {
+    padding: 0 25rpx 20rpx 25rpx;
+    line-height: 1.5;
+    text {
+      font-size: $font-26;
+    }
+    .text-dec {
+      text-decoration: underline;
+    }
+    .prouct-info {
+      padding: 15rpx 0 15rpx 0;
+    }
+    .prouct-assist {
+      padding: 15rpx 5rpx 0 5rpx;
+    }
+    .info-name,
+    .assist-name {
+      color: $font-light-gray;
+    }
+    .info-text,
+    .assist-text {
+      color: #3333cc;
+    }
+    .assist-time {
+      color: #ee8216;
+    }
+  }
+}
 </style>

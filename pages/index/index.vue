@@ -1,372 +1,291 @@
 <template>
-	<view>
-		<u-navbar :is-back="false">
-			<text class="nav-name">上海控软网络科技有限公司</text>
-		</u-navbar>
-		<!-- nav -->
-		<view class="banner"></view>
-		<!-- banner -->
-	    <view >
-	    	{{week}}
-	    </view>
-	</view>
+  <view>
+    <u-navbar :is-back="false">
+      <text class="nav-name">广州阳普智能系统科技有限公司</text>
+    </u-navbar>
+    <!-- nav -->
+    <view class="u-page">
+      <view class="banner" />
+      <!-- banner -->
+      <u-notice-bar
+        class="notice"
+        type="info"
+        mode="vertical"
+        duration="4500"
+        bg-color="#ffffff"
+        padding="15rpx 35rpx"
+        volume-size="35"
+        :more-icon="true"
+        :is-circular="false"
+        :list="noticeList"
+      />
+      <!-- notice -->
+      <view class="menu">
+        <text class="menu-title">常用</text>
+        <u-row>
+          <u-col span="3" v-for="(menuItem,i) in usuallyMenuList" :key="i">
+            <view class="menu-item">
+              <u-icon class="icon" :name="menuItem.icon" color="#3ba7f6" size="65" />
+              <view class="text">{{menuItem.text}}</view>
+            </view>
+          </u-col>
+          <u-col span="3">
+            <view class="menu-item">
+              <u-icon class="icon" name="plus-circle" color="#bbb" size="65" />
+              <view class="text">添加</view>
+            </view>
+          </u-col>
+        </u-row>
+      </view>
+      <!-- 常用菜单 -->
+      <view class="line">
+        <u-line color="#ddd" />
+      </view>
+      <view class="menu whole-menu">
+        <text class="menu-title">全部</text>
+        <swiper
+          class="menu-swiper"
+          :indicator-color="menuSwiper.dotColor"
+          :indicator-active-color="menuSwiper.activeColor"
+          :indicator-dots="menuSwiper.indicatorDots"
+          :autoplay="menuSwiper.autoplay"
+          :interval="menuSwiper.interval"
+          :duration="menuSwiper.duration"
+        >
+          <swiper-item v-for="(menuItem1,i) in menu" :key="i">
+            <u-row>
+              <u-col span="3" v-for="(menuItem2,j) in menuItem1" :key="j">
+                <view class="menu-item" @click="skip(menuItem2)">
+                  <u-icon class="icon" :name="menuItem2.icon" color="#3ba7f6" size="65" />
+                  <view class="text">{{menuItem2.text}}</view>
+                </view>
+              </u-col>
+            </u-row>
+          </swiper-item>
+        </swiper>
+      </view>
+      <!-- 全部菜单 -->
+      <view class="my-info">
+        <u-cell-group>
+          <u-cell-item title="你的未读消息">
+            <i slot="icon" class="iconfont icon-circleDot" />
+            <text class="info-time">一分钟前</text>
+            <u-badge count="99+" :absolute="false" />
+          </u-cell-item>
+          <u-cell-item title="你的未读任务">
+            <i slot="icon" class="iconfont icon-circleDot" />
+            <text class="info-time">一分钟前</text>
+            <u-badge count="3" :absolute="false" />
+          </u-cell-item>
+        </u-cell-group>
+      </view>
+      <!--我的信息-->
+    </view>
+    <u-tabbar
+      v-model="nav.current"
+      :list="nav.list"
+      :mid-button="nav.isMid"
+      :active-color="nav.activeColor"
+    />
+  </view>
 </template>
 
 <script>
-import week from '@/common/week';
-	export default {
-		name: 'Index',
-		data() {
-			return {
-				week: ''
-			}
-		},
-		onLoad() {
-            this.week=week
-		},
-		methods: {
-			getTime(){
-				this.getResult('mm-dd');
-			}
-	
-			
-		}
-	}
+import { mapState } from "vuex";
+export default {
+  name: "Index",
+  data() {
+    return {
+      noticeList: [
+        "寒雨连江夜入吴",
+        "平明送客楚山孤",
+        "洛阳亲友如相问",
+        "一片冰心在玉壶",
+      ],
+      usuallyMenuList: [
+        {
+          icon: "file-text-fill",
+          text: "生产详情",
+          url: "/pages/product/product",
+        },
+        {
+          icon: "calendar-fill",
+          text: "设备管理",
+          url: "/pages/device/device",
+        },
+        {
+          icon: "coupon-fill",
+          text: "效力分析",
+          url: "/pages/analyse/analyse",
+        },
+      ],
+      menuList: [
+        {
+          icon: "file-text-fill",
+          text: "生产详情",
+          url: "/pages/product/product",
+        },
+        {
+          icon: "calendar-fill",
+          text: "设备管理",
+          url: "/pages/device/device",
+        },
+        {
+          icon: "coupon-fill",
+          text: "效力分析",
+          url: "/pages/analyse/analyse",
+        },
+        {
+          icon: "play-right-fill",
+          text: "工艺追溯",
+          url: "/pages/retrospect/retrospect",
+        },
+        {
+          icon: "hourglass-half-fill",
+          text: "效力管理",
+          url: "/pages/effect/effect",
+        },
+        {
+          icon: "integral-fill",
+          text: "质量管理",
+          url: "/pages/quality/quality",
+        },
+        {
+          icon: "scan",
+          text: "相关查询",
+          url: "/pages/search/search",
+        },
+        {
+          icon: "chat-fill",
+          text: "我的消息",
+          url: "/pages/info/info",
+        },
+        // 测试
+        {
+          icon: "file-text-fill",
+          text: "生产详情",
+          url: "/pages/product/product",
+        },
+        {
+          icon: "calendar-fill",
+          text: "设备管理",
+          url: "/pages/device/device",
+        },
+        {
+          icon: "coupon-fill",
+          text: "效力分析",
+          url: "/pages/analyse/analyse",
+        },
+        {
+          icon: "play-right-fill",
+          text: "工艺追溯",
+          url: "/pages/retrospect/retrospect",
+        },
+        {
+          icon: "hourglass-half-fill",
+          text: "效力管理",
+          url: "/pages/effect/effect",
+        },
+        {
+          icon: "integral-fill",
+          text: "质量管理",
+          url: "/pages/quality/quality",
+        },
+        {
+          icon: "scan",
+          text: "相关查询",
+          url: "/pages/search/search",
+        },
+        {
+          icon: "chat-fill",
+          text: "我的消息",
+          url: "/pages/info/info",
+        },
+      ],
+      menuSwiper: {
+        indicatorDots: true,
+        autoplay: false,
+        interval: 2000,
+        duration: 500,
+        dotColor: "rgba(204,204,204,.6)",
+        activeColor: "#4ca2fb",
+      },
+    };
+  },
+  onLoad() {},
+  computed: {
+    ...mapState(["nav"]),
+    menu() {
+      let num = 1;
+      let size = 8;
+      let arr = [];
+      for (let i = 0; i < this.menuList.length; i += size) {
+        arr.push(this.menuList.slice(i, i + size));
+      }
+      return arr;
+    },
+  },
+  methods: {
+    skip({ url }) {
+      uni.navigateTo({ url });
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
-	.nav-name {
-		margin-left: 30rpx;
-		font-size: $font-32;
-		font-weight: bold;
-	}
+.nav-name {
+  margin-left: 35rpx;
+  font-size:$font-35;
+  font-weight: bold;
+}
 
-	.banner {
-		margin: 0 30rpx;
-		height: 300rpx;
-		background: #1890ff;
-		border-radius: 20rpx;
-	}
-
-	/deep/ .u-border-bottom:after {
-		border: 0;
-	}
+.banner {
+  height: 275rpx;
+  background-color: #1890ff;
+}
+.notice {
+  /deep/.uicon-volume-fill {
+    color: #ff9900;
+  }
+}
+.menu {
+  margin-top: 15upx;
+  padding: 25rpx 0;
+  background-color: $white-color;
+  .menu-title {
+    padding: 0 35rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+  }
+  .menu-item {
+    padding: 25rpx 0;
+    text-align: center;
+    .text {
+      color: #454545;
+    }
+  }
+}
+.menu-swiper {
+  height: 370rpx;
+  background-color: $white-color;
+}
+.whole-menu {
+  margin-top: 0;
+}
+.line {
+  padding: 0 35rpx;
+  background-color: $white-color;
+}
+.my-info {
+  margin: 15rpx 0;
+  .icon-circleDot {
+    font-size: 20rpx;
+  }
+  .info-time {
+    margin-right: 10rpx;
+  }
+  /deep/.u-cell_title {
+    color: #454545;
+  }
+}
 </style>
-<!-- <template>
-	<view class="home">
-		<swiper class="banner-swiper" :indicator-color="banner.dotColor" :indicator-active-color='banner.activeColor'
-		 :indicator-dots="banner.indicatorDots" :autoplay="banner.autoplay" :interval="banner.interval" :duration="banner.duration">
-			<swiper-item v-for="(item, index) in info" :key="index">
-				<view class="swiper-item">
-					<image :src="item" mode="scaleToFill" />
-				</view>
-			</swiper-item>
-		</swiper>
-	
-		<view class="common-menu">
-			<text class="title">常用菜单</text>
-			<view class="menu">
-				<view class="menu-item" v-for="(menu,i) in commonMenu" :key="i">
-					<view @tap="skip(menu)">
-						<text :class="['iconfont',menu.icons]" :style="{'background':menu.color}"></text>
-						<text class="menu-item-text">{{menu.text}}</text>
-					</view>
-				</view>
-			</view>
-		</view>
-		
-		<view class="menu-box">
-			<text class="title">全部菜单</text>
-			<swiper class="menu-swiper" :indicator-color="menuSwiper.dotColor" :indicator-active-color='menuSwiper.activeColor'
-			 :indicator-dots="menuSwiper.indicatorDots" :autoplay="menuSwiper.autoplay" :interval="menuSwiper.interval"
-			 :duration="menuSwiper.duration">
-				<swiper-item v-for='(menu,i) in menuList' :key='i'>
-					<view class="menu">
-						<view class="menu-item" v-for="(menuItem,j) in menu" :key="j">
-							<view @tap="skip(menuItem)">
-								<text :class="['iconfont',menuItem.icons]" :style="{'background':menuItem.color}"></text>
-								<text class="menu-item-text">{{menuItem.text}}</text>
-							</view>
-						</view>
-					</view>
-				</swiper-item>
-			</swiper>
-		</view>
-
-		<view class="push-info">
-			<view class="push-info-item">
-				<view class="info-text">
-					<text class="iconfont icon-yuandianxiao"></text>你有0条未读消息
-					<text class="info-time">0分钟前</text>
-				</view>
-				<view class="icon">
-					<text class="icon-circle" v-show="spotVisible"></text>
-					<text class="iconfont icon-arrow-right"></text>
-				</view>
-			</view>
-			<view class="push-info-item">
-				<view class="info-text">
-					<text class="iconfont icon-yuandianxiao"></text>你有0条未读任务
-					<text class="info-time">0分钟前</text>
-				</view>
-				<view class="icon">
-					<text class="icon-circle" v-show="spotVisible"></text>
-					<text class="iconfont icon-arrow-right"></text>
-				</view>
-			</view>
-		</view>
-	
-	</view>
-</template> -->
-<!-- <script>
-	export default {
-		name: 'Index',
-		data() {
-			return {
-		
-				banner: {
-					indicatorDots: false,
-					autoplay: false,
-					interval: 2000,
-					duration: 500,
-					dotColor: 'rgba(255,255,255,.6)',
-					activeColor: '#4ca2fb',
-				},
-				info: [
-					'/static/images/banner/banner1.jpg',
-				],
-			
-				menuSwiper: {
-					indicatorDots: true,
-					autoplay: false,
-					interval: 2000,
-					duration: 500,
-					dotColor: 'rgba(204,204,204,.6)',
-					activeColor: '#4ca2fb',
-				},
-				menu: [{
-						icons: 'icon-produce',
-						text: '生产详情',
-						url: '/pages/product/product',
-						color: '#4996e6'
-					},
-					{
-						icons: 'icon-device',
-						text: '设备管理',
-						url: '/pages/device/device',
-						color: '#6db243'
-					},
-					{
-						icons: 'icon-analyse',
-						text: '效力分析',
-						url: '/pages/analyse/analyse',
-						color: '#ff7f45'
-					},
-					{
-						icons: 'icon-file',
-						text: '工艺追溯',
-						url: '/pages/retrospect/retrospect',
-						color: '#4996e8'
-					},
-					{
-						icons: 'icon-effict',
-						text: '效力管理',
-						url: '/pages/effect/effect',
-						color: '#fc5e5b'
-					},
-					{
-						icons: 'icon-quality',
-						text: '质量管理',
-						url: '/pages/quality/quality',
-						color: '#975de1'
-					},
-					{
-						icons: 'icon-search',
-						text: '相关查询',
-						url: '/pages/search/search',
-						color: '#48a5f3'
-					},
-					{
-						icons: 'icon-message',
-						text: '我的消息',
-						url: '/pages/info/info',
-						color: '#f3b64c'
-					},
-				
-					{
-						icons: 'icon-produce',
-						text: '生产详情',
-						url: '/pages/product/product',
-						color: '#4996e6'
-					},
-					{
-						icons: 'icon-device',
-						text: '设备管理',
-						url: '/pages/device/device',
-						color: '#6db243'
-					},
-					{
-						icons: 'icon-analyse',
-						text: '效力分析',
-						url: '/pages/analyse/analyse',
-						color: '#ff7f45'
-					},
-					{
-						icons: 'icon-file',
-						text: '工艺追溯',
-						url: '/pages/retrospect/retrospect',
-						color: '#4996e8'
-					},
-					{
-						icons: 'icon-effict',
-						text: '效力管理',
-						url: '/pages/effect/effect',
-						color: '#fc5e5b'
-					},
-					{
-						icons: 'icon-quality',
-						text: '质量管理',
-						url: '/pages/quality/quality',
-						color: '#975de1'
-					},
-					{
-						icons: 'icon-search',
-						text: '相关查询',
-						url: '/pages/search/search',
-						color: '#48a5f3'
-					},
-					{
-						icons: 'icon-message',
-						text: '我的消息',
-						url: '/pages/info/info',
-						color: '#f3b64c'
-					},
-				],
-				commonMenu: [{
-						icons: 'icon-produce',
-						text: '生产详情',
-						url: '/pages/product/product',
-						color: '#4996e6'
-					},
-					{
-						icons: 'icon-device',
-						text: '设备管理',
-						url: '/pages/device/device',
-						color: '#6db243'
-					},
-				],
-				spotVisible: false
-			}
-		},
-		computed: {
-			menuList() {
-				let num = 1;
-				let size = 10;
-				let arr = [];
-				for (let i = 0; i < this.menu.length; i += size) {
-					arr.push(this.menu.slice(i, i + size));
-				}
-				return arr;
-			}
-		},
-		methods: {
-			change(e) {
-				this.current = e.detail.current;
-			},
-			skip(item) {
-				const {
-					url
-				} = item
-				if (url === '/pages/product/product' || url === '/pages/device/device') {
-					url && uni.switchTab({
-						url
-					})
-				} else {
-					url && uni.navigateTo({
-						url
-					})
-				}
-			}
-		}
-	}
-</script> -->
-<!-- <style lang="scss" scoped>
-	.banner-swiper {
-		height: 350rpx;
-
-		.swiper-item {
-			display: block;
-			height: 350rpx;
-
-			image {
-				width: 100%;
-				height: 100%;
-			}
-		}
-	}
-
-	// ad
-	.menu-box {
-		padding-bottom: 5px;
-		background: $white-color;
-	}
-
-	.common-menu {
-		margin-bottom: 20rpx;
-		background: $white-color;
-	}
-
-	// 常用菜单
-	.menu-swiper {
-		height: 400rpx;
-		background: $white-color;
-	}
-
-	// 菜单
-	.menu {
-		// padding: 0 20rpx;
-		display: flex;
-		flex-wrap: wrap;
-		box-sizing: border-box;
-		// padding: 20rpx 0 0 0;
-		background: $white-color;
-
-		.menu-item {
-			box-sizing: border-box;
-			width: 20%;
-			padding-bottom: 50rpx;
-
-			text {
-				display: block;
-				text-align: center;
-
-				// 文字
-				&.menu-item-text {
-					padding-top: 10rpx;
-					color:$font-text-color;
-					font-size: $font-26;
-				}
-
-				&.iconfont {
-					margin: 0 auto;
-					width: 85rpx;
-					height:85rpx;
-					line-height: 85rpx;
-					border-radius: 50%;
-					font-size: 50rpx;
-					background: $blue-color;
-					color: $white-color;
-
-				}
-			}
-		}
-	}
-
-	.title {
-		display: block;
-		padding: 20rpx 30rpx;
-		font-size: $font-30;
-		font-weight: bold;
-		color:#444;
-	}
-</style>
- -->

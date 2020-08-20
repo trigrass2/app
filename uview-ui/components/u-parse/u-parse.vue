@@ -63,7 +63,7 @@
 	 * @event {Function} imgtap 图片点击事件
 	 * @event {Function} linkpress 链接点击事件
 	 * @author JinYufeng
-	 * @version 20200719
+	 * @version 20200728
 	 * @listens MIT
 	 */
 	export default {
@@ -525,7 +525,7 @@
 					style += '</style>';
 					html = style + html;
 				}
-				// 处理 rpx
+				// 处理rpx
 				if (html.includes('rpx'))
 					html = html.replace(/[0-9.]+\s*rpx/g, $ => (parseFloat($) * windowWidth / 750) + 'px');
 				return html;

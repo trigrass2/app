@@ -63,10 +63,7 @@ $uni-font-size-paragraph:30upx;
 
 // ----------------------------------------------------------------------------------
 // app
-	// 省列号
-	.ellipsis{
-		overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
-	}
+
 $line-color:#eee;
 $line-dark-color:#ddd;
 $blue-color:#3a89fc;
@@ -86,7 +83,6 @@ $hover-color:#edf7ff;
 
 // 文字颜色
 $font-gray:#666;
-$font-text-color:#333;
 $font-light-gray:#999;
 $font-bule:#3333cc;
 $font-dark-green:#15b59e;
@@ -99,10 +95,6 @@ $bj-current-blue:#73afe7;
 $bj-gray: #f8f8f8;
 
 //文字大小
-$font-24:24upx;
-$font-26:26upx;
-$font-28:28upx;
-$font-30:30upx;
 $font-32:32upx;
 $font-36:36upx;
 // 函数
@@ -120,3 +112,20 @@ $font-36:36upx;
 				background-color: #c8c7cc;
 			}	
 }
+// -----------最新-------------
+$bgColor:#f1f2f7;
+// 颜色
+$white-color:#fff;
+$blue-color:#1890ff;
+// 字体大小
+$font-20:20rpx;
+$font-24:24rpx;
+$font-26:26rpx;
+$font-28:28rpx;
+$font-30:30rpx;
+$font-35:35rpx;
+
+// 字体颜色
+$font-text-color:#333;
+$font-gray:#666;
+$font-light-gray:#999;

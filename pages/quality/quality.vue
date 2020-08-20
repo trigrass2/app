@@ -151,7 +151,7 @@
 			.info-item-name {
 				padding:0 20upx 0 40upx;
 				width: 450upx;
-				@extend .ellipsis;
+				// @extend .ellipsis;
 			}
 		}
 	}	

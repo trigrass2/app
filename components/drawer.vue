@@ -89,7 +89,7 @@
 <style lang="scss" scoped>
 	.list {
 		.item {
-			padding: 24rpx 30rpx;
+			padding: 25rpx 30rpx;
 			width: 100%;
 			box-sizing: border-box;
 			flex: 1;
@@ -115,7 +115,7 @@
 			.name {
 				font-size: 32rpx;
 				line-height: 1.5;
-				@extend .ellipsis;
+				// @extend .ellipsis;
 			}
 			.current{
 				color:$blue-color;

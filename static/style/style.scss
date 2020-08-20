@@ -1,12 +1,12 @@
-	// html,
-	// body {
-	// 	height: 100%;
-	// 	width: 100%;
-	// 	background: $gray-bj-color;
-	// 	font-family:Helvetica;
-	// 	font-size:$font-28;
-	// 	line-height:1.8;
-	// }
+	html,
+	body {
+		height: 100%;
+		width: 100%;
+		background: $gray-bj-color;
+		font-family:Helvetica;
+		font-size:$font-28;
+		line-height:1.8;
+	}
 	/*每个页面公共css */
 	// 全局按钮
 	button[type=primary] {background-color:$blue-color;}
@@ -41,7 +41,7 @@
 			background: $blue-color;
 		}
 	}
-	/*我的消息*/
+	// /*我的消息*/
 	.push-info{
 		margin-top: 20upx;
 		background: $white-color;
@@ -86,4 +86,36 @@
 			}
 		}
 	}
+	
+// 最新
+html,body{
+	min-width: 100%;
+	min-height: 100%;
+	background-color:$bgColor;
+}
+// 省列号
+.ellipsis{
+	white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+// nav
+.navbar-left {
+  color: $font-text-color;
+  line-height: initial;
+  .title {
+    font-size: $font-30;
+  }
 
+  .subTitle {
+    font-size: $font-24;
+  }
+}
+.navbar-right {
+  .navbar-icon {
+    .icon-item {
+      margin-right: 35rpx;
+    }
+  }
+}
+.navbar-title{
+	font-size:36rpx;
+}
