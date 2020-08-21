@@ -2,7 +2,7 @@
   <view class="effect">
     <u-navbar :is-back="true" :background="navbar.background">
       <view class="navbar-left">
-        <view class="title">生产详情</view>
+        <view class="title">效率管理</view>
         <view class="subTitle">{{wsName}}</view>
       </view>
       <view class="navbar-right" slot="right">
@@ -19,44 +19,63 @@
       </view>
     </u-navbar>
     <!-- nav -->
-    <view class="effect-list">
-      <view class="effect-item">
-        <canvas canvas-id="canvasGauge1" id="canvasGauge1" class="charts"></canvas>
-        <text class="effect-text">01</text>
-      </view>
-      <view class="effect-item">
-        <canvas canvas-id="canvasGauge2" id="canvasGauge2" class="charts"></canvas>
-        <text class="effect-text">02</text>
-      </view>
-      <view class="effect-item">
-        <canvas canvas-id="canvasGauge3" id="canvasGauge3" class="charts"></canvas>
-        <text class="effect-text">03</text>
-      </view>
-      <view class="effect-item">
-        <canvas canvas-id="canvasGauge4" id="canvasGauge4" class="charts"></canvas>
-        <text class="effect-text">04</text>
-      </view>
-      <view class="effect-item">
-        <canvas canvas-id="canvasGauge5" id="canvasGauge5" class="charts"></canvas>
-        <text class="effect-text">05</text>
-      </view>
-      <view class="effect-item">
-        <canvas canvas-id="canvasGauge6" id="canvasGauge6" class="charts"></canvas>
-        <text class="effect-text">06</text>
-      </view>
-      <view class="effect-item">
-        <canvas canvas-id="canvasGauge7" id="canvasGauge7" class="charts"></canvas>
-        <text class="effect-text">07</text>
-      </view>
-      <view class="effect-item">
-        <canvas canvas-id="canvasGauge8" id="canvasGauge8" class="charts"></canvas>
-        <text class="effect-text">08</text>
-      </view>
-      <view class="effect-item">
-        <canvas canvas-id="canvasGauge9" id="canvasGauge9" class="charts"></canvas>
-        <text class="effect-text">09</text>
-      </view>
-    </view>
+    <u-row class="effect-list">
+      <u-col span="4">
+        <view class="effect-item">
+          <canvas canvas-id="canvasGauge1" id="canvasGauge1" class="charts"></canvas>
+          <text class="effect-text">01</text>
+        </view>
+      </u-col>
+      <u-col span="4">
+        <view class="effect-item">
+          <canvas canvas-id="canvasGauge2" id="canvasGauge2" class="charts"></canvas>
+          <text class="effect-text">02</text>
+        </view>
+      </u-col>
+      <u-col span="4">
+        <view class="effect-item">
+          <canvas canvas-id="canvasGauge3" id="canvasGauge3" class="charts"></canvas>
+          <text class="effect-text">03</text>
+        </view>
+      </u-col>
+      <u-col span="4">
+        <view class="effect-item">
+          <canvas canvas-id="canvasGauge4" id="canvasGauge4" class="charts"></canvas>
+          <text class="effect-text">04</text>
+        </view>
+      </u-col>
+      <u-col span="4">
+        <view class="effect-item">
+          <canvas canvas-id="canvasGauge5" id="canvasGauge5" class="charts"></canvas>
+          <text class="effect-text">05</text>
+        </view>
+      </u-col>
+      <u-col span="4">
+        <view class="effect-item">
+          <canvas canvas-id="canvasGauge6" id="canvasGauge6" class="charts"></canvas>
+          <text class="effect-text">06</text>
+        </view>
+      </u-col>
+      <u-col span="4">
+        <view class="effect-item">
+          <canvas canvas-id="canvasGauge7" id="canvasGauge7" class="charts"></canvas>
+          <text class="effect-text">07</text>
+        </view>
+      </u-col>
+      <u-col span="4">
+        <view class="effect-item">
+          <canvas canvas-id="canvasGauge8" id="canvasGauge8" class="charts"></canvas>
+          <text class="effect-text">08</text>
+        </view>
+      </u-col>
+      <u-col span="4">
+        <view class="effect-item">
+          <canvas canvas-id="canvasGauge9" id="canvasGauge9" class="charts"></canvas>
+          <text class="effect-text">09</text>
+        </view>
+      </u-col>
+    </u-row>
+    <!-- 图表 -->
     <popup ref="popup" @getWorkShop="getWorkShop" />
   </view>
 </template>
@@ -90,6 +109,11 @@ let data = {
 export default {
   data() {
     return {
+      navbar: {
+        background: {
+          backgroundColor: "#ffffff",
+        },
+      },
       // 车间
       wsName: "车间列表",
       wsCode: "",
@@ -138,7 +162,7 @@ export default {
           name: Math.round(chartData.series[0].data * 100) + "%",
           color: "#0066cc",
           fontSize: 17 * _self.pixelRatio,
-          offsetY: 25 * _self.pixelRatio, //新增参数，自定义调整Y轴文案距离
+          offsetY: 30 * _self.pixelRatio, //新增参数，自定义调整Y轴文案距离
         },
         extra: {
           gauge: {
@@ -182,23 +206,17 @@ export default {
   background: $white-color;
 }
 .effect-list {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 40upx 0;
   .effect-item {
-    margin-bottom: 50upx;
-    box-sizing: border-box;
-    width: 33.3%;
+    padding: 30rpx 0;
     text-align: center;
-    background: #00ff00;
+    .charts {
+      width: 250upx;
+      height: 160upx;
+    }
     .effect-text {
+      display: block;
       color: $font-gray;
     }
   }
-}
-
-.charts {
-  width: 250upx;
-  height: 160upx;
 }
 </style>

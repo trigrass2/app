@@ -59,7 +59,7 @@
                 <view class="device-item-no">{{device.machineCode}}</view>
                 <view class="device-item-center">
                   <view class="device-item-left">
-                    <text class="iconfont icon-machine"></text>
+                    <u-icon name="calendar" size="60" color="#999" />
                   </view>
                   <view class="device-item-right">
                     <text class="ellipsis">工单：{{device.orderNo||'无'}}</text>
@@ -98,7 +98,7 @@
                 <view class="device-item-no">{{device.machineCode}}</view>
                 <view class="device-item-center">
                   <view class="device-item-left">
-                    <text class="iconfont icon-machine"></text>
+                    <u-icon name="calendar" size="60" color="#999" />
                   </view>
                   <view class="device-item-right">
                     <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
@@ -137,7 +137,7 @@
                 <view class="device-item-no">{{device.machineCode}}</view>
                 <view class="device-item-center">
                   <view class="device-item-left">
-                    <text class="iconfont icon-machine"></text>
+                    <u-icon name="calendar" size="60" color="#999" />
                   </view>
                   <view class="device-item-right">
                     <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
@@ -415,11 +415,6 @@ export default {
         .device-item-left {
           overflow: hidden;
           margin-right: 10upx;
-
-          .iconfont {
-            font-size: 60upx;
-            color: $font-light-gray;
-          }
         }
 
         .device-item-right {

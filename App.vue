@@ -14,9 +14,9 @@ export default {
     init() {
       if (this.hasLogin) {
         this.getWorkShop();
-        uni.reLaunch({
-          url: "pages/index/index",
-        });
+        // uni.reLaunch({
+        //   url: "pages/index/index",
+        // });
       }
     },
     // //#ifdef H5

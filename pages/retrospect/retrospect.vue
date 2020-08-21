@@ -2,6 +2,7 @@
   <view>
     <u-navbar :is-back="true" :background="navbar.background">
       <view class="navbar-title">工艺追溯</view>
+      
     </u-navbar>
     <!-- nav -->
     <view class="u-page">
@@ -201,6 +202,7 @@ export default {
     // 获取物料的数据
     getMaterial(val) {
       this.ative = val.isMaterial ? "Material" : "Product";
+      this.tabsCurrent=val.isMaterial ? 1 : 0;
       for (let key in this.matCodes) {
         this.matCodes[key] = val[key];
       }

@@ -66,7 +66,9 @@
 		{
 			"path": "pages/quality/quality",
 			"style": {
-				"navigationBarTitleText": "工单不良汇总"
+				"navigationBarTitleText": "工单不良汇总",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black"
 			}
 		},
 		{
@@ -89,16 +91,8 @@
 			"path": "pages/info/info",
 			"style": {
 				"navigationBarTitleText": "我的消息",
-				"app-plus": {
-					"titleNView": {
-						"buttons": [{
-							"text": "\ue634",
-							"float": "right",
-							"fontSrc": "/static/style/font/iconfont.ttf",
-							"fontSize": "20px"
-						}]
-					}
-				}
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black"
 			}
 		},
 		{
@@ -137,11 +131,8 @@
 		}
 	},
 	"condition": {
-		"current": 0,
+		"current": 6,
 		"list": [{
-				"name": "effect",
-				"path": "pages/effect/effect"
-			}, {
 				"name": "index",
 				"path": "pages/index/index"
 			},
@@ -156,6 +147,18 @@
 			{
 				"name": "retrospect",
 				"path": "pages/retrospect/retrospect"
+			},
+			{
+				"name": "effect",
+				"path": "pages/effect/effect"
+			},
+			{
+				"name": "quality",
+				"path": "pages/quality/quality"
+			},
+			{
+				"name": "info",
+				"path": "pages/info/info"
 			}
 		]
 	}
