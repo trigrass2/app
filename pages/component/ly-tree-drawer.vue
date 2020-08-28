@@ -1,6 +1,6 @@
 <template>
   <ly-drawer :visible="show" mode="right" width="80%" @close="close">
-    <scroll-view :scroll-y="true" :style="{height:appWrapperHeight}">
+    <scroll-view class="scrollView" :scroll-y="true" :style="{height:appWrapperHeight}">
       <ly-tree
         class="tree"
         node-key="id"
@@ -168,12 +168,15 @@ export default {
   }
 
   .button.confirm {
-    background: #409eff;
+    background:$blue-color;
     color: #fff;
   }
 
   .button.cancle {
     background: #f5f5f5;
   }
+}
+.scrollView{
+  margin-top: 100rpx;
 }
 </style>

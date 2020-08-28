@@ -1,9 +1,6 @@
 <template>
   <view>
-    <u-navbar :is-back="true" :background="navbar.background">
-      <view class="navbar-title">工艺追溯</view>
-      
-    </u-navbar>
+    <u-navbar title="工艺追溯" :is-back="navbar.isBack" :background="navbar.background" />
     <!-- nav -->
     <view class="u-page">
       <u-tabs
@@ -23,10 +20,10 @@
       <view class="tabs-content">
         <u-form label-width="130" v-show="ative==='Product'">
           <u-form-item label="工单">
-            <u-input v-model="fabric.orderNo" placeholder="请输入工单" :clearable="false" />
+            <u-input v-model="fabric.orderNo" placeholder="请输入工单" />
           </u-form-item>
-          <u-form-item label="产品批次" placeholder="请输入产品批次">
-            <u-input v-model="fabric.sfc" :clearable="false" />
+          <u-form-item label="产品批次">
+            <u-input v-model="fabric.sfc" placeholder="请输入产品批次" />
           </u-form-item>
           <u-form-item label="时间">
             <u-row>
@@ -34,8 +31,7 @@
                 <u-input
                   v-model="fabric.startDay"
                   placeholder="输入开始时间"
-                  :clearable="false"
-				  @click="this.timeVisible=!this.timeVisible"
+                  @click="this.timeVisible=!this.timeVisible"
                 />
               </u-col>
               <u-col span="2">至</u-col>
@@ -43,8 +39,7 @@
                 <u-input
                   v-model="fabric.endDay"
                   placeholder="输入结束时间"
-                  :clearable="false"
-				   @click="this.timeVisible=!this.timeVisible"
+                  @click="this.timeVisible=!this.timeVisible"
                 />
               </u-col>
             </u-row>
@@ -53,10 +48,10 @@
         <!-- 产品追溯 -->
         <u-form label-width="130" v-show="ative==='Material'">
           <u-form-item label="工单">
-            <u-input v-model="matCodes.matCode" :clearable="false" placeholder="请输入工单" />
+            <u-input v-model="matCodes.matCode" placeholder="请输入工单" />
           </u-form-item>
           <u-form-item label="产品批次">
-            <u-input v-model="matCodes.matSfc" :clearable="false" placeholder="请输入产品批次"/>
+            <u-input v-model="matCodes.matSfc" placeholder="请输入产品批次" />
           </u-form-item>
         </u-form>
         <!-- 物料 -->
@@ -87,7 +82,6 @@
     <u-calendar v-model="timeVisible" mode="medium" max-date="2050-12-31" @change="timeChange" />
     <!--page-->
     <u-tabbar
-      v-model="nav.current"
       :list="nav.list"
       :mid-button="nav.isMid"
       :active-color="nav.activeColor"
@@ -95,7 +89,7 @@
   </view>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import reviewTree from "./component/reviewTree.vue";
 export default {
   name: "Retrospect",
@@ -108,6 +102,7 @@ export default {
         background: {
           backgroundColor: "#ffffff",
         },
+        isBack:false
       },
       //数据字典
       productDict: {},
@@ -173,8 +168,8 @@ export default {
     },
     //搜索
     clear() {
-      let form = this.ative === "Product" ? this.fabric : this.matCodes;
-      Object.keys(form).forEach(function (key) {
+      const form = this.ative === "Product" ? this.fabric : this.matCodes;
+      Object.keys(form).forEach((key) => {
         form[key] = "";
       });
     },
@@ -202,7 +197,7 @@ export default {
     // 获取物料的数据
     getMaterial(val) {
       this.ative = val.isMaterial ? "Material" : "Product";
-      this.tabsCurrent=val.isMaterial ? 1 : 0;
+      this.tabsCurrent = val.isMaterial ? 1 : 0;
       for (let key in this.matCodes) {
         this.matCodes[key] = val[key];
       }

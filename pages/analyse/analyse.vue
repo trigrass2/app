@@ -1,19 +1,24 @@
 <template>
   <view>
-    <ly-tree-drawer
-      class="tree"
-      :show="showTree"
-      :treeData="treeList"
-      @close="close"
-      @confirm="confirm"
-    ></ly-tree-drawer>
-    <!-- 列表 -->
+    <u-navbar :is-back="navbar.isBack" :background="navbar.background">
+      <view class="navbar-left">
+        <view class="title">效率分析</view>
+        <view class="subTitle">{{selected.label||'设备'}}列表</view>
+      </view>
+      <view class="navbar-right" slot="right">
+        <view class="navbar-icon">
+          <u-icon class="icon-item" name="grid" color="#333" size="45" @click.native="handleMenu" />
+        </view>
+      </view>
+    </u-navbar>
+    <!-- nav -->
     <view class="list">
-      <headTitle :icon="iconList" :iconTap="iconTap" class="title">
-		  <text class="iconfont icon-list"/>
-		  {{selectedData.label||'设备'}}列表
-	  </headTitle>
-      <view class="list-item" v-for="machine of MachineList" :key="machine.id" @tap="skip(machine.machineName)">
+      <view
+        class="list-item"
+        v-for="machine of MachineList"
+        :key="machine.id"
+        @tap="link(machine.machineName)"
+      >
         <view class="list-left">
           <view class="row">
             <view class="col-name">名称：</view>
@@ -23,21 +28,21 @@
             <view class="col-name">编号：</view>
             <view class="col-text">{{machine.machineCode}}</view>
           </view>
-          <!-- 					
-		  <view class="row">
-				<view class="col-name">效率：</view>
-				<view class="col-text">
-					<progress show-info percent="80" activeColor="#00cc66" font-size="14" stroke-width="4" border-radius="3" class="progress" />
-				</view>
-          </view>
-		  -->
         </view>
         <view class="list-right">
-          <text class="iconfont icon-arrow-right"/>
+          <text class="iconfont icon-arrow-right" />
         </view>
       </view>
-      <view class="none" v-if="!MachineList.length">暂无数据</view>
     </view>
+    <u-empty v-if="!MachineList.length" margin-top="30" icon-size="100" text="数据为空" mode="data" />
+    <!-- 列表 -->
+    <ly-tree-drawer
+      class="tree"
+      :show="showTree"
+      :treeData="treeList"
+      @close="close"
+      @confirm="confirm"
+    />
   </view>
 </template>
 <!-- /BMachineModel/Tree -->
@@ -45,52 +50,56 @@
 import LyTreeDrawer from "../component/ly-tree-drawer.vue";
 export default {
   components: {
-    LyTreeDrawer
+    LyTreeDrawer,
   },
   data() {
     return {
+      // nav
+      navbar: {
+        background: {
+          backgroundColor: "#ffffff",
+        },
+        isBack: true,
+      },
+      // tree
       showTree: false,
-      selectedData: {},
+      selected: {},
       i: 0,
       treeList: [],
       MachineList: [],
-      iconList: ["icon-menu"]
     };
   },
-  onNavigationBarButtonTap(e) {
-  	if (e.index === 0) {
-  		 this.handleShowTree();
-  	}
- 
-  },
   onLoad() {
-    this.getTree();
+    this.treeAjax();
   },
   methods: {
-    getTree() {
+    handleMenu() {
+      this.handleShowTree();
+    },
+    treeAjax() {
       this.$http
         .request({
           url: "/api/BMachineModel/Tree",
-          method: "GET"
+          method: "GET",
         })
-        .then(res => {
+        .then((res) => {
           this.treeList = this.formatTree(res);
         });
     },
-    getMachine() {
+    machineAjax() {
       uni.showLoading({
         title: "加载中",
-        mask: true
+        mask: true,
       });
       this.$http
         .request({
           url: "/api/BMachine",
           method: "GET",
           data: {
-            modelCode: this.selectedData.label
-          }
+            modelCode: this.selected.label,
+          },
         })
-        .then(res => {
+        .then((res) => {
           uni.hideLoading();
           this.MachineList = res;
         })
@@ -109,22 +118,22 @@ export default {
       const {
         id,
         label,
-        data: { children }
+        data: { children },
       } = data;
       this.showTree = false;
 
       if (!children) {
-        this.selectedData = { id, label };
-        this.getMachine();
+        this.selected = { id, label };
+        this.machineAjax();
       }
     },
-    skip(name) {
+    link(name) {
       uni.navigateTo({
-        url: `/pages/analyse/analyseDetail?name=${name}`
+        url: `/pages/analyse/analyseDetail?name=${name}`,
       });
     },
     formatTree(treeData) {
-      return treeData.map(treeItem => {
+      return treeData.map((treeItem) => {
         let j = this.i++;
         let { typeName, kindName, modelCode, children } = treeItem;
         const label = typeName || kindName || modelCode;
@@ -138,15 +147,15 @@ export default {
         }
       });
     },
-    iconTap(type) {
-      const _this = this.$parent;
-      switch (type) {
-        case "icon-menu":
-          _this.handleShowTree();
-          break;
-      }
-    }
-  }
+    // iconTap(type) {
+    //   const _this = this.$parent;
+    //   switch (type) {
+    //     case "icon-menu":
+    //       _this.handleShowTree();
+    //       break;
+    //   }
+    // },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -159,7 +168,7 @@ export default {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px 30upx;	
+    padding: 10px 30upx;
     border-bottom: 1px solid $line-dark-color;
     &:nth-child(even) {
       background-color: $bj-gray;
@@ -207,18 +216,17 @@ export default {
       color: $white-color;
     }
     color: $white-color;
-    background-color:$blue-color;
+    background-color: $blue-color;
   }
 }
-.title{
-	 /deep/ .title{
-		color: $blue-color; 
-	 }
-	  .iconfont {
-	    padding-right: 10upx;
-	    color: $blue-color;
-		font-size: 36upx;
-	  }
-	
+.title {
+  /deep/ .title {
+    color: $blue-color;
+  }
+  .iconfont {
+    padding-right: 10upx;
+    color: $blue-color;
+    font-size: 36upx;
+  }
 }
 </style>

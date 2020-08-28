@@ -39,7 +39,6 @@ export default {
 </script>
 
 <style lang="scss">
-// @import 'static/style/common/uni.css';
 @import "static/style/iconfont.css";
 
 @import "static/style/style.scss";

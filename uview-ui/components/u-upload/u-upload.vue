@@ -6,8 +6,8 @@
 			v-for="(item, index) in lists"
 			:key="index"
 			:style="{
-				width: width + 'rpx',
-				height: width + 'rpx'
+				width: $u.addUnit(width),
+				height: $u.addUnit(height)
 			}"
 		>
 			<view
@@ -39,8 +39,8 @@
 				hover-class="u-add-wrap__hover"
 				hover-stay-time="150"
 				:style="{
-					width: width + 'rpx',
-					height: width + 'rpx'
+					width: $u.addUnit(width),
+					height: $u.addUnit(height)
 				}"
 			>
 				<u-icon name="plus" class="u-add-btn" size="40"></u-icon>
@@ -202,8 +202,13 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		// 内部预览图片区域和选择图片按钮的区域宽度，高等于宽
+		// 内部预览图片区域和选择图片按钮的区域宽度
 		width: {
+			type: [String, Number],
+			default: 200
+		},
+		// 内部预览图片区域和选择图片按钮的区域高度
+		height: {
 			type: [String, Number],
 			default: 200
 		},
@@ -321,7 +326,8 @@ export default {
 							lists.push({
 								url: val.path,
 								progress: 0,
-								error: false
+								error: false,
+								file: val
 							});
 						}
 					});
@@ -544,7 +550,7 @@ export default {
 .u-add-wrap {
 	flex-direction: column;
 	color: $u-content-color;
-	font-size: 28rpx;
+	font-size: 26rpx;
 }
 
 .u-add-tips {

@@ -1,8 +1,6 @@
 <template>
   <view class="quality">
-    <u-navbar :is-back="true" :background="navbar.background">
-      <view class="navbar-title">工单不良汇总</view>
-    </u-navbar>
+    <u-navbar title="工单不良汇总" :is-back="true" :background="navbar.background"/>
     <!-- nav -->
     <view class="quality-box">
       <view class="quality-charts">

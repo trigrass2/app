@@ -11,42 +11,47 @@ const state = {
 	// 菜单
 	nav: {
 		list: [{
-				iconPath: "home",
-				selectedIconPath: "home-fill",
-				text: "首页",
-				count: 2,
-				isDot: true,
-				customIcon: false,
-			},
-			{
-				iconPath: "file-text",
-				selectedIconPath: "file-text-fill",
-				text: "生产",
-				customIcon: false,
-			},
-			{
-				iconPath: "calendar",
-				selectedIconPath: "calendar-fill",
-				text: "设备",
-				customIcon: false,
-			},
-			{
-				iconPath: "play-right",
-				selectedIconPath: "play-right-fill",
-				text: "工艺",
-				customIcon: false,
-			},
-			{
-				iconPath: "account",
-				selectedIconPath: "account-fill",
-				text: "我的",
-				count: 23,
-				isDot: false,
-				customIcon: false,
-			},
+			iconPath: "home",
+			selectedIconPath: "home-fill",
+			text: "首页",
+			count: 2,
+			isDot: true,
+			customIcon: false,
+			pagePath: "/pages/index/index"
+		},
+		{
+			iconPath: "file-text",
+			selectedIconPath: "file-text-fill",
+			text: "生产",
+			customIcon: false,
+			pagePath: "/pages/product/product"
+		},
+		{
+			iconPath: "calendar",
+			selectedIconPath: "calendar-fill",
+			text: "设备",
+			customIcon: false,
+			pagePath: "/pages/device/device"
+		},
+		{
+			iconPath: "play-right",
+			selectedIconPath: "play-right-fill",
+			text: "工艺",
+			customIcon: false,
+			pagePath: "/pages/retrospect/retrospect"
+		},
+		{
+			iconPath: "account",
+			selectedIconPath: "account-fill",
+			text: "我的",
+			count: 23,
+			isDot: false,
+			customIcon: false,
+			pagePath: "/pages/my/my"
+		},
 		],
-		current: 0,
 		activeColor: '#1890ff',
+		// current: 0,
 		isMid: false
 	},
 	// 车间
@@ -70,7 +75,6 @@ const mutations = {
 			key: 'userToken',
 			data: token
 		});
-
 	},
 	//退出登录
 	logout(state) {
@@ -79,8 +83,8 @@ const mutations = {
 		uni.clearStorageSync();
 	},
 	set_state(state, payload) {
-		if (payload && typeof(payload) === 'object') {
-			for (var key in payload) {
+		if (payload && typeof (payload) === 'object') {
+			for (const key in payload) {
 				state[key] = payload[key]
 			}
 		}
@@ -88,11 +92,11 @@ const mutations = {
 };
 
 const actions = {
-	async getWorkShop({commit}) {
+	async getWorkShop({ commit }) {
 		const workShopList = await http.request({
 			url: "/api/BWorkShop",
 			method: "GET"
-		});	
+		});
 		commit('set_state', { workShopList })
 	}
 }

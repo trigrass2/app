@@ -207,7 +207,7 @@ export default {
 }
 .effect-list {
   .effect-item {
-    padding: 30rpx 0;
+    padding: 50rpx 0;
     text-align: center;
     .charts {
       width: 250upx;

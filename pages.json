@@ -18,6 +18,14 @@
 			}
 		},
 		{
+			"path": "pages/index/addMenu",
+			"style": {
+				"navigationBarTitleText": "添加常用",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
 			"path": "pages/product/product",
 			"style": {
 				"navigationBarTitleText": "产品详情",
@@ -37,22 +45,16 @@
 			"path": "pages/analyse/analyse",
 			"style": {
 				"navigationBarTitleText": "设备效率分析",
-				"app-plus": {
-					"titleNView": {
-						"buttons": [{
-							"text": "\ue663",
-							"float": "right",
-							"fontSrc": "/static/style/font/iconfont.ttf",
-							"fontSize": "20px"
-						}]
-					}
-				}
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black"
 			}
 		},
 		{
 			"path": "pages/analyse/analyseDetail",
 			"style": {
-				"navigationBarTitleText": "设备效率分析详情"
+				"navigationBarTitleText": "设备效率分析详情",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black"
 			}
 		},
 		{
@@ -74,17 +76,7 @@
 		{
 			"path": "pages/search/search",
 			"style": {
-				"navigationBarTitleText": "相关查询",
-				"app-plus": {
-					"titleNView": {
-						"buttons": [{
-							"text": "\ue69f",
-							"float": "right",
-							"fontSrc": "/static/style/font/iconfont.ttf",
-							"fontSize": "20px"
-						}]
-					}
-				}
+				"navigationBarTitleText": "相关查询"
 			}
 		},
 		{
@@ -98,13 +90,17 @@
 		{
 			"path": "pages/info/infoDetails",
 			"style": {
-				"navigationBarTitleText": "我的消息详情"
+				"navigationBarTitleText": "我的消息详情",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black"
 			}
 		},
 		{
 			"path": "pages/my/my",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationBarTitleText": "我的",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black"
 			}
 		},
 		{
@@ -130,8 +126,35 @@
 			"ly-tree-node": "/components/ly-tree/ly-tree-node"
 		}
 	},
+	"tabBar": {
+		"color": "#909399",
+		"selectedColor": "#303133",
+		"backgroundColor": "#FFFFFF",
+		"borderStyle": "black",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/product/product",
+				"text": "生产"
+			},
+			{
+				"pagePath": "pages/device/device",
+				"text": "设备"
+			},
+			{
+				"pagePath": "pages/retrospect/retrospect",
+				"text": "工艺"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"text": "我的"
+			}
+		]
+	},
 	"condition": {
-		"current": 6,
+		"current": 7,
 		"list": [{
 				"name": "index",
 				"path": "pages/index/index"
@@ -159,6 +182,26 @@
 			{
 				"name": "info",
 				"path": "pages/info/info"
+			},
+			{
+				"name": "infoDetails",
+				"path": "pages/info/infoDetails"
+			},
+			{
+				"name": "analyse",
+				"path": "pages/analyse/analyse"
+			},
+			{
+				"name": "analyseDetail",
+				"path": "pages/analyse/analyseDetail"
+			},
+			{
+				"name": "my",
+				"path": "pages/my/my"
+			},
+			{
+				"name":"addMeaus",
+				"path": "pages/index/addMenu"
 			}
 		]
 	}
@@ -182,5 +225,15 @@
 // 				}
 // 			]
 // 		}
+// 	}
+// }
+// "app-plus": {
+// 	"titleNView": {
+// 		"buttons": [{
+// 			"text": "\ue69f",
+// 			"float": "right",
+// 			"fontSrc": "/static/style/font/iconfont.ttf",
+// 			"fontSize": "20px"
+// 		}]
 // 	}
 // }

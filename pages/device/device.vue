@@ -1,7 +1,7 @@
 <template>
   <view>
-    <u-navbar :is-back="true" :background="navbar.background">
-      <view class="navbar-left">
+    <u-navbar :is-back="navbar.isBack" :background="navbar.background">
+      <view class="navbar-left m-l35">
         <view class="title">设备管理</view>
         <view class="subTitle">{{wsName}}</view>
       </view>
@@ -19,167 +19,165 @@
       </view>
     </u-navbar>
     <!-- nav -->
-	<view class="u-page">
-    <u-tabs
-      ref="uTabs"
-      height="65"
-      bar-width="70"
-      bar-height="5"
-      active-color="#2979ff"
-      inactive-color="#606266"
-      font-size="28"
-      :list="tabList"
-      :is-scroll="false"
-      :current="tabCurrent"
-      @change="tabsChange"
-    />
-    <!-- nav -->
-    <view class="tips">
-      <view class="tips-item">
-        <text class="tips-icon green-icon"></text>
-        <text>工单进度</text>
-      </view>
-      <view class="tips-item">
-        <text class="tips-icon"></text>
-        <text>模具维修进度</text>
-      </view>
-    </view>
-    <!-- 提示  -->
-    <view class="device" v-for="(item,i) in allList" :key="i">
-      <view class="device-hd" @tap="accordion(item)">
-        <text class="device-name">{{item.processName}}</text>
-        <u-icon :name="item.visible?'arrow-down-fill':'arrow-up-fill'" color="#ccc" size="20" />
-      </view>
-      <view v-show="item.visible">
-        <view class="device-bd">
-          <block v-for="(device,j) in item.children" :key="j">
-            <!-- 启动  -->
-            <view class="device-item" v-if="device.state===1">
-              <view class="device-item-box startUp">
-                <view class="device-item-no">{{device.machineCode}}</view>
-                <view class="device-item-center">
-                  <view class="device-item-left">
-                    <u-icon name="calendar" size="60" color="#999" />
-                  </view>
-                  <view class="device-item-right">
-                    <text class="ellipsis">工单：{{device.orderNo||'无'}}</text>
-                    <text>状态：{{device.stopreasonName||'无'}}</text>
-                  </view>
-                </view>
-                <view class="device-item-trouble ellipsis">{{device.troubleDesc}}</view>
-                <view class="device-item-progress">
-                  <view class="progress-bar">
-                    <u-line-progress
-                      :percent="100"
-                      :height="10"
-                      active-color="#3890d8"
-                      :show-percent="false"
-                    />
-                  </view>
-                  <view class="progress-text">100%</view>
-                </view>
-                <view class="device-item-progress">
-                  <view class="progress-bar">
-                    <u-line-progress
-                      :percent="100"
-                      :height="10"
-                      active-color="#22b14c"
-                      :show-percent="false"
-                    />
-                  </view>
-                  <view class="progress-text">100%</view>
-                </view>
-              </view>
-            </view>
-            <!-- 停机 -->
-            <view class="device-item" v-if="device.state===0">
-              <view :class="['device-item-box',!device.stopState?'stop':'fault']">
-                <!-- fault -->
-                <view class="device-item-no">{{device.machineCode}}</view>
-                <view class="device-item-center">
-                  <view class="device-item-left">
-                    <u-icon name="calendar" size="60" color="#999" />
-                  </view>
-                  <view class="device-item-right">
-                    <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
-                    <text>状态：{{device.stopreasonName||'无'}}</text>
-                  </view>
-                </view>
-                <view class="device-item-trouble ellipsis">{{device.troubleDesc}}</view>
-                <view class="device-item-progress">
-                  <view class="progress-bar">
-                    <u-line-progress
-                      :percent="100"
-                      :height="10"
-                      active-color="#3890d8"
-                      :show-percent="false"
-                    />
-                  </view>
-                  <view class="progress-text">100%</view>
-                </view>
-                <view class="device-item-progress">
-                  <view class="progress-bar">
-                    <u-line-progress
-                      :percent="100"
-                      :height="10"
-                      active-color="#22b14c"
-                      :show-percent="false"
-                    />
-                  </view>
-                  <view class="progress-text">100%</view>
-                </view>
-              </view>
-            </view>
-            <!-- /关机 -->
-            <view class="device-item" v-if="device.state===-1">
-              <view :class="['device-item-box',!device.stopState?'normal':'fault']">
-                <!-- fault  -->
-                <view class="device-item-no">{{device.machineCode}}</view>
-                <view class="device-item-center">
-                  <view class="device-item-left">
-                    <u-icon name="calendar" size="60" color="#999" />
-                  </view>
-                  <view class="device-item-right">
-                    <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
-                    <text>状态：{{device.stopreasonName||'无'}}</text>
-                  </view>
-                </view>
-                <view class="device-item-trouble ellipsis">{{device.troubleDesc}}</view>
-                <view class="device-item-progress">
-                  <view class="progress-bar">
-                    <u-line-progress
-                      :percent="100"
-                      :height="10"
-                      active-color="#3890d8"
-                      :show-percent="false"
-                    />
-                  </view>
-                  <view class="progress-text">100%</view>
-                </view>
-                <view class="device-item-progress">
-                  <view class="progress-bar">
-                    <u-line-progress
-                      :percent="100"
-                      :height="10"
-                      active-color="#22b14c"
-                      :show-percent="false"
-                    />
-                  </view>
-                  <view class="progress-text">100%</view>
-                </view>
-              </view>
-            </view>
-          </block>
+    <view class="u-page">
+      <u-tabs
+        ref="uTabs"
+        height="65"
+        bar-width="70"
+        bar-height="5"
+        active-color="#2979ff"
+        inactive-color="#606266"
+        font-size="28"
+        :list="tabList"
+        :is-scroll="false"
+        :current="tabCurrent"
+      />
+      <!-- nav -->
+      <view class="tips">
+        <view class="tips-item">
+          <text class="tips-icon green-icon"></text>
+          <text>工单进度</text>
+        </view>
+        <view class="tips-item">
+          <text class="tips-icon"></text>
+          <text>模具维修进度</text>
         </view>
       </view>
+      <!-- 提示  -->
+      <view class="device" v-for="(item,i) in allList" :key="i">
+        <view class="device-hd" @tap="accordion(item)">
+          <text class="device-name">{{item.processName}}</text>
+          <u-icon :name="item.visible?'arrow-down-fill':'arrow-up-fill'" color="#ccc" size="20" />
+        </view>
+        <view v-show="item.visible">
+          <view class="device-bd">
+            <block v-for="(device,j) in item.children" :key="j">
+              <!-- 启动  -->
+              <view class="device-item" v-if="device.state===1">
+                <view class="device-item-box startUp">
+                  <view class="device-item-no">{{device.machineCode}}</view>
+                  <view class="device-item-center">
+                    <view class="device-item-left">
+                      <u-icon name="calendar" size="60" color="#999" />
+                    </view>
+                    <view class="device-item-right">
+                      <text class="ellipsis">工单：{{device.orderNo||'无'}}</text>
+                      <text>状态：{{device.stopreasonName||'无'}}</text>
+                    </view>
+                  </view>
+                  <view class="device-item-trouble ellipsis">{{device.troubleDesc}}</view>
+                  <view class="device-item-progress">
+                    <view class="progress-bar">
+                      <u-line-progress
+                        :percent="100"
+                        :height="10"
+                        active-color="#3890d8"
+                        :show-percent="false"
+                      />
+                    </view>
+                    <view class="progress-text">100%</view>
+                  </view>
+                  <view class="device-item-progress">
+                    <view class="progress-bar">
+                      <u-line-progress
+                        :percent="100"
+                        :height="10"
+                        active-color="#22b14c"
+                        :show-percent="false"
+                      />
+                    </view>
+                    <view class="progress-text">100%</view>
+                  </view>
+                </view>
+              </view>
+              <!-- 停机 -->
+              <view class="device-item" v-if="device.state===0">
+                <view :class="['device-item-box',!device.stopState?'stop':'fault']">
+                  <!-- fault -->
+                  <view class="device-item-no">{{device.machineCode}}</view>
+                  <view class="device-item-center">
+                    <view class="device-item-left">
+                      <u-icon name="calendar" size="60" color="#999" />
+                    </view>
+                    <view class="device-item-right">
+                      <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
+                      <text>状态：{{device.stopreasonName||'无'}}</text>
+                    </view>
+                  </view>
+                  <view class="device-item-trouble ellipsis">{{device.troubleDesc}}</view>
+                  <view class="device-item-progress">
+                    <view class="progress-bar">
+                      <u-line-progress
+                        :percent="100"
+                        :height="10"
+                        active-color="#3890d8"
+                        :show-percent="false"
+                      />
+                    </view>
+                    <view class="progress-text">100%</view>
+                  </view>
+                  <view class="device-item-progress">
+                    <view class="progress-bar">
+                      <u-line-progress
+                        :percent="100"
+                        :height="10"
+                        active-color="#22b14c"
+                        :show-percent="false"
+                      />
+                    </view>
+                    <view class="progress-text">100%</view>
+                  </view>
+                </view>
+              </view>
+              <!-- /关机 -->
+              <view class="device-item" v-if="device.state===-1">
+                <view :class="['device-item-box',!device.stopState?'normal':'fault']">
+                  <!-- fault  -->
+                  <view class="device-item-no">{{device.machineCode}}</view>
+                  <view class="device-item-center">
+                    <view class="device-item-left">
+                      <u-icon name="calendar" size="60" color="#999" />
+                    </view>
+                    <view class="device-item-right">
+                      <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
+                      <text>状态：{{device.stopreasonName||'无'}}</text>
+                    </view>
+                  </view>
+                  <view class="device-item-trouble ellipsis">{{device.troubleDesc}}</view>
+                  <view class="device-item-progress">
+                    <view class="progress-bar">
+                      <u-line-progress
+                        :percent="100"
+                        :height="10"
+                        active-color="#3890d8"
+                        :show-percent="false"
+                      />
+                    </view>
+                    <view class="progress-text">100%</view>
+                  </view>
+                  <view class="device-item-progress">
+                    <view class="progress-bar">
+                      <u-line-progress
+                        :percent="100"
+                        :height="10"
+                        active-color="#22b14c"
+                        :show-percent="false"
+                      />
+                    </view>
+                    <view class="progress-text">100%</view>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+      <!-- 内容 -->
+      <u-empty v-if="!allList.length" margin-top="30" icon-size="100" text="数据为空" mode="data" />
     </view>
-    <!-- 内容 -->
-    <u-empty v-if="!allList.length" margin-top="30" icon-size="100" text="数据为空" mode="data" />
-     </view>
-	<popup ref="popup" @getWorkShop="getWorkShop" />
+    <popup ref="popup" @getWorkShop="getWorkShop" />
     <!-- popup -->
-	    <u-tabbar
-      v-model="nav.current"
+    <u-tabbar
       :list="nav.list"
       :mid-button="nav.isMid"
       :active-color="nav.activeColor"
@@ -196,6 +194,7 @@ export default {
         background: {
           backgroundColor: "#fff",
         },
+         isBack:false,
       },
       // 车间
       wsName: "车间列表",
@@ -253,12 +252,13 @@ export default {
     },
   },
   methods: {
+    // navChange(){},
     handleMenu() {
       this.$refs.popup.visible = true;
     },
     handleRefresh() {
-		this.deviceAjax();
-	},
+      this.deviceAjax();
+    },
     getWorkShop(item) {
       const { wsName, wsCode } = item;
       this.wsName = wsName;

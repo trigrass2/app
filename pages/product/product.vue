@@ -1,7 +1,7 @@
 <template>
   <view>
-    <u-navbar :is-back="true" :background="navbar.background">
-      <view class="navbar-left">
+    <u-navbar :is-back="navbar.isBack" :background="navbar.background">
+      <view class="navbar-left m-l35">
         <view class="title">生产详情</view>
         <view class="subTitle">{{wsName}}</view>
       </view>
@@ -121,7 +121,6 @@
     <popup ref="popup" @getWorkShop="getWorkShop" />
     <!-- popup -->
     <u-tabbar
-      v-model="nav.current"
       :list="nav.list"
       :mid-button="nav.isMid"
       :active-color="nav.activeColor"
@@ -138,6 +137,7 @@ export default {
         background: {
           backgroundColor: "#ffffff",
         },
+        isBack: false,
       },
       // 车间
       wsName: "车间列表",
@@ -217,7 +217,7 @@ export default {
   }
   .product-hd {
     padding: 25rpx;
-    line-height: 1.7;
+    line-height: 1.8;
     .name {
       color: $font-gray;
     }
@@ -228,7 +228,7 @@ export default {
         width: 500rpx;
       }
       .col-progress {
-        margin: 5rpx 20rpx 0 20rpx;
+        margin: 10rpx 20rpx 0 20rpx;
         width: 132rpx;
       }
       .col-icon {

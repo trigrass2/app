@@ -21,10 +21,12 @@
       />
       <!-- notice -->
       <view class="menu">
-        <text class="menu-title">常用</text>
+        <view class="menu-title">
+          <u-section title="常用" :show-line="false" :right="false" />
+        </view>
         <u-row>
           <u-col span="3" v-for="(menuItem,i) in usuallyMenuList" :key="i">
-            <view class="menu-item">
+            <view class="menu-item" @tap="handleLink(menuItem)">
               <u-icon class="icon" :name="menuItem.icon" color="#3ba7f6" size="65" />
               <view class="text">{{menuItem.text}}</view>
             </view>
@@ -42,7 +44,9 @@
         <u-line color="#ddd" />
       </view>
       <view class="menu whole-menu">
-        <text class="menu-title">全部</text>
+        <view class="menu-title">
+          <u-section title="全部" :show-line="false" :right="false" />
+        </view>
         <swiper
           class="menu-swiper"
           :indicator-color="menuSwiper.dotColor"
@@ -55,7 +59,7 @@
           <swiper-item v-for="(menuItem1,i) in menu" :key="i">
             <u-row>
               <u-col span="3" v-for="(menuItem2,j) in menuItem1" :key="j">
-                <view class="menu-item" @click="skip(menuItem2)">
+                <view class="menu-item" @tap="handleLink(menuItem2)">
                   <u-icon class="icon" :name="menuItem2.icon" color="#3ba7f6" size="65" />
                   <view class="text">{{menuItem2.text}}</view>
                 </view>
@@ -68,28 +72,34 @@
       <view class="my-info">
         <u-cell-group>
           <u-cell-item title="你的未读消息">
-            <i slot="icon" class="iconfont icon-circleDot" />
+            <u-icon
+              slot="icon"
+              name="circleDot"
+              custom-prefix="custom-icon"
+              size="25"
+              color="#999"
+            />
             <text class="info-time">一分钟前</text>
             <u-badge count="99+" :absolute="false" />
           </u-cell-item>
           <u-cell-item title="你的未读任务">
-            <i slot="icon" class="iconfont icon-circleDot" />
+            <u-icon
+              slot="icon"
+              name="circleDot"
+              custom-prefix="custom-icon"
+              size="25"
+              color="#999"
+            />
             <text class="info-time">一分钟前</text>
             <u-badge count="3" :absolute="false" />
           </u-cell-item>
         </u-cell-group>
       </view>
-      <!--我的信息-->
+      <!--我的消息-->
     </view>
-    <u-tabbar
-      v-model="nav.current"
-      :list="nav.list"
-      :mid-button="nav.isMid"
-      :active-color="nav.activeColor"
-    />
+    <u-tabbar :list="nav.list" :mid-button="nav.isMid" :active-color="nav.activeColor" />
   </view>
 </template>
-
 <script>
 import { mapState } from "vuex";
 export default {
@@ -226,8 +236,13 @@ export default {
     },
   },
   methods: {
-    skip({ url }) {
-      uni.navigateTo({ url });
+    handleLink(item) {
+      const { text, url } = item;
+      if (text === "生产详情" || text === "设备管理" || text === "工艺追溯") {
+        uni.switchTab({ url });
+      } else {
+        uni.navigateTo({ url });
+      }
     },
   },
 };
@@ -235,7 +250,7 @@ export default {
 <style lang="scss" scoped>
 .nav-name {
   margin-left: 35rpx;
-  font-size:$font-35;
+  font-size: $font-35;
   font-weight: bold;
 }
 
@@ -254,8 +269,6 @@ export default {
   background-color: $white-color;
   .menu-title {
     padding: 0 35rpx;
-    font-size: 30rpx;
-    font-weight: bold;
   }
   .menu-item {
     padding: 25rpx 0;
