@@ -7,18 +7,14 @@
         <u-section title="常用" :right="false" />
       </view>
       <u-grid :col="4">
-        <u-grid-item>
-          <view class="menu-icon">
-            <u-icon
-              slot="icon"
-              name="close"
-              custom-prefix="custom-icon"
-              size="28"
-              color="#999"
-            />
+        <u-grid-item v-for="i in len" :key="i">
+          <view>
+            <view class="menu-icon" @tap="deleteMenu(i)">
+              <u-icon slot="icon" name="close" custom-prefix="custom-icon" size="28" color="#999" />
+            </view>
+            <u-icon :name="usuallyMenu[i].icon" color="#3ba7f6" size="50" />
+            <view class="grid-text">{{usuallyMenu[i].title}}</view>
           </view>
-          <u-icon name="photo" color="#3ba7f6" size="50" />
-          <view class="grid-text">图片</view>
         </u-grid-item>
       </u-grid>
     </view>
@@ -30,24 +26,20 @@
       </view>
       <u-grid :col="4">
         <u-grid-item v-for="(menuItem,i) in menuList" :key="i">
-          <view class="menu-icon">
-            <u-icon
-              slot="icon"
-              name="add"
-              custom-prefix="custom-icon"
-              size="28"
-              color="#1699f8"
-            />
+          <view class="menu-icon" @tap="addMenu(menuItem)">
+            <u-icon slot="icon" name="add" custom-prefix="custom-icon" size="28" color="#1699f8" />
           </view>
           <u-icon :name="menuItem.icon" color="#3ba7f6" size="50" />
-          <view class="grid-text">{{menuItem.text}}</view>
+          <view class="grid-text">{{menuItem.title}}</view>
         </u-grid-item>
       </u-grid>
     </view>
     <!-- 新增菜单 -->
+    <u-toast ref="uToast" />
   </view>
 </template>
 <script>
+import { mapState, mapMutations } from "vuex";
 export default {
   name: "addMenu",
   data() {
@@ -62,46 +54,83 @@ export default {
       menuList: [
         {
           icon: "file-text-fill",
-          text: "生产详情",
+          title: "生产详情",
           url: "/pages/product/product",
         },
         {
           icon: "calendar-fill",
-          text: "设备管理",
+          title: "设备管理",
           url: "/pages/device/device",
         },
         {
           icon: "coupon-fill",
-          text: "效力分析",
+          title: "效力分析",
           url: "/pages/analyse/analyse",
         },
         {
           icon: "play-right-fill",
-          text: "工艺追溯",
+          title: "工艺追溯",
           url: "/pages/retrospect/retrospect",
         },
         {
           icon: "hourglass-half-fill",
-          text: "效力管理",
+          title: "效力管理",
           url: "/pages/effect/effect",
         },
         {
           icon: "integral-fill",
-          text: "质量管理",
+          title: "质量管理",
           url: "/pages/quality/quality",
         },
         {
           icon: "scan",
-          text: "相关查询",
+          title: "相关查询",
           url: "/pages/search/search",
         },
         {
           icon: "chat-fill",
-          text: "我的消息",
+          title: "我的消息",
           url: "/pages/info/info",
         },
       ],
     };
+  },
+  computed: {
+    ...mapState(["usuallyMenu"]),
+    len() {
+      return this.usuallyMenu.length - 1;
+    },
+  },
+  methods: {
+    ...mapMutations(["add_usuallyMenu", "delete_usuallyMenu"]),
+    addMenu(item) {
+      const isHas = this.check(item);
+
+      if (isHas) {
+        this.$refs.uToast.show({
+          title: "不可以重复添加",
+          type: "error",
+        });
+      }
+
+      if (this.usuallyMenu.length === 8) {
+        this.$refs.uToast.show({
+          title: "添加不能超过7个",
+          type: "error",
+        });
+        return false;
+      }
+      !isHas && this.add_usuallyMenu(item);
+    },
+    deleteMenu(i) {
+      this.delete_usuallyMenu(i);
+    },
+    check(el) {
+      const validator = this.usuallyMenu.some((item) => {
+        return item.title === el.title;
+      });
+      return validator;
+    },
   },
 };
 </script>

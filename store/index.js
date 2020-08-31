@@ -55,7 +55,9 @@ const state = {
 		isMid: false
 	},
 	// 车间
-	workShopList: []
+	workShopList: [],
+	// 常用菜单
+	usuallyMenu: uni.getStorageSync('usuallyMenu') || [{ icon: 'plus-circle', title: '添加' }]
 }
 const mutations = {
 	login(state, provider) {
@@ -78,9 +80,29 @@ const mutations = {
 	},
 	//退出登录
 	logout(state) {
-		state.hasLogin = false
-		state.userInfo = ''
+		state.hasLogin = false;
+		state.userInfo = '';
+		state.usuallyMenu = [{ icon: 'plus-circle', title: '添加' }];
 		uni.clearStorageSync();
+	},
+	add_usuallyMenu(state, payload) {
+		// state
+		const { usuallyMenu } = state;
+		const index = usuallyMenu.length-1;
+		usuallyMenu.splice(index, 0, payload);
+
+		uni.setStorage({
+			key: 'usuallyMenu',
+			data: usuallyMenu
+		});
+	},
+	delete_usuallyMenu(i) {
+		const { usuallyMenu } = state
+		usuallyMenu.splice(i, 1);
+		uni.setStorage({
+			key: 'usuallyMenu',
+			data: usuallyMenu
+		});
 	},
 	set_state(state, payload) {
 		if (payload && typeof (payload) === 'object') {

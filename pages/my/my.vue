@@ -18,7 +18,6 @@
       <view class="my-info">
         <u-cell-group>
           <u-cell-item title="你的未读消息">
-            <!-- <i slot="icon" class="iconfont icon-circleDot" /> -->
             <u-icon
               slot="icon"
               name="circleDot"
