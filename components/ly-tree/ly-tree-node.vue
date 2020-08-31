@@ -27,7 +27,7 @@
 			</template>
 			
 			<text class="ly-tree-node__label">{{node.label}}</text>
-			<text v-if="!!node.data.iconClass" :class="['iconfont',node.data.iconClass]" @tap.stop="handleIconClick"></text>
+			<text v-if="!!node.data.iconClass" :class="['custom-icon',node.data.iconClass]" @tap.stop="handleIconClick"></text>
 		</view>
 		<view v-if="!renderAfterExpand || childNodeRendered" v-show="expanded" class="ly-tree-node__children" role="group">
 			<ly-tree-node v-for="cNodeId in node.childNodesId" 
@@ -243,5 +243,5 @@
 	};
 </script>
 <style lang="scss" scoped>
-	.iconfont{margin-left: 5rpx;color:#999;}
+	.custom-icon{margin-left: 5rpx;color:#999;}
 </style>

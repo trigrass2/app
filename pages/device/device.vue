@@ -31,6 +31,7 @@
         :list="tabList"
         :is-scroll="false"
         :current="tabCurrent"
+        @change="tabsChange"
       />
       <!-- nav -->
       <view class="tips">
@@ -265,9 +266,9 @@ export default {
       this.wsCode = wsCode;
       this.init();
     },
-    tabsChange(i) {
-      this.tabCurrent = i;
-      this.current = this.tabList[i].value;
+    tabsChange(index) {
+      this.tabCurrent = index;
+      this.current = this.tabList[index].value;
       this.setDeviceData();
     },
     init() {

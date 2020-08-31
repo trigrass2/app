@@ -69,6 +69,11 @@ export default {
       processData: [],
     };
   },
+  watch: {
+    treeData(val){
+      console.log('treeData',val)
+    }
+  },
   methods: {
     date(val) {
       return this.$formatdate(val).split(" ")[0];
@@ -164,8 +169,7 @@ export default {
           item.stepType === "料" ? `【${item.matCode}】` : ""
         }${item.val} ${item.runResult ? "✔" : "❌"}`,
         isAsync: !!this.productMap[item.matCode],
-        iconClass:
-          item.stepType && !!item.stepType && item.matCode ? "icon-search" : "",
+        iconClass:item.stepType && !!item.stepType && item.matCode ? "custom-icon-search" : "",
         rawData: item,
       };
     },
