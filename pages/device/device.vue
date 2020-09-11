@@ -48,7 +48,7 @@
       <view class="device" v-for="(item,i) in allList" :key="i">
         <view class="device-hd" @tap="accordion(item)">
           <text class="device-name">{{item.processName}}</text>
-          <u-icon :name="item.visible?'arrow-down-fill':'arrow-up-fill'" color="#ccc" size="20" />
+          <u-icon :name="item.visible?'arrow-down-fill':'arrow-up-fill'" color="#ccc" size="22" />
         </view>
         <view v-show="item.visible">
           <view class="device-bd">
@@ -334,7 +334,7 @@ export default {
 <style lang="scss" scoped>
 .tips {
   display: flex;
-  margin: 20upx 0 10upx 0;
+  margin: 30upx 0 10upx 0;
   padding: 0 40upx;
   color: $font-gray;
 

@@ -1,6 +1,6 @@
 <template>
 	<view class="login-box">
-		<u-navbar :is-back="false" title="登录" />
+		<u-navbar :is-back="navbar.isBack" :title="navbar.title"/>
 		<view class="login-hd">
 			<view class="login-content">
 				<view class="login-logo">
@@ -34,6 +34,10 @@
 	export default {
 		data() {
 			return {
+				navbar:{
+				  title:"登录",
+				  isBack:false,
+				},
 				loading:false,
 				form: {
 					user: "admin",
@@ -73,6 +77,7 @@
 					user,
 					password
 				} = this.form;
+				
                 this.loading=true;     
 				this.$http.request({
 					url: '/api/SEmployee/Login',

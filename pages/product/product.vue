@@ -55,7 +55,7 @@
                 <u-icon
                   :name="product.visible?'arrow-down-fill':'arrow-up-fill'"
                   color="#ccc"
-                  size="20"
+                  size="22"
                   @tap="accordion(product)"
                 />
               </view>

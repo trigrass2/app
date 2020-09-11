@@ -1,6 +1,6 @@
 <template>
   <view>
-    <u-navbar title="工艺追溯" :is-back="navbar.isBack" :background="navbar.background" />
+    <u-navbar :title="navbar.title" :is-back="navbar.isBack" :background="navbar.background" />
     <!-- nav -->
     <view class="u-page">
       <u-tabs
@@ -99,10 +99,11 @@ export default {
   data() {
     return {
       navbar: {
+        title:"工艺追溯",
         background: {
           backgroundColor: "#ffffff",
         },
-        isBack:false
+        isBack:false,
       },
       //数据字典
       productDict: {},

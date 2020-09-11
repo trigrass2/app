@@ -7,14 +7,13 @@
         <u-section title="常用" :right="false" />
       </view>
       <u-grid :col="4">
-        <u-grid-item v-for="i in len" :key="i">
-          <view>
-            <view class="menu-icon" @tap="deleteMenu(i)">
-              <u-icon slot="icon" name="close" custom-prefix="custom-icon" size="28" color="#999" />
-            </view>
-            <u-icon :name="usuallyMenu[i].icon" color="#3ba7f6" size="50" />
-            <view class="grid-text">{{usuallyMenu[i].title}}</view>
+        <u-grid-item v-for="(item,i) in len" :key="i">
+          <view class="menu-icon" @tap="deleteMenu(i)">
+            <!-- <u-icon slot="icon" name="close" custom-prefix="custom-icon" size="28" color="#999" /> -->
+            <text class="custom-icon custom-icon-close" />
           </view>
+          <u-icon :name="usuallyMenu[i].icon" color="#3ba7f6" size="50" />
+          <view class="grid-text">{{usuallyMenu[i].title}}</view>
         </u-grid-item>
       </u-grid>
     </view>
@@ -27,7 +26,8 @@
       <u-grid :col="4">
         <u-grid-item v-for="(menuItem,i) in menuList" :key="i">
           <view class="menu-icon" @tap="addMenu(menuItem)">
-            <u-icon slot="icon" name="add" custom-prefix="custom-icon" size="28" color="#1699f8" />
+            <!-- <u-icon slot="icon" name="add" custom-prefix="custom-icon" size="28" color="#1699f8" /> -->
+            <text class="custom-icon custom-icon-add" />
           </view>
           <u-icon :name="menuItem.icon" color="#3ba7f6" size="50" />
           <view class="grid-text">{{menuItem.title}}</view>
@@ -98,14 +98,15 @@ export default {
   computed: {
     ...mapState(["usuallyMenu"]),
     len() {
-      return this.usuallyMenu.length - 1;
+      return this.usuallyMenu.length
+        ? this.usuallyMenu.length - 1
+        : this.usuallyMenu.length;
     },
   },
   methods: {
     ...mapMutations(["add_usuallyMenu", "delete_usuallyMenu"]),
     addMenu(item) {
       const isHas = this.check(item);
-
       if (isHas) {
         this.$refs.uToast.show({
           title: "不可以重复添加",
@@ -113,7 +114,7 @@ export default {
         });
       }
 
-      if (this.usuallyMenu.length === 8) {
+      if (this.len === 7) {
         this.$refs.uToast.show({
           title: "添加不能超过7个",
           type: "error",
@@ -145,6 +146,11 @@ export default {
     position: absolute;
     top: 10rpx;
     right: 15rpx;
+    .custom-icon{
+      font-size: 28rpx;
+    }
+    .custom-icon-close{color: #999;}
+    .custom-icon-add{color: #1699f8;}
   }
   /deep/ .u-grid-item-box {
     padding: 50rpx 0;

@@ -6,13 +6,8 @@
     <!-- nav -->
     <view class="search">
       <u-section title="搜索">
-        <view slot="right">
-          <u-icon
-            :name="searchVisible?'arrow-down-fill':'arrow-up-fill'"
-            size="20"
-            color="#ccc"
-            @click="searchVisible = !searchVisible"
-          />
+        <view slot="right" @click="searchVisible = !searchVisible">
+          <u-icon :name="searchVisible?'arrow-down-fill':'arrow-up-fill'" size="22" color="#ccc" />
         </view>
       </u-section>
       <view v-show="searchVisible">
@@ -283,13 +278,7 @@ export default {
       });
     },
     //---------------------------------------
-    // 时间
-    // startConfirm(e) {
-    //   this.startTime = e.key;
-    // },
-    // endConfirm(e) {
-    //   this.endTime = e.key;
-    // },
+
     // 饼图
     getServerData() {
       let Pie = {
@@ -419,8 +408,13 @@ export default {
     padding-bottom: 20rpx;
   }
   .mix-content {
+    // overflow: hidden;
     font-size: $font-24;
     color: $font-light-gray;
+  }
+  .echarts {
+    width: 690rpx;
+    height: 130rpx;
   }
 }
 // 饼图
@@ -463,8 +457,8 @@ export default {
     padding: 30rpx 30rpx 20rpx 30rpx;
   }
   .charts-pie {
-    width: 750upx;
-    height: 500upx;
+    width: 750rpx;
+    height: 500rpx;
   }
   .device-info {
     padding: 0 30rpx 30rpx 30rpx;
@@ -514,7 +508,7 @@ export default {
 
 .formula {
   margin-top: 20upx;
-  padding:30upx;
+  padding: 30upx;
   background: $white-color;
   .formula-title {
     padding-bottom: 20rpx;
@@ -530,7 +524,7 @@ export default {
       }
 
       .formula-name {
-        margin-bottom:15rpx;
+        margin-bottom: 15rpx;
         font-size: $font-24;
         color: $font-gray;
       }

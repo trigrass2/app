@@ -1,6 +1,6 @@
 <template>
   <view class="quality">
-    <u-navbar title="工单不良汇总" :is-back="true" :background="navbar.background"/>
+    <u-navbar :title="navbar.title" :is-back="navbar.isBack"  :background="navbar.background"/>
     <!-- nav -->
     <view class="quality-box">
       <view class="quality-charts">
@@ -44,6 +44,8 @@ export default {
   data() {
     return {
       navbar: {
+        title:"工单不良汇总",
+        isBack:true,
         background: {
           backgroundColor: "#ffffff",
         },
