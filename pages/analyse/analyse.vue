@@ -17,7 +17,7 @@
         class="list-item"
         v-for="machine of MachineList"
         :key="machine.id"
-        @tap="link(machine.machineName)"
+        @tap="link(machine.machineName,machine.machineCode)"
       >
         <view class="list-left">
           <view class="row">
@@ -127,9 +127,9 @@ export default {
         this.machineAjax();
       }
     },
-    link(name) {
+    link(machineName,machineCode) {
       uni.navigateTo({
-        url: `/pages/analyse/analyseDetail?name=${name}`,
+        url: `/pages/analyse/analyseDetail?machineName=${machineName}&machineCode=${machineCode}`,
       });
     },
     formatTree(treeData) {

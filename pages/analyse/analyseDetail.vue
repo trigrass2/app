@@ -1,19 +1,26 @@
 <template>
   <view>
     <u-navbar :is-back="navbar.isBack" :background="navbar.background">
-      <view class="navbar-title">{{title}}</view>
+      <view class="navbar-title">{{ machineName }}</view>
     </u-navbar>
     <!-- nav -->
     <view class="search">
       <u-section title="搜索">
         <view slot="right" @click="searchVisible = !searchVisible">
-          <u-icon :name="searchVisible?'arrow-down-fill':'arrow-up-fill'" size="22" color="#ccc" />
+          <u-icon
+            :name="searchVisible ? 'arrow-down-fill' : 'arrow-up-fill'"
+            size="22"
+            color="#ccc"
+          />
         </view>
       </u-section>
       <view v-show="searchVisible">
         <u-form label-width="130" :model="form" ref="uForm">
           <u-form-item label="开始时间" prop="startTime">
-            <u-input v-model="form.startTime" @click="handlePickerType('start')" />
+            <u-input
+              v-model="form.startTime"
+              @click="handlePickerType('start')"
+            />
           </u-form-item>
           <u-form-item label="结束时间" prop="endTime">
             <u-input v-model="form.endTime" @click="handlePickerType('end')" />
@@ -25,7 +32,9 @@
               <u-button size="medium" @click="clear">清空</u-button>
             </u-col>
             <u-col span="6">
-              <u-button type="primary" size="medium" @click="search">查询</u-button>
+              <u-button type="primary" size="medium" @click="search">
+                查询
+              </u-button>
             </u-col>
           </u-row>
         </view>
@@ -36,79 +45,121 @@
       <view class="mix-title">
         <u-section title="占比图" :right="false" />
       </view>
-      <view class="mix-content">
-        <!-- #ifdef APP-PLUS || H5 -->
-        <view
-          id="echarts"
-          class="echarts"
-          @tap="echarts.onClick"
-          :prop="option"
-          :change:prop="echarts.updateEcharts"
-        />
-        <!-- #endif -->
-        <!-- #ifndef APP-PLUS || H5 -->
-        <view>非 APP、H5 环境不支持</view>
-        <!-- #endif -->
+      <view v-if="minMixList.length">
+        <view class="min-state">
+          <view
+            class="state-item"
+            v-for="(value, key) in machineType"
+            :key="key"
+          >
+            <text class="state-color" :style="{ background: value.color }" />
+            <text class="state-font">{{ value.name }}</text>
+          </view>
+        </view>
+        <!-- hd -->
+        <view class="mix-content">
+          <canvas
+            canvas-id="mixCanvasStack"
+            id="mixCanvasStack"
+            class="minCharts"
+          />
+        </view>
       </view>
+      <u-empty
+        v-if="!minMixList.length"
+        margin-top="30"
+        icon-size="100"
+        text="数据为空"
+        mode="data"
+      />
     </view>
     <!-- 占比 -->
     <view class="device">
       <view class="device-title">
         <u-section title="设备效率饼图" :right="false" />
       </view>
-      <canvas canvas-id="canvasPie" id="canvasPie" class="charts-pie" @touchstart="touchPie" />
-      <view class="device-info">
-        <u-table>
-          <u-tr>
-            <u-th>干扰类型</u-th>
-            <u-th>严重性</u-th>
-            <u-th>状态</u-th>
-            <u-th>延误时间</u-th>
-          </u-tr>
-          <u-tr>
-            <u-td>不良</u-td>
-            <u-td>良</u-td>
-            <u-td>打开</u-td>
-            <u-td>203</u-td>
-          </u-tr>
-          <u-tr>
-            <u-td>不良</u-td>
-            <u-td>不良</u-td>
-            <u-td>关闭</u-td>
-            <u-td>403</u-td>
-          </u-tr>
-          <u-tr>
-            <u-td>优秀</u-td>
-            <u-td>不良</u-td>
-            <u-td>打开</u-td>
-            <u-td>203</u-td>
-          </u-tr>
-        </u-table>
+      <view v-if="tableData.length">
+        <canvas
+          canvas-id="canvasPie"
+          id="canvasPie"
+          class="charts-pie"
+          @touchstart="touchPie"
+        />
+        <view class="device-info">
+          <u-table :font-size="24">
+            <u-tr>
+              <u-th :width="600">设备编号</u-th>
+              <u-th>干扰类型</u-th>
+              <u-th>延误时间</u-th>
+            </u-tr>
+            <u-tr v-for="(tableItem, i) in tableData" :key="i">
+              <u-td :width="500">{{ tableItem.machineCode }}</u-td>
+              <u-td>{{ workType(tableItem.troubleCoed) }}</u-td>
+              <u-td>{{ tableItem.time }}</u-td>
+            </u-tr>
+          </u-table>
+        </view>
       </view>
+      <!-- 内容 -->
+      <u-empty
+        v-if="!tableData.length"
+        margin-top="30"
+        icon-size="100"
+        text="数据为空"
+        mode="data"
+      />
     </view>
     <!-- 饼图，列表 -->
     <view class="formula">
       <view class="formula-title">
         <u-section title="计算公式" :right="false" />
       </view>
-      <view class="formula-list">
+      <view  v-if="Object.keys(formula).length" class="formula-list">
         <view class="formula-item">
-          <view class="formula-name">时间稼动率（辉动时间/负荷时间）：</view>
-          <view class="formula-text">360分/420分x100%=94%</view>
+          <view class="formula-name">
+            时间稼动率（实际生产时间/计划生产时间）：
+          </view>
+          <view class="formula-text">
+            {{ formula.runTimeLong }} / {{ formula.produTimeLong }} x 100% ={{
+              timeRate
+            }}%
+          </view>
         </view>
         <view class="formula-item">
-          <view class="formula-name">性能稼动率（理论节拍x生产数量/稼动时间）：</view>
-          <view class="formula-text">2分x 170个/360分x100%=94%</view>
+          <view class="formula-name">
+            性能稼动率（理论节拍x产量/稼动时间）：
+          </view>
+          <view class="formula-text">
+            {{ formula.rate }} x {{ formula.output }} /{{
+              formula.runTimeLong
+            }}
+            x 100% = {{ natureRate }}%
+          </view>
         </view>
         <view class="formula-item">
           <view class="formula-name">良品率（良品量/生产量）：</view>
-          <view class="formula-text">165个/170个x100%=97%</view>
+          <view class="formula-text"
+            >{{ formula.quality }} / {{ formula.output }} x 100% =
+            {{ yieldRate }}%</view
+          >
         </view>
         <view class="formula-item">
-          <view class="formula-name">设备综合效率=时间稼动率x性能稼动率x良品率：</view>
-          <view class="formula-text">0.86x0.94x0.97x100%=78%</view>
+          <view class="formula-name">
+            设备综合效率=时间稼动率x性能稼动率x良品率：
+          </view>
+          <view class="formula-text"
+            >{{ timeRate / 100 }} x {{ natureRate / 100 }} x
+            {{ yieldRate / 100 }} x 100% = {{ multipleRate }} %</view
+          >
         </view>
       </view>
+      <u-empty
+        v-if="!Object.keys(formula).length"
+        margin-top="30"
+        icon-size="100"
+        text="数据为空"
+        mode="data"
+      />
     </view>
     <!-- 公式 -->
     <u-picker
@@ -123,9 +174,12 @@
 
 <script>
 import uCharts from "@/components/uni/u-charts/u-charts";
+import config from '@/util/config';
 
-var _self;
-var canvaPie = null;
+let _self;
+let mixCanvas = null;
+let canvaPie = null;
+const url = config.oeeServerApi.baseURL;
 
 export default {
   data() {
@@ -137,7 +191,8 @@ export default {
         },
         isBack: true,
       },
-      title: "",
+      machineName: "动平衡机",
+      machineCode: "CZ190430-11-04",
       picker: {
         visible: false,
         params: {
@@ -151,8 +206,8 @@ export default {
       },
       pickerType: "start",
       form: {
-        startTime: "",
-        endTime: "",
+        startTime: "2020-03-01 00:00:00",
+        endTime: "2020-04-01 23:59:59",
       },
       rules: {
         startTime: {
@@ -165,74 +220,39 @@ export default {
         },
       },
       searchVisible: true,
-      // ---------------------------------------------
+      isSearch: false,
+      // 数据
+      minMixList: [],
+      tableData: [],
+      formula: {},
+      // 设备
+      machineType: {
+        "-1": {
+          name: "停机",
+          color: "#438ef7",
+        },
+        2: {
+          name: "故障",
+          color: "#e23a3a",
+        },
+        1: {
+          name: "启动",
+          color: "#61bf66",
+        },
+        0: {
+          name: "关机",
+          color: "#f3ce49",
+        },
+      },
+      // 占比图
+      minWidth: "",
+      minHeight: "",
       // 饼图
       cWidth: "",
       cHeight: "",
       pixelRatio: 1,
       serverData: "",
       piearr: [],
-      option: {
-        tooltip: {
-          trigger: "axis",
-          axisPointer: {
-            type: "shadow",
-          },
-        },
-        legend: {
-          data: ["运行", "停机", "故障"],
-        },
-        grid: {
-          top: "45%",
-          left: "0",
-          right: "0%",
-          bottom: "0%",
-          containLabel: true,
-        },
-        xAxis: {
-          type: "value",
-          max: 660,
-          axisLine: {
-            show: false,
-          },
-          axisLabel: {
-            show: false,
-          },
-        },
-        yAxis: {
-          type: "category",
-          data: ["周一"],
-          axisLine: {
-            show: false,
-          },
-          axisLabel: {
-            show: false,
-          },
-        },
-        series: [
-          {
-            name: "运行",
-            type: "bar",
-            stack: "总量",
-            barWidth: "100%",
-            color: "#00cc66",
-            data: [320],
-          },
-          {
-            name: "停机",
-            type: "bar",
-            stack: "总量",
-            data: [120],
-          },
-          {
-            name: "故障",
-            type: "bar",
-            stack: "总量",
-
-            data: [220],
-          },
-        ],
-      },
     };
   },
   onReady() {
@@ -240,15 +260,112 @@ export default {
   },
   onLoad(option) {
     // 设置标题
-    this.title = option.name ? option.name : "设备效率分析详情";
+    this.machineName = option.machineName ? option.machineName : "设备效率分析详情";
+    this.machineCode=option.machineCode;
 
     // 初始化图标
     _self = this;
-    this.cWidth = uni.upx2px(750);
-    this.cHeight = uni.upx2px(500);
-    this.getServerData();
+  },
+  computed: {
+    pieSeries() {
+      return this.tableData.map(({ troubleCoed, time }) => {
+        return { data: Number(time), name: this.workType(troubleCoed) };
+      });
+    },
+    // 公式
+    timeRate() {
+      const runTimeLong = parseInt(this.formula.runTimeLong);
+      const produTimeLong = parseInt(this.formula.produTimeLong);
+      const timeRate = Math.round((runTimeLong / produTimeLong) * 100);
+      return timeRate || "";
+    },
+    natureRate() {
+      const rate = parseFloat(this.formula.rate);
+      const output = parseInt(this.formula.output);
+      const runTimeLong = parseInt(this.formula.runTimeLong);
+
+      const natureRate = Math.round(((rate * output) / runTimeLong) * 100);
+
+      return natureRate || "";
+    },
+    yieldRate() {
+      const quality = this.formula.quality;
+      const output = this.formula.output;
+      const yieldRate = Math.round((quality / output) * 100);
+      return yieldRate || "";
+    },
+    multipleRate() {
+      const timeRate = this.timeRate / 100;
+      const natureRate = this.natureRate / 100;
+      const yieldRate = this.yieldRate / 100;
+
+      const multipleRate = Math.round(timeRate * natureRate * yieldRate * 100);
+      return multipleRate || "";
+    },
+  },
+  watch: {
+    isSearch(val) {
+      if (!val) {
+        this.minMixList = [];
+        this.tableData = [];
+        this.formula = {};
+
+        this.getMinData();
+        this.getDeviceData();
+      }
+    },
   },
   methods: {
+    async analysisAjax() {
+      // this.loading = true;
+      const params = {
+        startDate: this.form.startTime,
+        endDate: this.form.endTime,
+        machineCode: this.machineCode,
+      };
+
+      Promise.all([
+        await uni.request({
+          url: `${url}/oee/analysis`,
+          method: "GET",
+          data: params,
+        }),
+        await uni.request({
+          url: `${url}/oee/staterecord`,
+          method: "GET",
+          data: params,
+        }),
+        await uni.request({
+          url: `${url}/oee/machinestaterecord`,
+          method: "GET",
+          data: params,
+        }),
+      ])
+        .then(([res1, res2, res3]) => {
+          // this.loading = false;
+          this.formula = res1[1].data.data;
+          this.minMixList = res2[1].data.data;
+          this.tableData = res3[1].data.data;
+        })
+        .then(() => {
+          // 占比图
+          this.minWidth = uni.upx2px(750);
+          this.minHeight = uni.upx2px(200);
+
+          this.getMinData();
+          //设备效率图
+          this.cWidth = uni.upx2px(750);
+          this.cHeight = uni.upx2px(500);
+          this.getDeviceData();
+          // this.drawMix();
+          // this.drawPie();
+        })
+        .catch(() => {
+          // this.loading = false;
+        });
+    },
+    // 时间占比图
+    // drawMix() {},
     pickerConfirm(params) {
       const { year, month, day, hour, minute, second } = params;
       const time = `${year}-${month}-${day} ${hour}:${minute}:${second}`;
@@ -266,46 +383,24 @@ export default {
       Object.keys(this.form).forEach((key) => {
         this.form[key] = "";
       });
+      this.isSearch = false;
       this.$refs.uForm.resetFields();
     },
     search() {
       this.$refs.uForm.validate((valid) => {
         if (valid) {
-          console.log("验证通过");
-        } else {
-          console.log("验证失败");
+          this.isSearch = true;
+          this.analysisAjax();
         }
       });
     },
     //---------------------------------------
-
     // 饼图
-    getServerData() {
-      let Pie = {
+    getDeviceData() {
+      const Pie = {
         series: [],
       };
-      Pie.series = [
-        {
-          name: "一班",
-          data: 50,
-        },
-        {
-          name: "二班",
-          data: 30,
-        },
-        {
-          name: "三班",
-          data: 20,
-        },
-        {
-          name: "四班",
-          data: 18,
-        },
-        {
-          name: "五班",
-          data: 8,
-        },
-      ];
+      Pie.series = this.pieSeries;
       _self.showPie("canvasPie", Pie);
     },
     showPie(canvasId, chartData) {
@@ -350,73 +445,117 @@ export default {
     onViewClick(options) {
       console.log(options);
     },
+    // 占比图
+    getMinData() {
+      let ColumnStack = {
+        categories: ["时间占比图"],
+        series: [],
+      };
+      ColumnStack.series = this.minMixList.map(({ state, time }) => {
+        const { name, color } = this.machineType[state];
+        return {
+          data: [time],
+          name,
+          color,
+        };
+      });
+      _self.showColumnStack("mixCanvasStack", ColumnStack);
+    },
+    showColumnStack(canvasId, chartData) {
+      mixCanvas = new uCharts({
+        $this: _self,
+        canvasId: canvasId,
+        type: "column",
+        rotate: true,
+        legend: {
+          show: false,
+        },
+        fontSize: 11,
+        background: "#FFFFFF",
+        pixelRatio: _self.pixelRatio,
+        animation: true,
+        categories: chartData.categories,
+        series: chartData.series,
+        xAxis: {
+          disabled: true,
+          disableGrid: true,
+          gridColor: "#ffffff",
+        },
+        yAxis: {
+          disabled: true,
+          disableGrid: true,
+          gridColor: "#ffffff",
+        },
+        dataLabel: false,
+        width: _self.minWidth * _self.pixelRatio,
+        height: _self.minHeight * _self.pixelRatio,
+        extra: {
+          column: {
+            type: "stack",
+            width:
+              (_self.minWidth * _self.pixelRatio * 0.5) /
+              chartData.categories.length,
+          },
+        },
+      });
+    },
+    workType(type) {
+      if (type === "001") {
+        return "不良";
+      } else if (type === "002") {
+        return "工具";
+      } else if (type === "003") {
+        return "短缺";
+      }
+    },
   },
 };
 </script>
-<script module="echarts" lang="renderjs">
-	let myChart
-	export default {
-		mounted() {
-			if (typeof window.echarts === 'function') {
-				this.initEcharts()
-			} else {
-				// 动态引入较大类库避免影响页面展示
-				const script = document.createElement('script')
-				// view 层的页面运行在 www 根目录，其相对路径相对于 www 计算
-				script.src = 'static/echarts.js'
-				script.onload = this.initEcharts.bind(this)
-				document.head.appendChild(script)
-			}
-		},
-		methods: {
-			initEcharts() {
-				myChart = echarts.init(document.getElementById('echarts'))
-				// 观测更新的数据在 view 层可以直接访问到
-				myChart.setOption(this.option)
-			},
-			updateEcharts(newValue, oldValue, ownerInstance, instance) {
-				// 监听 service 层数据变更
-				myChart.setOption(newValue)
-			},
-			onClick(event, ownerInstance) {
-				// 调用 service 层的方法
-				ownerInstance.callMethod('onViewClick', {
-					test: 'test'
-				})
-			}
-		}
-	}
-</script>
+
 <style lang="scss" scoped>
 .search {
   padding: 30rpx;
   background-color: $white-color;
+
   .btn {
     margin-top: 20rpx;
+
     /deep/.u-btn {
       width: 100%;
       padding: 0;
     }
   }
 }
+
 .mix {
   overflow: hidden;
   margin: 20upx 0;
-  padding: 30rpx;
   background-color: $white-color;
   .mix-title {
-    padding-bottom: 20rpx;
+    margin: 30rpx 30rpx 0 30rpx;
   }
-  .mix-content {
-    // overflow: hidden;
-    font-size: $font-24;
-    color: $font-light-gray;
+  .min-state {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: -30rpx;
+    .state-item {
+      margin-right: 20rpx;
+      font-size: $font-22;
+    }
+    .state-color {
+      display: inline-block;
+      margin-right: 5rpx;
+      width: 20rpx;
+      height: 15rpx;
+      border-radius: 5rpx;
+    }
   }
-  .echarts {
-    width: 690rpx;
-    height: 130rpx;
+  .minCharts {
+    width: 750upx;
+    height: 200upx;
   }
 }
+
 // 饼图
 .sub-title {
   display: flex;
@@ -453,66 +592,26 @@ export default {
 .device {
   overflow: hidden;
   background: $white-color;
+
   .device-title {
     padding: 30rpx 30rpx 20rpx 30rpx;
   }
+
   .charts-pie {
     width: 750rpx;
     height: 500rpx;
   }
-  .device-info {
-    padding: 0 30rpx 30rpx 30rpx;
-  }
+  .device-info{margin: 30rpx;}
 }
-
-// .box {
-//   padding: 30upx;
-//   background: $white-color;
-// }
-
-// .table {
-//   border: 1px solid #b7d0ad;
-
-//   .row {
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: center;
-//     align-items: center;
-//     border-bottom: 1px solid $line-dark-color;
-
-//     &:last-child {
-//       border: 0;
-//     }
-
-//     .col {
-//       flex: 1;
-//       border-right: 1px solid $line-dark-color;
-//       padding-left: 20upx;
-//       line-height: 2.5;
-
-//       &:last-child {
-//         border: 0;
-//       }
-//     }
-//   }
-
-//   .table-head {
-//     border-bottom: 1px solid #b7d0ad;
-
-//     .col {
-//       line-height: 1.8;
-//       background-color: #e6f1c7;
-//     }
-//   }
-// }
-
 .formula {
   margin-top: 20upx;
   padding: 30upx;
   background: $white-color;
+
   .formula-title {
     padding-bottom: 20rpx;
   }
+
   .formula-list {
     .formula-item {
       position: relative;

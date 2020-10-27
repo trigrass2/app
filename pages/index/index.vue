@@ -6,7 +6,7 @@
 		<!-- nav -->
 		<view class="u-page">
 			<view class="banner">
-				<image :src="bannerUrl" mode="scaleToFill" />
+	<!-- 			<image :src="bannerUrl" mode="scaleToFill" /> -->
 			</view>
 			<!-- banner -->
 			<u-notice-bar class="notice" type="info" mode="vertical" duration="4500" bg-color="#ffffff" padding="15rpx 35rpx"
@@ -81,9 +81,11 @@
 		name: "Index",
 		data() {
 			return {
-				bannerUrl: '/static/images/banner/banner1.jpg',
+				// bannerUrl: '/static/images/banner/banner1.jpg',
 				noticeList: [
-					"Smart.MES APP上线",
+					"Smart.MES APP上线1",
+					"Smart.MES APP上线2",
+					"Smart.MES APP上线3",
 				],
 				menuList: [{
 						icon: "file-text-fill",

@@ -1,4 +1,4 @@
-import urlConfig from './config';
+import config from './config';
 import store from 'store/index'
 /*
 @param url 字符串
@@ -7,15 +7,16 @@ import store from 'store/index'
 */
 const userToken=uni.getStorageSync('userToken');
 const request = (opt) => {
+	const {url,method,data}=opt
 	const headers = {
 		'Content-Type': 'application/json',
 		'Authorization': userToken
 	}
 	 let promise = new Promise(function(resolve, reject) {
 	 uni.request({
-		url: urlConfig + opt.url,
-		method: opt.method,
-		data: opt.data,
+		url: config.api.baseURL + url,
+		method: method,
+		data:data,
 		dataType: 'json',
 		header: headers
 	}).then(result => {
