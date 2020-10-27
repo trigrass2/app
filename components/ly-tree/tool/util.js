@@ -108,3 +108,7 @@ export const getPropertyFromData = function(node, prop) {
 		return dataProp === undefined ? '' : dataProp;
 	}
 };
+
+export const isNull = function(v) {
+	return v === undefined || v === null || v === '';
+}

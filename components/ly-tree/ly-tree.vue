@@ -6,8 +6,8 @@
 			</view>
 		</template>
 		<template v-else>
-			<view v-if="isEmpty" class="ly-empty">{{emptyText}}</view>
-			<view class="ly-tree" :class="{ 'ly-tree--highlight-current': highlightCurrent }" role="tree" name="LyTreeExpand">
+			<view v-if="isEmpty || !visible" class="ly-empty">{{emptyText}}</view>
+			<view class="ly-tree" :class="{'is-empty': isEmpty || !visible}" role="tree" name="LyTreeExpand">
 				<ly-tree-node v-for="nodeId in childNodesId" 
 					:nodeId="nodeId" 
 					:render-after-expand="renderAfterExpand"
@@ -41,6 +41,7 @@
 		data() {
 			return {
 				elId: `ly_${Math.ceil(Math.random() * 10e5).toString(36)}`,
+				visible: true,
 				store: {
 					ready: false
 				},
@@ -95,6 +96,12 @@
 				default: true
 			},
 			
+			// 选中的时候展开节点
+			expandOnCheckNode: {
+				type: Boolean,
+				default: true
+			},
+			
 			// 是否在点击节点的时候选中节点，默认值为 false，即只有在点击复选框时才会选中节点
 			checkOnClickNode: Boolean,
 			checkDescendants: {
@@ -113,6 +120,9 @@
 			
 			// 默认展开的节点的 key 的数组
 			defaultExpandedKeys: Array,
+			
+			// 是否展开当前节点的父节点
+			expandCurrentNodeParent: Boolean,
 			
 			// 当前选中的节点
 			currentNodeKey: [String, Number],
@@ -184,21 +194,20 @@
 			showNodeIcon: {
 				type: Boolean,
 				default: false
+			},
+			
+			// 如果数据量较大，建议不要在node节点中添加parent属性，会造成性能损耗
+			isInjectParentInNode: {
+				type: Boolean,
+				default: false
 			}
 		},
 		
 		computed: {
-			children: {
-				set(value) {
-					this.treeData = value;
-				},
-				get() {
-					return this.treeData;
-				}
-			},
 			isEmpty() {
 				if (this.store.root) {
 					const childNodes = this.store.root.getChildNodes(this.childNodesId);
+					
 					return !childNodes || childNodes.length === 0 || childNodes.every(({visible}) => !visible);
 				}
 				
@@ -228,6 +237,9 @@
 			},
 			'store.root.childNodesId'(newVal) {
 				this.childNodesId = newVal;
+			},
+			'store.root.visible'(newVal) {
+				this.visible = newVal;
 			},
 			childNodesId(){
 				this.$nextTick(() => {
@@ -284,10 +296,11 @@
 			 * @description 若节点可被选择（即 show-checkbox 为 true），则返回目前被选中的节点的 key 所组成的数组
 			 * @method getCheckedKeys
 			 * @param {Boolean} leafOnly 是否只是叶子节点，默认false,若为 true 则仅返回被选中的叶子节点的 keys
+			 * @param {Boolean} includeHalfChecked 是否返回indeterminate为true的节点，默认false
 			 * @return {Array} 目前被选中的节点所组成的数组
 			*/
-			getCheckedKeys(leafOnly) {
-				return this.store.getCheckedKeys(leafOnly);
+			getCheckedKeys(leafOnly, includeHalfChecked) {
+				return this.store.getCheckedKeys(leafOnly, includeHalfChecked);
 			},
 			
 			/*
@@ -308,6 +321,19 @@
 			getCurrentKey() {
 				const currentNode = this.getCurrentNode();
 				return currentNode ? currentNode[this.nodeKey] : null;
+			},
+			
+			/*
+			 * @description 设置全选/取消全选
+			 * @method setCheckAll
+			 * @param {Boolean} isCheckAll 选中状态,默认为true
+			*/
+			setCheckAll(isCheckAll = true) {
+				if (this.showRadio) throw new Error('You set the "show-radio" property, so you cannot select all nodes');
+				
+				if (!this.showCheckbox) console.warn('You have not set the property "show-checkbox". Please check your settings');
+				
+				this.store.setCheckAll(isCheckAll);
 			},
 			
 			/*
@@ -458,13 +484,16 @@
 				currentNodeKey: this.currentNodeKey,
 				checkStrictly: this.checkStrictly || this.checkOnlyLeaf,
 				checkDescendants: this.checkDescendants,
+				expandOnCheckNode: this.expandOnCheckNode,
 				defaultCheckedKeys: this.defaultCheckedKeys,
 				defaultExpandedKeys: this.defaultExpandedKeys,
+				expandCurrentNodeParent: this.expandCurrentNodeParent,
 				autoExpandParent: this.autoExpandParent,
 				defaultExpandAll: this.defaultExpandAll,
 				filterNodeMethod: this.filterNodeMethod,
 				childVisibleForFilterNode: this.childVisibleForFilterNode,
-				showNodeIcon: this.showNodeIcon
+				showNodeIcon: this.showNodeIcon,
+				isInjectParentInNode: this.isInjectParentInNode
 			});
 
 			this.childNodesId = this.store.root.childNodesId;
@@ -477,3 +506,81 @@
 		}
 	};
 </script>
+
+<style>
+	.ly-tree {
+		position: relative;
+		cursor: default;
+		background: #FFF;
+		color: #606266;
+		padding: 30rpx;
+	}
+	
+	.ly-tree.is-empty {
+		background: transparent;
+	}
+	
+	/* lyEmpty-start */
+	.ly-empty {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		margin-top: 100rpx;
+	}
+	/* lyEmpty-end */
+	
+	/* lyLoader-start */
+	.ly-loader {
+		margin-top: 100rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.ly-loader-inner,
+	.ly-loader-inner:before,
+	.ly-loader-inner:after {
+		background: #efefef;
+		animation: load 1s infinite ease-in-out;
+		width: .5em;
+		height: 1em;
+	}
+	
+	.ly-loader-inner:before,
+	.ly-loader-inner:after {
+		position: absolute;
+		top: 0;
+		content: '';
+	}
+	
+	.ly-loader-inner:before {
+		left: -1em;
+	}
+	
+	.ly-loader-inner {
+		text-indent: -9999em;
+		position: relative;
+		font-size: 22rpx;
+		animation-delay: 0.16s;
+	}
+	
+	.ly-loader-inner:after {
+		left: 1em;
+		animation-delay: 0.32s;
+	}
+	/* lyLoader-end */
+	
+	@keyframes load {
+		0%,
+		80%,
+		100% {
+			box-shadow: 0 0 #efefef;
+			height: 1em;
+		}
+	
+		40% {
+			box-shadow: 0 -1.5em #efefef;
+			height: 1.5em;
+		}
+	}
+</style>

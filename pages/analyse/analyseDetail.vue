@@ -8,7 +8,7 @@
       <u-section title="搜索">
         <view slot="right" @click="searchVisible = !searchVisible">
           <u-icon
-            :name="searchVisible ? 'arrow-down-fill' : 'arrow-up-fill'"
+            :name="searchVisible ? 'arrow-up-fill' : 'arrow-down-fill'"
             size="22"
             color="#ccc"
           />

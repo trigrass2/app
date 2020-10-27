@@ -5,6 +5,7 @@ import {
 	getChildState,
 	reInitChecked,
 	getPropertyFromData,
+	isNull,
 	NODE_KEY
 } from '../tool/util';
 
@@ -55,13 +56,18 @@ export default class Node {
 
 		if (this.parentId !== null) {
 			let parent = this.getParent(this.parentId);
+			
+			if (this.store().isInjectParentInNode) {
+				this.parent = parent;
+			}
+			
 			// 由于这里做了修改，默认第一个对象不会被注册到nodesMap中，所以找不到parent会报错，所以默认parent的level是0
 			if (!parent) {
 				parent = {
 					level: 0
 				}
 			} else {
-				let parentChildNodes = parent.getChildNodes(parent.childNodesId);
+				const parentChildNodes = parent.getChildNodes(parent.childNodesId);
 				const index = parent.childNodesId.indexOf(this.key);
 				this.nextSibling = index > -1 ? parentChildNodes[index + 1] : null;
 				this.previousSibling = index > 0 ? parentChildNodes[index - 1] : null;
@@ -186,8 +192,9 @@ export default class Node {
 					}
 				}
 			}
+			
 			objectAssign(child, {
-				parentId: this.key || '',
+				parentId: isNull(this.key) ? '' : this.key,
 				store: this.store()
 			});
 			child = new Node(child);
@@ -227,15 +234,15 @@ export default class Node {
 		if (dataIndex > -1) {
 			children.splice(dataIndex, 1);
 		}
-
-		const index = this.childNodesId.indexOf(child.id);
-
+		
+		const index = this.childNodesId.indexOf(child.key);
+		
 		if (index > -1) {
 			this.store() && this.store().deregisterNode(child);
 			child.parentId = null;
 			this.childNodesId.splice(index, 1);
 		}
-
+		
 		this.updateLeafState();
 	}
 
@@ -257,7 +264,7 @@ export default class Node {
 
 	// 为了避免APP端parent嵌套结构导致报错，这里parent需要从nodesMap中获取
 	getParent(parentId) {
-		if (!parentId) return null;
+		if (!parentId.toString()) return null;
 		return this.store().nodesMap[parentId];
 	}
 
@@ -285,7 +292,7 @@ export default class Node {
 		};
 
 		if (this.shouldLoadData()) {
-			this.loadData((data) => {
+			this.loadData(function(data) {
 				if (Array.isArray(data)) {
 					if (this.checked) {
 						this.setChecked(true, true);
@@ -333,6 +340,10 @@ export default class Node {
 		this.indeterminate = value === 'half';
 		this.checked = value === true;
 		
+		if (this.checked && this.store().expandOnCheckNode) {
+			this.expand(null, true)
+		}
+		
 		if (this.store().checkStrictly) return;
 		if (this.store().showRadio) return;
 
@@ -361,6 +372,7 @@ export default class Node {
 						half,
 						all
 					} = getChildState(childNodes);
+					
 					if (!all) {
 						this.checked = all;
 						this.indeterminate = half;
@@ -462,27 +474,25 @@ export default class Node {
 	}
 
 	loadData(callback, defaultProps = {}) {
-		if (this.store().lazy === true && this.store().load && !this.loaded && (!this.loading || Object.keys(defaultProps).length)) {
+		if (this.store().lazy === true && 
+			this.store().load && !this.loaded && 
+			(!this.loading || Object.keys(defaultProps).length)
+		) {
 			this.loading = true;
 
 			const resolve = (children) => {
 				this.loaded = true;
 				this.loading = false;
 				this.childNodesId = [];
-
 				this.doCreateChildren(children, defaultProps);
-
 				this.updateLeafState();
-				if (callback) {
-					callback.call(this, children);
-				}
+				
+				callback && callback.call(this,children);
 			};
 
 			this.store().load(this, resolve);
 		} else {
-			if (callback) {
-				callback.call(this);
-			}
+			callback && callback.call(this);
 		}
 	}
 }

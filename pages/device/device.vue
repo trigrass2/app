@@ -48,7 +48,7 @@
       <view class="device" v-for="(item,i) in allList" :key="i">
         <view class="device-hd" @tap="accordion(item)">
           <text class="device-name">{{item.processName}}</text>
-          <u-icon :name="item.visible?'arrow-down-fill':'arrow-up-fill'" color="#ccc" size="22" />
+          <u-icon :name="item.visible?'arrow-up-fill':'arrow-down-fill'" color="#ccc" size="22" />
         </view>
         <view v-show="item.visible">
           <view class="device-bd">

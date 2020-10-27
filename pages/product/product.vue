@@ -53,7 +53,7 @@
               </view>
               <view class="col col-icon">
                 <u-icon
-                  :name="product.visible?'arrow-down-fill':'arrow-up-fill'"
+                  :name="product.visible?'arrow-up-fill':'arrow-down-fill'"
                   color="#ccc"
                   size="22"
                   @tap="accordion(product)"

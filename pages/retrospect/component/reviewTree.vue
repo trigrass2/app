@@ -7,7 +7,7 @@
       text="数据为空"
       mode="data"
     />
-    <scroll-view scroll-x="true" class="review-scroll">
+    <scroll-view  v-if="treeData.length" scroll-x="true" class="review-scroll">
       <ly-tree
         node-key="id"
         :ready="ready"

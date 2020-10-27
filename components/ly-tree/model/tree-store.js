@@ -1,6 +1,7 @@
 import Node from './node';
 import {
-	getNodeKey
+	getNodeKey,
+	getPropertyFromData
 } from '../tool/util';
 
 export default class TreeStore {
@@ -137,10 +138,18 @@ export default class TreeStore {
 	_initDefaultCheckedNodes() {
 		const defaultCheckedKeys = this.defaultCheckedKeys || [];
 		const nodesMap = this.nodesMap;
-
-		defaultCheckedKeys.forEach((checkedKey) => {
+		let checkedKeyfromData = [];
+		let totalCheckedKeys = []
+		
+		for (let key in nodesMap) {
+			let checked = getPropertyFromData(nodesMap[key], 'checked') || false;
+			checked && checkedKeyfromData.push(key);
+		}
+		
+		totalCheckedKeys = Array.from(new Set([...defaultCheckedKeys, ...checkedKeyfromData]));
+		totalCheckedKeys.forEach((checkedKey) => {
 			const node = nodesMap[checkedKey];
-
+			
 			if (node) {
 				node.setChecked(true, !this.checkStrictly);
 			}
@@ -163,6 +172,14 @@ export default class TreeStore {
 			
 			if (node) isExpandAll ? node.expand() : node.collapse();
 		});
+	}
+	
+	setCheckAll(isCkeckAll) {
+		const allNodes = this._getAllNodes();
+		
+		allNodes.forEach(item => {
+			item.setChecked(isCkeckAll, false);
+		}); 
 	}
 
 	setDefaultCheckedKey(newVal) {
@@ -226,8 +243,8 @@ export default class TreeStore {
 		return checkedNodes;
 	}
 
-	getCheckedKeys(leafOnly = false) {
-		return this.getCheckedNodes(leafOnly).map((data) => (data || {})[this.key]);
+	getCheckedKeys(leafOnly = false, includeHalfChecked = false) {
+		return this.getCheckedNodes(leafOnly, includeHalfChecked).map((data) => (data || {})[this.key]);
 	}
 
 	getHalfCheckedNodes() {
@@ -373,6 +390,8 @@ export default class TreeStore {
 		}
 		this.currentNode = currentNode;
 		this.currentNode.isCurrent = true;
+		
+		this.expandCurrentNodeParent && this.currentNode.expand(null, true)
 	}
 
 	setUserCurrentNode(node) {
