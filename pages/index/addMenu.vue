@@ -77,21 +77,21 @@ export default {
           title: "效力管理",
           url: "/pages/effect/effect",
         },
-        {
-          icon: "integral-fill",
-          title: "质量管理",
-          url: "/pages/quality/quality",
-        },
-        {
-          icon: "scan",
-          title: "相关查询",
-          url: "/pages/search/search",
-        },
-        {
-          icon: "chat-fill",
-          title: "我的消息",
-          url: "/pages/info/info",
-        },
+        // {
+        //   icon: "integral-fill",
+        //   title: "质量管理",
+        //   url: "/pages/quality/quality",
+        // },
+        // {
+        //   icon: "scan",
+        //   title: "相关查询",
+        //   url: "/pages/search/search",
+        // },
+        // {
+        //   icon: "chat-fill",
+        //   title: "我的消息",
+        //   url: "/pages/info/info",
+        // },
       ],
     };
   },

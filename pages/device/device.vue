@@ -240,8 +240,8 @@ export default {
         isBack: false,
       },
       // 车间
-      wsName: "车间列表",
-      wsCode: "",
+      wsName: "1车间",
+      wsCode: "004",
       //tabs
       tabList: [
         {
@@ -378,7 +378,6 @@ export default {
   margin: 0 20rpx 20rpx 20rpx;
   background-color: $white-color;
   border-radius: 10rpx;
-
   .device-hd {
     display: flex;
     align-items: center;
@@ -391,14 +390,12 @@ export default {
     .device-name {
       flex: 1;
     }
-
     .iconfont {
       width: 30upx;
       font-size: $font-26;
       color: $font-light-gray;
     }
   }
-
   .device-bd {
     display: flex;
     flex-direction: row;
