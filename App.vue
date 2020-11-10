@@ -14,6 +14,7 @@ export default {
     init() {
       if (this.hasLogin) {
         this.getWorkShop();
+		// 真机中一定执行这句话
         // uni.reLaunch({
         //   url: "pages/index/index",
         // });

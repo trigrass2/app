@@ -1,6 +1,6 @@
 <template>
 	<view class="login-box">
-		<u-navbar :is-back="navbar.isBack" :title="navbar.title"/>
+		<u-navbar :is-back="navbar.isBack" :title="navbar.title" />
 		<view class="login-hd">
 			<view class="login-content">
 				<view class="login-logo">
@@ -28,17 +28,15 @@
 	</view>
 </template>
 <script>
-	import {
-		mapMutations
-	} from "vuex";
+	import {mapMutations,mapActions} from "vuex";
 	export default {
 		data() {
 			return {
-				navbar:{
-				  title:"登录",
-				  isBack:false,
+				navbar: {
+					title: "登录",
+					isBack: false,
 				},
-				loading:false,
+				loading: false,
 				form: {
 					user: "admin",
 					password: "123456",
@@ -67,6 +65,7 @@
 		},
 		methods: {
 			...mapMutations(['login']),
+			...mapActions(["getWorkShop"]),
 			submit() {
 				this.$refs.loginForm.validate(valid => {
 					valid && this.loginAjax()
@@ -77,8 +76,8 @@
 					user,
 					password
 				} = this.form;
-				
-                this.loading=true;     
+
+				this.loading = true;
 				this.$http.request({
 					url: '/api/SEmployee/Login',
 					method: 'GET',
@@ -87,21 +86,19 @@
 						password: password
 					}
 				}).then((res) => {
-					const {
-						empName
-					} = res
-					 this.loading=false;   
+					const {empName} = res
+					this.loading = false;
 					this.login({
 						token: "",
 						userInfo: {
 							userName: empName
 						}
-					})
-					uni.reLaunch({
-						url: '/pages/index/index'
-					})
-				}).catch(()=>{
-					 this.loading=false;   
+					});
+					this.getWorkShop();
+				}).then(() => {	
+					uni.reLaunch({url: '/pages/index/index'})
+				}).catch(() => {
+					this.loading = false;
 				})
 			}
 		},

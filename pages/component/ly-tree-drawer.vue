@@ -83,6 +83,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/deep/.ly-tree-node__content.is-current{
+	color:$blue-color;
+}
 .drawer {
   display: block;
   position: fixed;

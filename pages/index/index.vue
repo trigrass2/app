@@ -87,7 +87,8 @@
 					"Smart.MES APP上线2",
 					"Smart.MES APP上线3",
 				],
-				menuList: [{
+				menuList: [
+					{
 						icon: "file-text-fill",
 						title: "生产详情",
 						url: "/pages/product/product",
@@ -101,6 +102,11 @@
 						icon: "coupon-fill",
 						title: "效力分析",
 						url: "/pages/analyse/analyse",
+					},
+					{
+					  icon: "play-right-fill",
+					  title: "工艺追溯",
+					  url: "/pages/retrospect/retrospect",
 					},
 					{
 						icon: "info-circle-fill",
