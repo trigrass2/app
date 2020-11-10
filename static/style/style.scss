@@ -30,3 +30,27 @@ html,body{
 	font-size:34rpx;
 }
 .m-l35{margin-left: 35rpx;}
+.tips {
+  display: flex;
+  margin: 30upx 0 10upx 0;
+  padding: 0 40upx;
+  color: $font-gray;
+
+  .tips-item {
+    display: flex;
+    align-items: center;
+    margin-right: 40upx;
+    font-size: 22rpx;
+  }
+
+  .tips-icon {
+    margin-right: 10upx;
+    width: 20upx;
+    height: 8upx;
+    background: $blue-color;
+  }
+
+  .green-icon {
+    background: $green-color;
+  }
+}

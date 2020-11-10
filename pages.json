@@ -2,7 +2,8 @@
 	"easycom": {
 		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
 	},
-	"pages": [{
+	"pages": [
+		{
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录",
@@ -112,6 +113,22 @@
 			}
 		},
 		{
+			"path": "pages/device/failure",
+			"style": {
+				"navigationBarTitleText": "设备报障",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/device/failureForm",
+			"style": {
+				"navigationBarTitleText": "设备报障表单",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
 			"path": "pages/demo/demo",
 			"style": {
 				"navigationBarTitleText": "demo"
@@ -167,6 +184,12 @@
 				"name": "device",
 				"path": "pages/device/device"
 			},
+			{   "name": "failure",
+				"path": "pages/device/failure"
+			},
+			{   "name": "failureForm",
+				"path": "pages/device/failureForm"
+			},
 			{
 				"name": "retrospect",
 				"path": "pages/retrospect/retrospect"
@@ -210,34 +233,3 @@
 		]
 	}
 }
-// "style": {
-// 	"navigationBarTitleText": "生产任务",
-// 	"enablePullDownRefresh": true,
-// 	"app-plus": {
-// 		"titleNView": {
-// 			"buttons": [{
-// 					"text": "\ue663",
-// 					"float": "right",
-// 					"fontSrc": "/static/style/font/iconfont.ttf",
-// 					"fontSize": "20px"
-// 				},
-// 				{
-// 					"text": "\ue631",
-// 					"float": "right",
-// 					"fontSrc": "/static/style/font/iconfont.ttf",
-// 					"fontSize": "20px"
-// 				}
-// 			]
-// 		}
-// 	}
-// }
-// "app-plus": {
-// 	"titleNView": {
-// 		"buttons": [{
-// 			"text": "\ue69f",
-// 			"float": "right",
-// 			"fontSrc": "/static/style/font/iconfont.ttf",
-// 			"fontSize": "20px"
-// 		}]
-// 	}
-// }

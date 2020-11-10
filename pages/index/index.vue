@@ -6,7 +6,7 @@
 		<!-- nav -->
 		<view class="u-page">
 			<view class="banner">
-	<!-- 			<image :src="bannerUrl" mode="scaleToFill" /> -->
+				<image :src="bannerUrl" mode="aspectFill" />
 			</view>
 			<!-- banner -->
 			<u-notice-bar class="notice" type="info" mode="vertical" duration="4500" bg-color="#ffffff" padding="15rpx 35rpx"
@@ -81,7 +81,7 @@
 		name: "Index",
 		data() {
 			return {
-				// bannerUrl: '/static/images/banner/banner1.jpg',
+				bannerUrl: '/static/images/banner/banner.jpg',
 				noticeList: [
 					"Smart.MES APP上线1",
 					"Smart.MES APP上线2",
@@ -103,9 +103,9 @@
 						url: "/pages/analyse/analyse",
 					},
 					{
-						icon: "play-right-fill",
-						title: "工艺追溯",
-						url: "/pages/retrospect/retrospect",
+						icon: "info-circle-fill",
+						title: "设备报障",
+						url: "/pages/device/failure",
 					},
 					{
 						icon: "hourglass-half-fill",

@@ -232,9 +232,9 @@ export default {
         width: 132rpx;
       }
       .col-icon {
-        width: 35rpx;
+        flex: 1;
         line-height: initial;
-        text-align: center;
+        text-align: right;
       }
     }
   }

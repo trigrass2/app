@@ -3,11 +3,17 @@
     <u-navbar :is-back="navbar.isBack" :background="navbar.background">
       <view class="navbar-left m-l35">
         <view class="title">设备管理</view>
-        <view class="subTitle">{{wsName}}</view>
+        <view class="subTitle">{{ wsName }}</view>
       </view>
       <view class="navbar-right" slot="right">
         <view class="navbar-icon">
-          <u-icon class="icon-item" name="grid" color="#333" size="45" @click.native="handleMenu" />
+          <u-icon
+            class="icon-item"
+            name="grid"
+            color="#333"
+            size="45"
+            @click.native="handleMenu"
+          />
           <u-icon
             class="icon-item"
             name="reload"
@@ -45,28 +51,36 @@
         </view>
       </view>
       <!-- 提示  -->
-      <view class="device" v-for="(item,i) in allList" :key="i">
+      <view class="device-list" v-for="(item, i) in allList" :key="i">
         <view class="device-hd" @tap="accordion(item)">
-          <text class="device-name">{{item.processName}}</text>
-          <u-icon :name="item.visible?'arrow-up-fill':'arrow-down-fill'" color="#ccc" size="22" />
+          <text class="device-name">{{ item.processName }}</text>
+          <u-icon
+            :name="item.visible ? 'arrow-up-fill' : 'arrow-down-fill'"
+            color="#ccc"
+            size="22"
+          />
         </view>
         <view v-show="item.visible">
           <view class="device-bd">
-            <block v-for="(device,j) in item.children" :key="j">
+            <block v-for="(device, j) in item.children" :key="j">
               <!-- 启动  -->
-              <view class="device-item" v-if="device.state===1">
+              <view class="device-item" v-if="device.state === 1">
                 <view class="device-item-box startUp">
-                  <view class="device-item-no">{{device.machineCode}}</view>
+                  <view class="device-item-no">{{ device.machineCode }}</view>
                   <view class="device-item-center">
                     <view class="device-item-left">
                       <u-icon name="calendar" size="60" color="#999" />
                     </view>
                     <view class="device-item-right">
-                      <text class="ellipsis">工单：{{device.orderNo||'无'}}</text>
-                      <text>状态：{{device.stopreasonName||'无'}}</text>
+                      <text class="ellipsis"
+                        >工单：{{ device.orderNo || "无" }}</text
+                      >
+                      <text>状态：{{ device.stopreasonName || "无" }}</text>
                     </view>
                   </view>
-                  <view class="device-item-trouble ellipsis">{{device.troubleDesc}}</view>
+                  <view class="device-item-trouble ellipsis">{{
+                    device.troubleDesc
+                  }}</view>
                   <view class="device-item-progress">
                     <view class="progress-bar">
                       <u-line-progress
@@ -92,20 +106,31 @@
                 </view>
               </view>
               <!-- 停机 -->
-              <view class="device-item" v-if="device.state===0">
-                <view :class="['device-item-box',!device.stopState?'stop':'fault']">
+              <view class="device-item" v-if="device.state === 0">
+                <view
+                  :class="[
+                    'device-item-box',
+                    !device.stopState ? 'stop' : 'fault',
+                  ]"
+                >
                   <!-- fault -->
-                  <view class="device-item-no">{{device.machineCode}}</view>
+                  <view class="device-item-no">{{ device.machineCode }}</view>
                   <view class="device-item-center">
                     <view class="device-item-left">
                       <u-icon name="calendar" size="60" color="#999" />
                     </view>
                     <view class="device-item-right">
-                      <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
-                      <text>状态：{{device.stopreasonName||'无'}}</text>
+                      <text
+                        >{{ device.stepTimeHours }}天{{
+                          device.stepTimeMinutes
+                        }}小时{{ device.stepTimeSeconds }}分</text
+                      >
+                      <text>状态：{{ device.stopreasonName || "无" }}</text>
                     </view>
                   </view>
-                  <view class="device-item-trouble ellipsis">{{device.troubleDesc}}</view>
+                  <view class="device-item-trouble ellipsis">{{
+                    device.troubleDesc
+                  }}</view>
                   <view class="device-item-progress">
                     <view class="progress-bar">
                       <u-line-progress
@@ -131,20 +156,31 @@
                 </view>
               </view>
               <!-- /关机 -->
-              <view class="device-item" v-if="device.state===-1">
-                <view :class="['device-item-box',!device.stopState?'normal':'fault']">
+              <view class="device-item" v-if="device.state === -1">
+                <view
+                  :class="[
+                    'device-item-box',
+                    !device.stopState ? 'normal' : 'fault',
+                  ]"
+                >
                   <!-- fault  -->
-                  <view class="device-item-no">{{device.machineCode}}</view>
+                  <view class="device-item-no">{{ device.machineCode }}</view>
                   <view class="device-item-center">
                     <view class="device-item-left">
                       <u-icon name="calendar" size="60" color="#999" />
                     </view>
                     <view class="device-item-right">
-                      <text>{{device.stepTimeHours}}天{{device.stepTimeMinutes}}小时{{device.stepTimeSeconds}}分</text>
-                      <text>状态：{{device.stopreasonName||'无'}}</text>
+                      <text
+                        >{{ device.stepTimeHours }}天{{
+                          device.stepTimeMinutes
+                        }}小时{{ device.stepTimeSeconds }}分</text
+                      >
+                      <text>状态：{{ device.stopreasonName || "无" }}</text>
                     </view>
                   </view>
-                  <view class="device-item-trouble ellipsis">{{device.troubleDesc}}</view>
+                  <view class="device-item-trouble ellipsis">{{
+                    device.troubleDesc
+                  }}</view>
                   <view class="device-item-progress">
                     <view class="progress-bar">
                       <u-line-progress
@@ -174,7 +210,13 @@
         </view>
       </view>
       <!-- 内容 -->
-      <u-empty v-if="!allList.length" margin-top="30" icon-size="100" text="数据为空" mode="data" />
+      <u-empty
+        v-if="!allList.length"
+        margin-top="30"
+        icon-size="100"
+        text="数据为空"
+        mode="data"
+      />
     </view>
     <popup ref="popup" @getWorkShop="getWorkShop" />
     <!-- popup -->
@@ -195,7 +237,7 @@ export default {
         background: {
           backgroundColor: "#fff",
         },
-         isBack:false,
+        isBack: false,
       },
       // 车间
       wsName: "车间列表",
@@ -253,7 +295,6 @@ export default {
     },
   },
   methods: {
-    // navChange(){},
     handleMenu() {
       this.$refs.popup.visible = true;
     },
@@ -332,32 +373,8 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.tips {
-  display: flex;
-  margin: 30upx 0 10upx 0;
-  padding: 0 40upx;
-  color: $font-gray;
-
-  .tips-item {
-    display: flex;
-    align-items: center;
-    margin-right: 40upx;
-    font-size: 22rpx;
-  }
-
-  .tips-icon {
-    margin-right: 10upx;
-    width: 20upx;
-    height: 8upx;
-    background: $blue-color;
-  }
-
-  .green-icon {
-    background: $green-color;
-  }
-}
 // 设备
-.device {
+.device-list {
   margin: 0 20rpx 20rpx 20rpx;
   background-color: $white-color;
   border-radius: 10rpx;
@@ -386,25 +403,23 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    font-size: 26upx;
+    padding: 10px;
+    font-size: $font-26;
     border-top: 1px dashed #ddd;
     .device-item {
       box-sizing: border-box;
-      width: 50%;
-
+      padding: 10upx 15upx;
+      width: 335upx;
       .device-item-box {
-        margin: 20upx;
         height: 240upx;
         border: 1px solid #ccc;
         background: $white-color;
-
         .device-item-no {
           height: 50upx;
           line-height: 50upx;
           background: #ccc;
           text-align: center;
         }
-
         .device-item-center {
           display: flex;
           flex-direction: row;
@@ -412,12 +427,10 @@ export default {
           padding: 10upx 10upx 0 10upx;
           height: 90upx;
         }
-
         .device-item-left {
           overflow: hidden;
           margin-right: 10upx;
         }
-
         .device-item-right {
           overflow: hidden;
           flex: 1;
@@ -425,15 +438,14 @@ export default {
           flex-direction: column;
           color: $font-text-color;
           line-height: 1.5;
-          font-size: 26upx;
+          font-size: $font-26;
         }
-
         .device-item-progress {
           margin: 0 20upx;
           display: flex;
           flex-direction: row;
           align-items: center;
-          height: 24upx;
+          height: $font-24;
           .progress-bar {
             flex: 1;
             font-size: 0;
@@ -446,34 +458,28 @@ export default {
           }
         }
       }
-
       .startUp {
         border: 1px solid $green-color;
-
         .device-item-no {
           color: $white-color;
           background: $green-color;
         }
       }
-
       .device-item-trouble {
         margin: 0 20upx 10upx 20upx;
         padding: 0 5upx;
-        font-size: 24upx;
+        font-size: $font-24;
         line-height: 1.2;
         color: $white-color;
         background-color: $red-color;
       }
-
       .stop {
         border: 1px solid $yellow-color;
-
         .device-item-no {
           color: $white-color;
           background: $yellow-color;
         }
       }
-
       .fault {
         border: 1px solid $red-color;
         .device-item-no {
@@ -481,13 +487,12 @@ export default {
           background: $red-color;
         }
       }
-
       // 正常
       .normal {
-        border: 1px solid #696969;
+        border: 1px solid $shutDown-color;
         .device-item-no {
           color: $white-color;
-          background: #696969;
+          background: $shutDown-color;
         }
       }
     }
