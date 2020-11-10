@@ -52,7 +52,7 @@ export default {
       },
       //   菜单
       menuList: [
-        {
+       {
           icon: "file-text-fill",
           title: "生产详情",
           url: "/pages/product/product",
@@ -73,10 +73,15 @@ export default {
           url: "/pages/retrospect/retrospect",
         },
         {
-          icon: "hourglass-half-fill",
-          title: "效力管理",
-          url: "/pages/effect/effect",
+          icon: "info-circle-fill",
+          title: "设备报障",
+          url: "/pages/device/failure",
         },
+        // {
+        //   icon: "hourglass-half-fill",
+        //   title: "效力管理",
+        //   url: "/pages/effect/effect",
+        // },
         // {
         //   icon: "integral-fill",
         //   title: "质量管理",
