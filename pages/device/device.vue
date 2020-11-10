@@ -240,8 +240,8 @@ export default {
         isBack: false,
       },
       // 车间
-      wsName: "1车间",
-      wsCode: "004",
+      wsName: "",
+      wsCode: "",
       //tabs
       tabList: [
         {
