@@ -91,7 +91,9 @@
                     "hdpi" : "D:/work/其他/PSD/smart.app图标和启动封面/star.png",
                     "xhdpi" : "D:/work/其他/PSD/smart.app图标和启动封面/star.png",
                     "xxhdpi" : "D:/work/其他/PSD/smart.app图标和启动封面/star.png"
-                }
+                },
+                "androidStyle" : "common",
+                "iosStyle" : "common"
             }
         }
     },

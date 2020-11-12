@@ -123,7 +123,7 @@
 		{
 			"path": "pages/device/failureForm",
 			"style": {
-				"navigationBarTitleText": "设备报障表单",
+				"navigationBarTitleText": "设备报障提交",
 				"navigationStyle": "custom",
 				"navigationBarTextStyle": "black"
 			}

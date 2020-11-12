@@ -1,68 +1,211 @@
 <template>
-	<u-form :model="form" ref="uForm">
-		<u-form-item label="姓名"><u-input v-model="form.name" /></u-form-item>
-		<u-form-item label="简介"><u-input v-model="form.intro" /></u-form-item>
-		<u-form-item label="性别"><u-input v-model="form.sex" type="select" /></u-form-item>
-		<u-form-item label="水果">
-			<u-checkbox-group>
-				<u-checkbox v-model="item.checked" v-for="(item, index) in checkboxList" :key="index" :name="item.name">
-					{{ item.name }}
-				</u-checkbox>
-			</u-checkbox-group>
-		</u-form-item>
-		<u-form-item label="味道">
-			<u-radio-group v-model="radio">
-				<u-radio v-for="(item, index) in radioList" :key="index" :name="item.name" :disabled="item.disabled">
-					{{ item.name }}
-				</u-radio>
-			</u-radio-group>
-		</u-form-item>
-		<u-form-item label="开关"><u-switch slot="right" v-model="switchVal"></u-switch></u-form-item>
-	</u-form>
+  <view class="failureForm">
+    <u-navbar
+      :title="'报障_' + stationName"
+      :is-back="navbar.isBack"
+      :background="navbar.background"
+    />
+    <view class="form-box">
+      <u-form :model="form" :label-width="140" ref="uForm">
+        <u-form-item label="故障项" prop="faultphenomenonCode">
+          <u-input
+            type="select"
+            :select-open="faultSheetShow"
+            v-model="form.faultphenomenonCode"
+            placeholder="请选择故障项"
+            @click="faultSheetShow = true"
+          />
+        </u-form-item>
+        <u-form-item label="上报级别" prop="grade">
+          <u-input
+            type="select"
+            :select-open="gradeSheetShow"
+            v-model="form.grade"
+            placeholder="请选择上报级别"
+            @click="gradeSheetShow = true"
+          />
+        </u-form-item>
+        <u-form-item label="备注" prop="remarks">
+          <u-input type="textarea" :height="200" v-model="form.remarks" />
+        </u-form-item>
+      </u-form>
+      <u-button type="primary" @click="submit">提交</u-button>
+    </view>
+    <!-- u-action-sheet -->
+    <u-action-sheet
+      :list="faultSheetList"
+      v-model="faultSheetShow"
+      @click="faultSheetCallback"
+    />
+    <u-action-sheet
+      :list="gradeSheetList"
+      v-model="gradeSheetShow"
+      @click="gradeSheetCallback"
+    />
+	<u-toast ref="uToast" />
+  </view>
 </template>
 
 <script>
 export default {
-	data() {
-		return {
-			form: {
-				name: '',
-				intro: '',
-				sex: ''
-			},
-			checkboxList: [
-				{
-					name: '苹果',
-					checked: false,
-					disabled: false
-				},
-				{
-					name: '雪梨',
-					checked: false,
-					disabled: false
-				},
-				{
-					name: '柠檬',
-					checked: false,
-					disabled: false
-				}
-			],
-			radioList: [
-				{
-					name: '鲜甜',
-					disabled: false
-				},
-				{
-					name: '麻辣',
-					disabled: false
-				}
-			],
-			radio: '',
-			switchVal: false
-		};
-	}
+  data() {
+    return {
+      // 参数
+      machineCode: "",
+      stationName: "",
+      navbar: {
+        background: {
+          backgroundColor: "#ffffff",
+        },
+        isBack: true,
+      },
+      form: {
+        faultphenomenonCode: "",
+        grade: "",
+        remarks: "",
+      },
+      rules: {
+        faultphenomenonCode: [
+          {
+            required: true,
+            message: "请输入姓名",
+
+            trigger: ["change", "blur"],
+          },
+        ],
+        grade: [
+          {
+            required: true,
+            message: "请输入姓名",
+            trigger: ["change", "blur"],
+          },
+        ],
+        remarks: [
+          {
+            required: true,
+            message: "请输入备注",
+            trigger: ["change", "blur"],
+          },
+        ],
+      },
+      faultSheetList: [],
+      faultSheetShow: false,
+      //  上级
+      gradeSheetList: [
+        {
+          value: 1,
+          text: "一级",
+        },
+        {
+          value: 2,
+          text: "二级",
+        },
+        {
+          value: 3,
+          text: "三级",
+        },
+      ],
+      gradeSheetShow: false,
+    };
+  },
+  onLoad(option) {
+    this.machineCode=option.machineCode;
+    this.stationName=option.stationName;
+    
+    this.faultAjax();
+  },
+  onReady() {
+    this.$refs.uForm.setRules(this.rules);
+  },
+  computed: {
+    faultCode() {
+      const faultObj = {};
+      this.faultSheetList.map((gradeItem) => {
+        const { text, value } = gradeItem;
+        faultObj[text] = value;
+      });
+      return faultObj;
+    },
+    gradetCode() {
+      const gradeObj = {};
+      this.gradeSheetList.map((gradeItem) => {
+        const { text, value } = gradeItem;
+        gradeObj[text] = value;
+      });
+      return gradeObj;
+    },
+  },
+  methods: {
+    submit() {
+      this.$refs.uForm.validate((valid) => {
+        valid&&this.faultFormAjax()
+      });
+    },
+    faultSheetCallback(index) {
+      this.form.faultphenomenonCode = this.faultSheetList[index].text;
+    },
+    gradeSheetCallback(index) {
+      uni.hideKeyboard();
+      this.form.grade = this.gradeSheetList[index].text;
+    },
+    faultAjax() {
+      this.$http
+        .request({
+          url: "/api/PMachineState/GetMachineFaultphenomenon",
+          method: "GET",
+          data: {
+            machineCode: this.machineCode,
+          },
+        })
+        .then((res) => {
+          this.faultSheetList = res.map((faultItem) => {
+            const {
+              faultphenomenonCode: value,
+              faultphenomenonName: text,
+            } = faultItem;
+            return { value, text };
+          });
+        });
+    },
+    faultFormAjax() {
+      const { faultphenomenonCode, grade, remarks } = this.form;
+      // 报障提交
+      this.$http
+        .request({
+          url: "/api/PMachineState/AddMachineException",
+          method: "POST",
+          data: {
+            machineCode: this.machineCode,
+            faultphenomenonCode: this.faultCode[faultphenomenonCode],
+            grade: this.gradetCode[grade],
+            remarks,
+          },
+        })
+        .then(() => {
+          this.$refs.uToast.show({
+            title: "提交成功",
+            type: "success",
+            url: "/pages/device/failure",
+          });
+        })
+        .catch(() => {
+          this.$refs.uToast.show({
+            title: "提交失败",
+            type: "error",
+          });
+        });
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+.failureForm {
+  min-height: 100%;
+  background: $white-color;
+}
+
+.form-box {
+  margin: 0 30upx;
+}
 </style>
